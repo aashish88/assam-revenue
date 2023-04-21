@@ -40,6 +40,21 @@ class AjaxController extends Controller
             return false;
         }
     }
+    /* Officer Data Insert and Approved */
+    public function ajaxpostbatchlist(Request $request){
+        if($request->ajax()){
+            $id = $request->post('batch_id');
+            $serialdata = DB::select("SELECT snb.id, snb.batch_id, snb.serial_no, snb.site_id, pbm.item, pbm.item_title FROM `serial_no_batches` as snb JOIN product_batch_masters pbm ON pbm.site_id = snb.site_id WHERE snb.batch_id = '$id' and pbm.batch_status = 1 ORDER BY site_id");
+            $data = [
+                "response code"=> "200 OK",
+                "status"=> "sucess",
+                "data"=> $serialdata,
+                "result" => "Serial no all Admin Parity Updated"
+            ];
+            return $data;
+        }
+    }
+
     public function adminSendByOfficer(Request $request){
         dd("44");
         if($request->ajax()){
@@ -298,6 +313,27 @@ class AjaxController extends Controller
         dd('Mail sent successfully to Officer');
 
         exit();
+    }
+
+    public function approveallbatchserial(Request $request){
+
+        if($request->post()){
+            if($request->post('approve')){
+                $approve_id = implode(',',$request->post('approve'));
+                $response = DB::select("UPDATE `serial_no_batches` SET `officer_status` = '1' WHERE `serial_no_batches`.`id` IN ($approve_id)");
+                return redirect("dashboard")->withSuccess('Successfuly Approve and Mail Send Admin...');
+            }
+            if($request->post('post_id')){
+                $post_id = implode(',',$request->post('post_id'));
+            }
+echo "<pre>";
+
+            echo "</br>";
+            print_r($post_id);
+
+            dd($post_id);
+        }
+
     }
 
 

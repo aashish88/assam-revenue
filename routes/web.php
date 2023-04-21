@@ -26,6 +26,7 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 Route::match(['get','post'], 'dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::match(['get','post'], 'batch_list', [BatchController::class, 'list'])->name('batch_list');
 Route::match(['get','post'], 'ajaxgetbatchlist', [AjaxController::class, 'ajaxgetBatchList'])->name('ajaxgetbatchlist');
+Route::match(['get','post'], 'ajaxpostbatchlist', [AjaxController::class, 'ajaxpostBatchList'])->name('ajaxpostbatchlist');
 Route::match(['get','post'], 'adminbatch-send-officer', [AjaxController::class, 'officerToAdminSend'])->name('officer_to_admin_send');
 Route::match(['get','post'], 'officer-approve', [AjaxController::class, 'officerApprove'])->name('officer-approve');
 Route::match(['get','post'], 'officer_to_admin_send', [AjaxController::class, 'adminSendByOfficer'])->name('adminbatch-send-officer');
@@ -67,7 +68,7 @@ Route::match(['get','post'], 'boq-delete', [BatchController::class, 'boQlist'])-
 
 
 Route::match(['get','post'], 'datatable', [SiteController::class, 'dataTable'])->name('datatable');
-Route::match(['get','post'], 'demopdf', [AjaxController::class, 'demopdf']);
+Route::match(['get','post'], 'approve-all-batch-serial-no', [AjaxController::class, 'approveallbatchserial']);
 
 
 
