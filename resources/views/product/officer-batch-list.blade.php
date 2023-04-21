@@ -92,7 +92,7 @@
                                     <th>Item Name</th>
                                     <th>Item Type</th>
                                     <th>Serial No</th>
-                                    {{-- <th>Quantity</th> --}}
+                                    {{-- <th>Quantity</th> <br>Check All&nbsp;&nbsp;<input type="checkbox" id="SelectAllApprove" name="chkallapprove" /> --}}
                                     <th>Approve</th>
                                     <th>Disapprove</th>
                                     <th>Remark</th>
@@ -107,8 +107,16 @@
 
                             </tbody>
 
-                        </table>
-                        <button type="submit" class="btn btn-primary mr-2" id="alldataSubmit" style="display:none;">Submit</button>
+                        </table><br>
+                        <div class="row">
+                            <div class="col-sm-10"></div>
+
+                            <div class="col-sm-2">
+                                <button type="submit" class="btn btn-primary mr-2" id="alldataSubmit" style="display:none;">Submit</button>
+                            </div>
+                        </div>
+                        <br>
+
                     </form>
                 </div>
             </div>
@@ -136,7 +144,8 @@
                             $('tbody').append("<tr><td colspan='8'>No Data Available</td></tr>");
                         }else{
                             $('tbody').empty();
-                            $('.modifybtnsubmit').show();
+                            //$('.modifybtnsubmit').show();
+                            $('.modifybtnsubmit').hide();
                             $("#alldataSubmit").css("display", "block");
                         }
                         for (let i = 0; i < productDatadata.length; i++) {
