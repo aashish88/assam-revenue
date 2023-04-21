@@ -11,6 +11,15 @@
     margin: 15px 1px 1px 143px;
     }
 
+    [type='checkbox'] {
+        position: absolute;
+         /* top: 0; */
+        /* left: 0; */
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
+
 
 </style>
 <div class="content-wrapper">
@@ -134,7 +143,7 @@
                             var resstr = res.item_title;
                             console.log(res.qty);
                             var a = i+1;
-                            $('.tbody').append('<tr><td>'+a+'</td><td>'+resstr.substring(0,10)+'</td><td class="ask_td">'+resstr.substring(0,500)+'</td><td>'+res.item+'</td><td>'+res.qty+'</td><td class="ask_td"><input type="checkbox" class="form-check-input" name="approve" style="width: 85px; margin: 00 00 00 -45px" /></td><td class="ask_td"><input type="checkbox" class="form-check-input" name="disapprove" style="width: 85px; margin: 00 00 00 -45px" /></td><td class="ask_td"><input type="text" name="remark" style="width: 85px;" /></td>');
+                            $('.tbody').append('<tr><td>'+a+'</td><td>'+resstr.substring(0,10)+'</td><td class="ask_td">'+resstr.substring(0,500)+'</td><td>'+res.item+'</td><td>'+res.qty+'</td><td class="ask_td"><input type="checkbox" class="form-check-input" name="approve" style="width: 85px; margin: -14px 00 00 -45px" /></td><td class="ask_td"><input type="checkbox" class="form-check-input" name="disapprove" style="width: 85px; margin: -14px 00 00 -45px" /></td><td class="ask_td"><input type="text" name="remark" style="width: 85px;" /></td>');
                         }
                     },
                     error: function (data, textStatus, errorThrown) {
