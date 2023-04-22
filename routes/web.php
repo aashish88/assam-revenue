@@ -70,6 +70,9 @@ Route::match(['get','post'], 'boq-delete', [BatchController::class, 'boQlist'])-
 Route::match(['get','post'], 'datatable', [SiteController::class, 'dataTable'])->name('datatable');
 Route::match(['get','post'], 'approve-all-batch-serial-no', [AjaxController::class, 'approveallbatchserial']);
 
+Route::match(['get','post'], 'issue_vendor', [MappingController::class, 'issueVendor'])->name('issue_vendor');
+//
+
 
 
 

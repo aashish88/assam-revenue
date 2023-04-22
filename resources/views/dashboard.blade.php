@@ -319,8 +319,6 @@
             <div class="col-lg-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-
-
                         <h4 style="text-align: center;">Engineer  Data</h4>
                         <div class="row">
                             <table class="table table-bordered">
@@ -338,8 +336,6 @@
                                 </tr>
                             </table>
                         </div>
-
-
                     </div>
                 </div>
             </div>

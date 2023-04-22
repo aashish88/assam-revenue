@@ -58,6 +58,8 @@
     .table th, .table tr .ask_td{
         white-space: inherit;
     }
+
+
   </style>
     </head>
     <body>
@@ -526,12 +528,12 @@
                   <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#uivendor-basic" aria-expanded="false" aria-controls="uivendor-basic">
                       <i class="typcn typcn-document-text menu-icon"></i>
-                      <span class="menu-title">{{ __('Vendor') }}</span>
+                      <span class="menu-title" style="font-size: 12px;">{{ __('Issue Item to Vendor') }}</span>
                       <i class="menu-arrow"></i>
                     </a>
                     <div class="collapse" id="uivendor-basic">
                       <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="">{{ __('Approve for Item Issue') }}</a></li>
+                        <li class="nav-item"> <a class="nav-link" style="font-size: 12px;" href="{{ route('issue_vendor') }}">{{ __(' Issue Material to Vendor') }}</a></li>
                       </ul>
                     </div>
                   </li>
@@ -613,9 +615,8 @@
                         </li> --}}
                     </ul>
                 </nav>
-              <!-- Vendor sidebar end-->
-
-              @elseif(session('title') == 'Engineer')
+                <!-- Vendor sidebar end-->
+            @elseif(session('title') == 'Engineer')
                <!--Engineer sidebar start-->
                <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
@@ -630,7 +631,7 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#product-elements" aria-expanded="false" aria-controls="product-elements">
                         <i class="typcn typcn-film menu-icon mdi mdi-library-books"></i>
-                        <span class="menu-title">Inventory Request</span>
+                        <span class="menu-title">Issue Material to Vendor</span>
                         <i class="menu-arrow"></i>
                         </a>
                         <div class="collapse" id="product-elements">

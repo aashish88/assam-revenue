@@ -113,4 +113,8 @@ class MappingController extends Controller
         $name = MappingVendorSite::where('id',$id)->get(['vendor_name']);
         return $name[0]->vendor_name;
     }
+
+    public function issueVendor(Request $request){
+        return view("issue_vendor");
+    }
 }
