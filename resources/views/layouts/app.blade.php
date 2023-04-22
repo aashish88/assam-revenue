@@ -213,6 +213,8 @@
                         {{ __('Officer Dashboard') }}
                         @elseif(session('title') == 'Vendor')
                         {{ __('Vendor Dashboard') }}
+                        @elseif(session('title') == 'Engineer')
+                        {{ __('Engineer Dashboard') }}
                         @endif
                         </p>
                         </div>
@@ -612,6 +614,78 @@
                     </ul>
                 </nav>
               <!-- Vendor sidebar end-->
+
+              @elseif(session('title') == 'Engineer')
+               <!--Engineer sidebar start-->
+               <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dashboard') }}">
+                        <i class="typcn typcn-device-desktop menu-icon"></i>
+                        <span class="menu-title">{{ __('Engineer Dashboard') }}</span>
+                        {{-- <div class="badge badge-danger">{{ __('new') }}</div> --}}
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#product-elements" aria-expanded="false" aria-controls="product-elements">
+                        <i class="typcn typcn-film menu-icon mdi mdi-library-books"></i>
+                        <span class="menu-title">Inventory Request</span>
+                        <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="product-elements">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="{{route('product-list')}}">Request List</a></li>
+                        </ul>
+                        </div>
+                    </li>
+
+                    {{-- <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+                        <i class="typcn typcn-film menu-icon mdi mdi-format-list-numbers"></i>
+                        <span class="menu-title">Site Management</span>
+                        <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="form-elements">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="">Allocated Site List</a></li>
+                        </ul>
+                        </div>
+                    </li> --}}
+
+                    {{-- <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#usitedata-elements" aria-expanded="false" aria-controls="usitedata-elements">
+                        <i class="typcn typcn-film menu-icon mdi mdi-format-list-numbers"></i>
+                        <span class="menu-title">Update Site Data</span>
+                        <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="usitedata-elements">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"><a class="nav-link" href="">Allocated Site List</a></li>
+                            <li class="nav-item"><a class="nav-link" href="">Allocated Site Enggineer</a></li>
+                            <li class="nav-item"><a class="nav-link" href="">Update Site</a></li>
+                        </ul>
+                        </div>
+                    </li> --}}
+
+                    {{-- <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#product-elements" aria-expanded="false" aria-controls="product-elements">
+                            <i class="typcn typcn-film menu-icon"></i>
+                                <span class="menu-title">{{ $sidebar_btn[2] }}</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="product-elements">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">  <a class="nav-link" href="{{ route('list_product') }}">Inventory List</a></li>
+                            </ul>
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item">  <a class="nav-link" href="{{ route('user_work') }}">Work Allocation</a></li>
+                            </ul>
+                        </div>
+                    </li> --}}
+                </ul>
+            </nav>
+            <!-- Engineer sidebar end-->
             @endif
 
 

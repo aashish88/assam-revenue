@@ -203,6 +203,199 @@
                     </div>
                 </div>
             </div>
+        @elseif(session('user_type') == 3)
+        <div class="row">
+            <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 style="text-align: center;">Site Data</h4>
+                        <div class="row">
+                            <canvas id="lineChart" width="455" height="227"
+                                style="display: block; width: 455px; height: 227px;"
+                                class="chartjs-render-monitor"></canvas>
+                        </div>
+                        <p style="text-align: center;">Site Name</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+
+
+                        <h4 style="text-align: center;">Site Data</h4>
+                        <div class="row">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>Total Site</th>
+                                    <th>Completed</th>
+                                    <th>In-progress</th>
+                                    <th>Unallocated</th>
+                                </tr>
+                                <tr>
+                                    <td>212</td>
+                                    <td>35</td>
+                                    <td>21</td>
+                                    <td>10</td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+
+
+            <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 style="margin: 18px 18px 18px 90px;">Store Inventory Details</h4>
+                        <div class="row">
+                            <table class="table table-striped">
+
+                                <tr>
+                                    <th>Total Quantity</th>
+
+                                    <th>Quantity Issue</th>
+
+                                    <th>Quantity in hand</th>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>2</td>
+                                    <td>8</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 style="margin: 18px 18px 18px 90px;">Bill of Quantity Details</h4>
+                        <div class="row">
+                            <table class="table table-striped">
+
+                                <tr>
+                                    <th>Approved</th>
+                                    <th>Pending</th>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>1</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @elseif(session('user_type') == 4)
+        <div class="row">
+            <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 style="text-align: center;">Engineer Data</h4>
+                        <div class="row">
+                            <canvas id="lineChart" width="455" height="227"
+                                style="display: block; width: 455px; height: 227px;"
+                                class="chartjs-render-monitor"></canvas>
+                        </div>
+                        <p style="text-align: center;">Engineer Name</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+
+
+                        <h4 style="text-align: center;">Engineer  Data</h4>
+                        <div class="row">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>Total Engineer </th>
+                                    <th>Completed</th>
+                                    <th>In-progress</th>
+                                    <th>Unallocated</th>
+                                </tr>
+                                <tr>
+                                    <td>212</td>
+                                    <td>35</td>
+                                    <td>21</td>
+                                    <td>10</td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+
+
+            <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 style="margin: 18px 18px 18px 90px;">Store Inventory Details</h4>
+                        <div class="row">
+                            <table class="table table-striped">
+
+                                <tr>
+                                    <th>Total Quantity</th>
+
+                                    <th>Quantity Issue</th>
+
+                                    <th>Quantity in hand</th>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>2</td>
+                                    <td>8</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 style="margin: 18px 18px 18px 90px;">Bill of Quantity Details</h4>
+                        <div class="row">
+                            <table class="table table-striped">
+
+                                <tr>
+                                    <th>Approved</th>
+                                    <th>Pending</th>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>1</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
             {{-- End Officer Dashboard --}}
         @else
             {{-- Start Vendor Dashboard --}}

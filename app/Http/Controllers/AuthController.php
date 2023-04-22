@@ -31,6 +31,7 @@ class AuthController extends Controller
 
      /* CreateBy Aashish 25-March-2023 Function Name dashboard */
      public function dashboard(Request $request){
+
         if(session::get('user_type')){
             if(session::get('user_type') == "1"){
                 $title = "Admin";
@@ -38,6 +39,8 @@ class AuthController extends Controller
                 $title = "Officer";
             }else if(session::get('user_type') == "3"){
                 $title = "Vendor";
+            }else if(session::get('user_type') == "4"){
+                $title = "Engineer";
             }else{
                 $title = "Guest";
             }

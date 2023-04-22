@@ -54,8 +54,10 @@ class Controller extends BaseController
                     $title = "Admin";
                 }elseif(Auth::user()->user_type == 2){
                     $title = "Officer";
-                }else{
+                }elseif(Auth::user()->user_type == 3){
                     $title = "Vendor";
+                }else{
+                    $title = "Engineer";
                 }
                 session([
                     'user_id' => Auth::user()->id,
