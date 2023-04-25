@@ -160,7 +160,7 @@
                             var id = res.id;
                             var resstr = res.item_title;
                             console.log(res);
-                            $('.tbody').append('<tr><td>'+id+'</td><td class="ask_td">'+resstr.substring(0,10)+'</td><td class="ask_td">'+resstr.substring(0,500)+'</td><td>'+res.item+'</td><td><p class="btn btn-outline-info btn-fw redirectserialall" batch_id='+res.batch_id+' site_id='+res.site_id+' qty='+res.qty+'>'+res.qty+'</p></td> <td><p type="button" class="btn btn-outline-info btn-icon-text appendSerialNo" onclick="serialnoParity('+res.qty+')" batch_id='+res.batch_id+' site_id='+res.site_id+' qty='+res.qty+'>+ Serial No</p></td>'); //<td><i class="mdi mdi-rename-box"></i> | <i class="mdi mdi-delete"></i></tr>
+                            $('.tbody').append('<tr><td>'+id+'</td><td class="ask_td">'+resstr+'</td><td>'+res.item+'</td><td><p class="btn btn-outline-info btn-fw redirectserialall" batch_id='+res.batch_id+' site_id='+res.site_id+' qty='+res.qty+'>'+res.qty+'</p></td> <td><p type="button" class="btn btn-outline-info btn-icon-text appendSerialNo" onclick="serialnoParity('+res.qty+')" batch_id='+res.batch_id+' site_id='+res.site_id+' qty='+res.qty+'>+ Serial No</p></td>'); //<td><i class="mdi mdi-rename-box"></i> | <i class="mdi mdi-delete"></i></tr><td class="ask_td">'+resstr.substring(0,10)+'</td>
                         }
 
                         var sitedata = data.site_data;
