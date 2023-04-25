@@ -55,12 +55,24 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Date</label>
+                        <label class="col-sm-3 col-form-label">Start Date</label>
                             <div class="col-sm-9">
                                 <input type="date" class="form-control" name="date" value="{{ old('date') }}" placeholder="01/01/1900" />
                             </div>
                         </div>
                     </div>
+
+
+
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">End Date</label>
+                            <div class="col-sm-9">
+                                <input type="date" class="form-control" name="end_date" value="{{ old('end_date') }}" placeholder="01/01/1900" />
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-md-6">
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Priority</label>

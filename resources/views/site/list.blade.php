@@ -88,18 +88,24 @@ button {
                             <table class="table table-striped">
                                 <tr>
                                     <th>#</th>
-                                    <th>Site</th>
+                                    <th>Site Name</th>
                                     <th>Item</th>
                                     <th>Batch</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
+                                @php
+                                    $i = 0;
+                                @endphp
                             @foreach ($sitedata as $res)
+                            @php
+                                $i++;
+                            @endphp
                                 <tr>
-                                    <td>{{$res->id }}</td>
+                                    <td>{{$i}}</td>
+                                    <td>{{$res->name}}</td>
                                     <td>{{ __('Item-00') }}{{$res->item_id }}</td>
-                                    <td>{{ __('S-') }}{{$res->site_id }}</td>
-                                    <td>{{ __('B-00') }}{{$res->batch_id }}</td>
+                                    <td>{{$res->batch_id }}</td>
                                     <td>Active</td>
                                     <td style="font-size: 30px;">
                                         <a href="{{ url('site-edit') }}/{{$res->id }}" style="color: hsl(207, 78%, 53%);"><i class="mdi mdi-tooltip-edit"></i></a> | <a href="{{ url('site-delete') }}/{{$res->id }}" style="color: #DC3545;"><i class="mdi mdi-delete-forever"></i></a>

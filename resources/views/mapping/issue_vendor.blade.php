@@ -102,8 +102,8 @@
                                 @endphp
                                     <tr>
                                         <td>{{ $i }}</td>
-                                        <td>{{ $res->item_title }}</td>
-                                        <td>{{ $res->item }}</td>
+                                        <td class="ask_td">{{ $res->item_title }}</td>
+                                        <td class="ask_td">{{ $res->item }}</td>
                                         <td>{{ $res->qty }}</td>
                                         <td>{{ $res->batch_id }}</td>
                                         <td>{{ $res->site_id }}</td>

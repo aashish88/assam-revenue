@@ -49,11 +49,14 @@ class MappingController extends Controller
 
         if($request->post('submit') == "vendor-site"){
 
+            dd($request->post('end_date'));
+
 
             $request->validate([
                 'vendor_name' => 'required',
                 'site_id' => 'required',
                 'date' => 'required',
+                'end_date' => 'required',
                 'priority' => 'required',
             ]);
 
@@ -121,6 +124,7 @@ class MappingController extends Controller
         $batchs = BatchMaster::get(['id','name']);
         $items = ProductBatchMaster::get(['id','item_title','qty']);
         $items_list = ProductBatchMaster::take(6)->get(['id','item_title','qty','item','batch_id','site_id']);
+
         return view("mapping.issue_vendor", compact('vendors','batchs','items','items_list'));
     }
 

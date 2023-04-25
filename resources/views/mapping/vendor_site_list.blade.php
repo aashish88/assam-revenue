@@ -94,7 +94,8 @@ button {
                                     <th>Vendor Name</th>
                                     <th>Site ID</th>
                                     <th>Site Name</th>
-                                    <th>Date</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
                                     <th>Priority</th>
                                 </tr>
                             @foreach ($sitedata as $res)
@@ -105,7 +106,8 @@ button {
                                     <td>{{$res->name }}</td>
                                     <td>{{$res->date }}
                                         {{-- <input type="date" value="{{$res->date }}"> --}}
-                                        </td>
+                                    </td>
+                                        <td>{{$res->end_date }} </td>
                                     <td>{{$res->priority }}</td>
 
                                 </tr>

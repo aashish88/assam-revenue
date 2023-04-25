@@ -18,6 +18,7 @@ class CreateMappingVendorSitesTable extends Migration
             $table->string('vendor_name');
             $table->string('site_id');
             $table->string('date');
+            $table->string('end_date');
             $table->text('priority');
         });
     }

@@ -32,13 +32,33 @@
                     <td>{{$i}}</td>
                     <td>{{ $res->name }}</td>
                     <td>
-                      <div class="progress">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
+                        @if ($res->user_type == 1)
+                        Admin
+                        @elseif($res->user_type == 2)
+                        Officer Center
+                        @elseif($res->user_type == 3)
+                        Vendor
+                        @elseif($res->user_type == 4)
+                        Engineer
+                        @elseif($res->user_type == 5)
+                        Officer Site
+                        @endif
                     </td>
                     <td>$ 77.99</td>
-                    <td>May 15, 2015</td>
-                    <td>tanujalall@gmail.com</td>
+                    <td>
+                        @if ($res->user_type == 1)
+                        Admin
+                        @elseif($res->user_type == 2)
+                        Officer Center
+                        @elseif($res->user_type == 3)
+                        Vendor
+                        @elseif($res->user_type == 4)
+                        Engineer
+                        @elseif($res->user_type == 5)
+                        Officer Site
+                        @endif
+                    </td>
+                    <td>{{$res->email}}</td>
                     <td>{{ $res->contect_no}}</td>
                     <td>Active</td>
                     <td><i class="mdi mdi-rename-box"></i> | <i class="mdi mdi-delete"></i>

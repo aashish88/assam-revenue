@@ -38,9 +38,10 @@
 
                                         <select class="form-control" value="{{ old('item_id') }}" name="item_id">
                                           <option value="">---Select Staff---</option>
-                                          <option value="1" <?php if(old('item_id') == 1){ echo 'selected'; } ?>>fasd</option>
-                                          <option value="2" <?php if(old('item_id') == 2){ echo 'selected'; } ?>>fadsf</option>
-                                          <option value="3" <?php if(old('item_id') == 3){ echo 'selected'; } ?>>fads</option>
+                                          <option value="2" <?php if(old('item_id') == 2){ echo 'selected'; } ?>>Officer Warehouse</option>
+                                          <option value="5" <?php if(old('item_id') == 5){ echo 'selected'; } ?>>Officer Site</option>
+                                          <option value="3" <?php if(old('item_id') == 3){ echo 'selected'; } ?>>Vendor</option>
+                                          <option value="4" <?php if(old('item_id') == 4){ echo 'selected'; } ?>>Engineer</option>
                                         </select>
                                       </div>
                                     </div>
@@ -53,11 +54,29 @@
                                       <div class="col-sm-9">
 
                                         <select class="form-control" value="{{ old('batch_id') }}" name="batch_id">
-                                          <option value="">---Select Staff---</option>
-                                          <option value="1" <?php if(old('batch_id') == 1){ echo 'selected'; } ?>>B-001</option>
-                                          <option value="2" <?php if(old('batch_id') == 2){ echo 'selected'; } ?>>B-002</option>
-                                          <option value="3" <?php if(old('batch_id') == 3){ echo 'selected'; } ?>>B-003</option>
+                                          <option value=""> ---Select Batch Name--- </option>
+                                          @foreach ($batchdata as $res)
+                                            <option value="{{$res->id}}" <?php if(old('batch_id') == "{{$res->id}}"){ echo 'selected'; } ?>>{{$res->name}}</option>
+                                          @endforeach
                                         </select>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-group row">
+                                      <label class="col-sm-3 col-form-label">Start Date</label>
+                                      <div class="col-sm-9">
+                                        <input class="form-control" type="date" placeholder="dd/mm/yyyy" name="sdate" id="sdate">
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-group row">
+                                      <label class="col-sm-3 col-form-label">End Date</label>
+                                      <div class="col-sm-9">
+                                        <input class="form-control" type="date" placeholder="dd/mm/yyyy" name="edate" id="edate">
                                       </div>
                                     </div>
                                   </div>
@@ -75,6 +94,8 @@
                                       </div>
                                     </div>
                                   </div>
+
+
                                 </div>
                                 <button type="submit" name="submit" value="site_add" class="btn btn-primary mr-2">Submit</button>
                               <button class="btn btn-light">Cancel</button>

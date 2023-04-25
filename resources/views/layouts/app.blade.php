@@ -14,8 +14,9 @@
         <link rel="stylesheet" href="{{ asset('public/css/vendor.bundle.base.css') }}">
         <link rel="stylesheet" href="{{ asset('public/vendors/select2/select2.min.css') }}">
         <link rel="stylesheet" href="{{ asset('public/vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}">
-        <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+        {{-- <script src="https://code.jquery.com/jquery-3.6.4.js"></script> --}}
 
+        <script src="{{ asset('public/jquery3.js') }}"></script>
   <style>
     thead, tbody, .content-center{
         text-align: center;

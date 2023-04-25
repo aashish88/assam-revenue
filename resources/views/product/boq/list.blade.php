@@ -25,8 +25,8 @@
                             <table class="table table-striped">
                                 <tr>
                                     <th>#</th>
-                                    <th>Item Title</th>
-                                    <th>Item</th>
+                                    <th>Item Name</th>
+                                    <th>Item Description</th>
                                     <th>QTY</th>
                                     <th>UOM</th>
                                     <th>OEM</th>
@@ -42,7 +42,7 @@
                                 <tr>
                                     <td>{{ $i }}</td>
                                     <td class="ask_td">{{ $res->item_title }}</td>
-                                    <td>{{ $res->item }}</td>
+                                    <td class="ask_td">{{ $res->item }}</td>
                                     <td>{{ $res->qty }}</td>
                                     <td>{{ $res->uom }}</td>
                                     <td>{{ $res->oem }}</td>

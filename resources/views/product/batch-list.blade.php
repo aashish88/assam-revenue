@@ -55,7 +55,7 @@
                                         <option value="1">--Select BOQ Order--</option>
                                         @foreach ($batch_data as $res)
 
-                                            <option onclick="getfunction()" value="{{$res->batch_id}}" class="dropdown-item">{{ $res->batch_id }}</option>
+                                            <option onclick="getfunction()" value="{{$res->id}}" class="dropdown-item">{{ $res->batch_id }}</option>
                                         @endforeach
                                     </div>
                                 </select>
@@ -105,7 +105,7 @@
                                 <th>S.No</th>
                                 <th>Item Name</th>
                                 {{-- <th>Item Type</th> --}}
-                                <th>Item</th>
+                                <th>Item Description</th>
                                 <th>Quantity</th>
                                 <th>Serial No.</th>
                                 {{-- @if (session('title') != 'Vendor')
@@ -141,11 +141,8 @@
 <script>
     $(function getfunction(){
             var select = $('#dropdownMenuSizeButton3');
-            $('tbody').empty();
-            //var selected = $('#selected');
             select.on('change', function(){
-
-                var selectedOptionText = $(this).children(':selected').text();
+                var selectedOptionText = $(this).children(':selected').val();
                 $('.modifyDatabatchIdGet').empty();
                 $.ajax({
                     type: "POST",
@@ -153,19 +150,29 @@
                     data: { "batch_id": selectedOptionText , _token: '{{csrf_token()}}' },
                     success: function (data) {
                         var productDatadata = data.productData;
+                        if(productDatadata.length < 1){
+                           $('.modifyDatabatchIdGet').hide();
+                            $('.tbody').html("<tr>Data Not Found</tr>");
+                        }else{
+                           $('.modifyDatabatchIdGet').show();
+                        }
                         $('tbody').empty();
                         for (let i = 0; i < productDatadata.length; i++) {
-                            console.log(i);
                             var res = productDatadata[i];
                             var id = res.id;
                             var resstr = res.item_title;
-                            console.log(res);
                             $('.tbody').append('<tr><td>'+id+'</td><td class="ask_td">'+resstr+'</td><td>'+res.item+'</td><td><p class="btn btn-outline-info btn-fw redirectserialall" batch_id='+res.batch_id+' site_id='+res.site_id+' qty='+res.qty+'>'+res.qty+'</p></td> <td><p type="button" class="btn btn-outline-info btn-icon-text appendSerialNo" onclick="serialnoParity('+res.qty+')" batch_id='+res.batch_id+' site_id='+res.site_id+' qty='+res.qty+'>+ Serial No</p></td>'); //<td><i class="mdi mdi-rename-box"></i> | <i class="mdi mdi-delete"></i></tr><td class="ask_td">'+resstr.substring(0,10)+'</td>
                         }
 
                         var sitedata = data.site_data;
 
-                        alert(sitedata.length);
+                        if(sitedata.length > 1){
+                            $('tbody').empty();
+                            $('.modifyDatabatchIdGet').show();
+                        }else{
+                            $('.tbody').html("<tr><td colspan='5'>No Data Available</td></tr>");
+                            $('.modifyDatabatchIdGet').hide();
+                        }
 
                         for (let j = 0; j < sitedata.length; j++) {
                             var siteresall = sitedata[j];
@@ -181,7 +188,7 @@
 
                         // $('.modifyDatabatchIdGet').empty();
                         $('.modifyDatabatchIdGet').html('<p id="getInputll" batch_id="0" name="batch_id" class="btn btn-primary btn-rounded mr-2">Send for Approval (Store Incharge)</p>');
-                        $('tbody').empty();
+
                         //console.log(data);
                     },
                 });
@@ -226,6 +233,13 @@
 
         /*Click btn click then Start Serial No Update working this page*/
         $('body').on('click','.redirectserialall',function(){
+            $('body').css({"opacity":"0.6"});
+            $('.error-msg-response').html("This serial number is already exist");
+            $('.error-msg-response').show();
+            setTimeout(function(){
+                $('body').css({"opacity":"1.0"});
+                $('.error-msg-response').hide();
+            }, 5000);
             var qty = $(this).attr("qty");
             var batch_id = $(this).attr("batch_id");
             var site_id = $(this).attr("site_id");

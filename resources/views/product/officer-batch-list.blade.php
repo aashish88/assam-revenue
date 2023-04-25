@@ -64,7 +64,7 @@
                         @elseif(session('user_type') == 2)
 
                             <div class="col-sm-4">
-                                <div class="modal-footer modifybtnsubmit"></div>
+                                <div class="modal-footer modifybtnsubmit" style="display: none"></div>
                             </div>
                         @endif
 
@@ -86,6 +86,7 @@
                                     <th>S.No</th>
                                     <th>Item Name</th>
                                     <th>Item Type</th>
+                                    <th>Box No</th>
                                     <th>Serial No</th>
                                     {{-- <th>Quantity</th> <br>Check All&nbsp;&nbsp;<input type="checkbox" id="SelectAllApprove" name="chkallapprove" /> --}}
                                     <th>Approve</th>
@@ -130,6 +131,7 @@
                     url: 'ajaxpostbatchlist',
                     data: { "batch_id": selectedOptionText , _token: '{{csrf_token()}}' },
                     success: function (data) {
+                        console.log(data.data);
                         $('.modifybtnsubmit').html('<p id="getInputll" batch_id='+selectedOptionText+' class="btn btn-success mr-2">Approved</p><p id="getInputll" batch_id='+selectedOptionText+' class="btn btn-danger mr-2">Dispproved</p>');
                         var productDatadata = data.data;
                         if(productDatadata.length < 1){

@@ -44,7 +44,8 @@ class AjaxController extends Controller
     public function ajaxpostbatchlist(Request $request){
         if($request->ajax()){
             $id = $request->post('batch_id');
-            $serialdata = DB::select("SELECT snb.id, snb.batch_id, snb.serial_no, snb.site_id, pbm.item, pbm.item_title FROM `serial_no_batches` as snb JOIN product_batch_masters pbm ON pbm.site_id = snb.site_id WHERE snb.batch_id = '$id' and pbm.batch_status = 1 ORDER BY site_id");
+            //$serialdata = DB::select("SELECT snb.id, snb.batch_id, snb.serial_no, snb.site_id, pbm.item, pbm.item_title FROM `serial_no_batches` as snb JOIN product_batch_masters pbm ON pbm.site_id = snb.site_id WHERE snb.batch_id = '$id' and pbm.batch_status = 1 ORDER BY site_id");
+            $serialdata = DB::select("SELECT * FROM `serial_no_batches` WHERE batch_id = 1");
             $data = [
                 "response code"=> "200 OK",
                 "status"=> "sucess",
@@ -118,24 +119,17 @@ class AjaxController extends Controller
             if(Session::get('user_id')){
                 $user_id = Session::get('user_id');
             }
-
-
-
-
             $email_id = User::where('id', $user_id)->first('email');
             $email = $email_id['email'];
             $mytime = Carbon::now();
             $current_date = $mytime->toDateTimeString();
             $id = $request->post('batch_id');
-
-
             $batchbydata = SerialNoBatch::where('batch_id', $id)->get();
             $data2 = view('boq-serial',compact('batchbydata'))->render();
             view()->share('batchbydata', $batchbydata);
             $pdf2 = PDF::loadView("boq-serial", array($batchbydata));
             $date = date("YmdHmi");
             $datasave = "detailsbatchitems" . $date . "_" . $user_id . ".pdf";
-
 
             $batchbydata = ProductBatchMaster::where('batch_id', $id)->get();
             $datanew = [

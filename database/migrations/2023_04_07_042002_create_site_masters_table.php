@@ -19,6 +19,8 @@ class CreateSiteMastersTable extends Migration
             $table->bigInteger('item_id');
             $table->bigInteger('batch_id');
             $table->text('site_id');
+            $table->text('sdate');
+            $table->text('edate');
             $table->timestamps();
         });
     }

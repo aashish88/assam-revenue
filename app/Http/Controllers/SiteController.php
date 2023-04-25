@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\BatchMaster;
 use Illuminate\Http\Request;
 use App\Models\SiteMaster;
 
@@ -21,6 +23,8 @@ class SiteController extends Controller
                 'item_id' => 'required',
                 'batch_id' => 'required',
                 'status' => 'required',
+                'sdate' => 'required',
+                'edate' => 'required',
             ]);
 
             $sitedata = new SiteMaster;
@@ -28,12 +32,16 @@ class SiteController extends Controller
             $sitedata->item_id = $request->item_id;
             $sitedata->batch_id = $request->batch_id;
             $sitedata->status = $request->status;
+            $sitedata->sdate = $request->sdate;
+            $sitedata->edate = $request->edate;
             $sitedata->save();
             return redirect()->route('site.list')->with('success','Site has been created successfully.');
         }
         $sidebar_btn = ['UI Elements','Data List','Site Management'];
         $childSidebar = ['sl'=> "Site List", 'sa'=> "Site Create", 'se'=> "Site Edit"];
-        return view('site.add', compact('sidebar_btn','childSidebar'));
+        $batchdata = BatchMaster::get(['id','name']);
+
+        return view('site.add', compact('sidebar_btn','childSidebar','batchdata'));
     }
 
     public function edit($id){
