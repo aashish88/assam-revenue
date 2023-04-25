@@ -104,7 +104,7 @@
                             <tr>
                                 <th>S.No</th>
                                 <th>Item Name</th>
-                                <th>Item Type</th>
+                                {{-- <th>Item Type</th> --}}
                                 <th>Item</th>
                                 <th>Quantity</th>
                                 <th>Serial No.</th>
@@ -159,20 +159,20 @@
                             var res = productDatadata[i];
                             var id = res.id;
                             var resstr = res.item_title;
-                            //console.log(res);
+                            console.log(res);
                             $('.tbody').append('<tr><td>'+id+'</td><td class="ask_td">'+resstr.substring(0,10)+'</td><td class="ask_td">'+resstr.substring(0,500)+'</td><td>'+res.item+'</td><td><p class="btn btn-outline-info btn-fw redirectserialall" batch_id='+res.batch_id+' site_id='+res.site_id+' qty='+res.qty+'>'+res.qty+'</p></td> <td><p type="button" class="btn btn-outline-info btn-icon-text appendSerialNo" onclick="serialnoParity('+res.qty+')" batch_id='+res.batch_id+' site_id='+res.site_id+' qty='+res.qty+'>+ Serial No</p></td>'); //<td><i class="mdi mdi-rename-box"></i> | <i class="mdi mdi-delete"></i></tr>
                         }
 
                         var sitedata = data.site_data;
 
-                        //alert(sitedata.length);
+                        alert(sitedata.length);
 
                         for (let j = 0; j < sitedata.length; j++) {
                             var siteresall = sitedata[j];
                             var id = siteresall.id;
                             var siteres = siteresall.item_title;
-                            //console.log(res);
-                            $('.tbody').append('<tr><td>'+id+'</td><td class="ask_td">'+siteres.substring(0,10)+'</td><td class="ask_td">'+siteres.substring(0,70)+'</td><td>'+siteresall.item+'</td><td><p class="btn btn-outline-info btn-fw redirectserialall" batch_id='+siteresall.batch_id+' site_id='+siteresall.site_id+' qty='+siteresall.qty+'>'+siteresall.qty+'</p></td> <td><p type="button" class="btn btn-outline-info btn-icon-text redirectserialall" item_title="'+siteresall.item_title+'" onclick="serialnoParity('+siteresall.qty+')" batch_id='+siteresall.batch_id+' site_id='+siteresall.site_id+' qty='+siteresall.qty+'>Click</p></td>'); //<td><i class="mdi mdi-rename-box"></i> | <i class="mdi mdi-delete"></i></tr>
+                            $('.tbody').append('<tr><td>'+id+'</td><td class="ask_td">'+siteres+'</td><td>'+siteresall.item+'</td><td><p class="btn btn-outline-info btn-fw redirectserialall" batch_id='+siteresall.batch_id+' site_id='+siteresall.site_id+' qty='+siteresall.qty+'>'+siteresall.qty+'</p></td> <td><p type="button" class="btn btn-outline-info btn-icon-text redirectserialall" item_title="'+siteresall.item_title+'" onclick="serialnoParity('+siteresall.qty+')" batch_id='+siteresall.batch_id+' site_id='+siteresall.site_id+' qty='+siteresall.qty+'>Click</p></td>');
+                            //$('.tbody').append('<tr><td>'+id+'</td><td class="ask_td">'+siteres.substring(0,10)+'</td><td class="ask_td">'+siteres.substring(0,70)+'</td><td>'+siteresall.item+'</td><td><p class="btn btn-outline-info btn-fw redirectserialall" batch_id='+siteresall.batch_id+' site_id='+siteresall.site_id+' qty='+siteresall.qty+'>'+siteresall.qty+'</p></td> <td><p type="button" class="btn btn-outline-info btn-icon-text redirectserialall" item_title="'+siteresall.item_title+'" onclick="serialnoParity('+siteresall.qty+')" batch_id='+siteresall.batch_id+' site_id='+siteresall.site_id+' qty='+siteresall.qty+'>Click</p></td>'); //<td><i class="mdi mdi-rename-box"></i> | <i class="mdi mdi-delete"></i></tr>
                         }
 
                     $('.modifyDatabatchIdGet').html('<p id="getInputll" batch_id='+selectedOptionText+' name="batch_id" class="btn btn-primary btn-rounded mr-2">Send for Approval (Store Incharge)</p>');
@@ -230,32 +230,21 @@
             var batch_id = $(this).attr("batch_id");
             var site_id = $(this).attr("site_id");
             var item_header = $(this).attr("item_title");
-            $.ajax({
-                    type: "POST",
-                    url: 'batch-item-serial-no',
-                    data: { "qty": qty ,"batch_id": batch_id, 'site_id': site_id,'item_header': item_header , _token: '{{csrf_token()}}' },
-                    success: function (data) {
-                        console.log("serial no_233 batch_list");
-
-                        console.log(data.result);
-
-                        $('.content-wrapper .card .card-body .row').empty();
-                        $('.content-wrapper .card .card-body .table-responsive').empty();
-                        $('.content-wrapper .card .card-body .row').append('<div class="col-sm-4"><h4 class="card-title">BoQ Details</h4><div class="row"><p class="card-description item-list-batch"><code>Item List '+data.result.length+'</code></p></div></div><h4 class="ajaxitemheader">'+data.item_header+'</h4>');
-                        $('.content-wrapper .card .card-body .table-responsive').html('<form action="post-serial-no" method="post" enctype="multipart/form-data">@csrf<table class="table table-bordered"><thead><tr><th>#</th><th>Batch Id</th><th>Serial No</th></tr></thead><tbody></tbody></table><button type="submit" class="btn btn-success">Submit</button></form>'); //<th>Item Name</th>
-                        //console.log(data[0]['batch_id']);
-
-
-                        for (let i = 0; i < data.result.length; i++) {
-
-                            console.log(data.result[i]);
-
-                            $('.content-wrapper .card .card-body .table-responsive table tbody').append('<tr><td>'+(i+1)+'</td><td>'+data.result[i]['batch_id']+'</td><td><input type="hidden" value='+data.result[i].id+' name="serial_id[]" /><input type="text" class="form-control" name="serialNo[]" placeholder="Enter Serial No" value="'+data.result[i]['serial_no']+'" /><input type="hidden" name="batch_id[]" value="'+data.result[i]['batch_id']+'" /><input type="hidden" name="site_id[]" value="'+data.result[i]['site_id']+'" /></td></tr>');  //<td>'+data[i]['site_id']+'</td>
-                        }
-
-
-                    }
-                });
+            // $.ajax({
+            //         type: "POST",
+            //         url: 'batch-item-serial-no',
+            //         data: { "qty": qty ,"batch_id": batch_id, 'site_id': site_id,'item_header': item_header , _token: '{{csrf_token()}}' },
+            //         success: function (data) {
+            //             $('.content-wrapper .card .card-body .row').empty();
+            //             $('.content-wrapper .card .card-body .table-responsive').empty();
+            //             $('.content-wrapper .card .card-body .row').append('<div class="col-sm-4"><h4 class="card-title">BoQ Details</h4><div class="row"><p class="card-description item-list-batch"><code>Item List '+data.result.length+'</code></p></div></div><h4 class="ajaxitemheader">'+data.item_header+'</h4>');
+            //             $('.content-wrapper .card .card-body .table-responsive').html('<form action="post-serial-no" method="post" enctype="multipart/form-data">@csrf<table class="table table-bordered"><thead><tr><th>#</th><th>Batch Id</th><th>Serial No</th></tr></thead><tbody></tbody></table><button type="submit" class="btn btn-success">Submit</button></form>'); //<th>Item Name</th>
+            //             //console.log(data[0]['batch_id']);
+            //             for (let i = 0; i < data.result.length; i++) {
+            //                 $('.content-wrapper .card .card-body .table-responsive table tbody').append('<tr><td>'+(i+1)+'</td><td>'+data.result[i]['batch_id']+'</td><td><input type="hidden" value='+data.result[i].id+' name="serial_id[]" /><input type="text" class="form-control" name="serialNo[]" placeholder="Enter Serial No" value="'+data.result[i]['serial_no']+'" /><input type="hidden" name="batch_id[]" value="'+data.result[i]['batch_id']+'" /><input type="hidden" name="site_id[]" value="'+data.result[i]['site_id']+'" /></td></tr>');  //<td>'+data[i]['site_id']+'</td>
+            //             }
+            //         }
+            //     });
         });
 
 

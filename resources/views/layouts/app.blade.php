@@ -538,8 +538,32 @@
                     </div>
                   </li>
 
+                  {{-- <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+                      <i class="typcn typcn-document-text menu-icon"></i>
+                      <span class="menu-title" style="font-size: 12px;">{{ __('Inventory Management') }}</span>
+                      <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic2">
+                      <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" style="font-size: 12px;" href="{{ route('batch_list_officer') }}">{{ __('Inventory Management') }}<div class="badge badge-success"></div></a></li>
+                      </ul>
+                    </div>
+                  </li> --}}
 
-
+                  {{-- <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic3">
+                      <i class="typcn typcn-document-text menu-icon"></i>
+                      <span class="menu-title" style="font-size: 12px;">{{ __('Sites allocation and work status
+                        ') }}</span>
+                      <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic3">
+                      <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"> <a class="nav-link" style="font-size: 12px;" href="{{ route('batch_list_officer') }}">{{ __('Sites allocation') }}<div class="badge badge-success"></div></a></li>
+                      </ul>
+                    </div>
+                  </li> --}}
 
                 </ul>
               </nav>

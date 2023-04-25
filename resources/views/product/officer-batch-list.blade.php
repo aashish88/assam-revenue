@@ -6,21 +6,16 @@
         margin: 10px 00px 00px 12px;
     }
     .card-title{
-        /*background: rgb(119, 185, 216);*/
     align-content: center;
     margin: 15px 1px 1px 143px;
     }
 
     [type='checkbox'] {
         position: absolute;
-         /* top: 0; */
-        /* left: 0; */
         height: 25px;
         width: 25px;
         background-color: #eee;
     }
-
-
 </style>
 <div class="content-wrapper">
 

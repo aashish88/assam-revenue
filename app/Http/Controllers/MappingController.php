@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BatchMaster;
 use App\Models\SiteMaster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use PhpParser\Node\Stmt\Return_;
 use App\Models\MappingVendorSite;
+use App\Models\ProductBatchMaster;
 
 use function Symfony\Component\VarDumper\Dumper\esc;
 
@@ -115,6 +117,16 @@ class MappingController extends Controller
     }
 
     public function issueVendor(Request $request){
-        return view("issue_vendor");
+        $vendors = User::where('user_type', '3')->get(['id','name']);
+        $batchs = BatchMaster::get(['id','name']);
+        $items = ProductBatchMaster::get(['id','item_title','qty']);
+        $items_list = ProductBatchMaster::take(6)->get(['id','item_title','qty','item','batch_id','site_id']);
+        return view("mapping.issue_vendor", compact('vendors','batchs','items','items_list'));
+    }
+
+    /* CreateBy: Aashish Shah
+    Date: 24-april-2023 Issue Material To Vendor */
+    public function issueMaterialVendor(Request $request){
+        dd($request->post());
     }
 }

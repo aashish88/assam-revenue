@@ -71,8 +71,8 @@ Route::match(['get','post'], 'datatable', [SiteController::class, 'dataTable'])-
 Route::match(['get','post'], 'approve-all-batch-serial-no', [AjaxController::class, 'approveallbatchserial']);
 
 Route::match(['get','post'], 'issue_vendor', [MappingController::class, 'issueVendor'])->name('issue_vendor');
-//
-
+Route::match(['get','post'], 'post-issue-material-vendor', [MappingController::class, 'issueMaterialVendor'])->name('post-issue-material-vendor');
+Route::match(['get','post'], 'ajaxgetvendoridbymateriallist', [AjaxController::class, 'getvendoridbymateriallist'])->name('ajaxgetvendoridbymateriallist');
 
 
 

@@ -1,23 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\ProductBatchMaster;
 use App\Models\BatchMaster;
 use App\Models\SerialNoBatch;
 use Illuminate\Support\Facades\Session;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\Auth;
 
 class BatchController extends Controller
 {
     public function list(Request $request){
-        //dd(session::get('user_id'));
-        // foreach (BatchMaster::lazy() as $flight) {
-        //     echo "<pre>";
-        //     print_r($flight->batch_location);
-        // }
         $childSidebar = ['sl'=> "Site List", 'sa'=> "Site Create", 'se'=> "Site Edit"];
         if(session::get('user_id') && session::get('user_name')){
             if(session::get('user_id') == 2){

@@ -353,6 +353,12 @@ class AjaxController extends Controller
         }
     }
 
+    public function getvendoridbymateriallist(Request $request){
+        if($request->post('vendor_id')){
+            $user_id = $request->post('vendor_id');
+        }
+    }
+
 
 
 

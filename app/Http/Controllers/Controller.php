@@ -22,22 +22,6 @@ class Controller extends BaseController
     protected $credentials = null;
     /* UpdateBy Aashish 25-March-2023 __construct */
     public function __construct(Request $request){
-
-        // $mytime = Carbon::now();
-
-        // echo $mytime->toDateTimeString(); //Carbon::now()->format('d-m-Y')
-
-        // $date = Carbon::now()->format('m');
-
-        // echo $date;
-
-       // dd($date);
-
-       //dd(substr(md5(microtime()),rand(0,26),25));
-
-
-
-
         if($request->post('login') == "signin"){
             $request->validate([
                 'email' => 'required',
