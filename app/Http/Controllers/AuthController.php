@@ -5,22 +5,16 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
     public function index(Request $request){
-
-
-
         if(session::get('user_id') && session::get('user_name')){
             return redirect("dashboard");
         }
-
         return view('auth.login');
     }
-
     public function postLogin(Request $request)
     {
         if(Session::get('login_status') == "sucess"){
@@ -28,7 +22,6 @@ class AuthController extends Controller
         }
         return redirect("login")->withSuccess('Oppes! You have entered invalid credentials');
     }
-
      /* CreateBy Aashish 25-March-2023 Function Name dashboard */
      public function dashboard(Request $request){
 
@@ -72,14 +65,10 @@ class AuthController extends Controller
         $sidebar_btn = ['UI Elements','Item List','Inventory'];
         return view('guest_dashboard', compact('sidebar_btn','title'));
     }
-
     /* CreateBy Aashish 25-March-2023 Logout Function */
     public function logout() {
         Session::flush();
         Auth::logout();
         return Redirect('login');
     }
-
-
-
 }

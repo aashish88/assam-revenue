@@ -10,7 +10,7 @@ use App\Models\SerialNoBatch;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
 class AjaxController extends Controller
 {
     public function ajaxgetBatchList(Request $request){
@@ -44,8 +44,7 @@ class AjaxController extends Controller
     public function ajaxpostbatchlist(Request $request){
         if($request->ajax()){
             $id = $request->post('batch_id');
-            //$serialdata = DB::select("SELECT snb.id, snb.batch_id, snb.serial_no, snb.site_id, pbm.item, pbm.item_title FROM `serial_no_batches` as snb JOIN product_batch_masters pbm ON pbm.site_id = snb.site_id WHERE snb.batch_id = '$id' and pbm.batch_status = 1 ORDER BY site_id");
-            $serialdata = DB::select("SELECT * FROM `serial_no_batches` WHERE batch_id = 1");
+            $serialdata = DB::select("SELECT *, t1.id as serial_id FROM `serial_no_batches` as t1 Left JOIN product_batch_masters as t2 ON t2.id = t1.product_batch_id WHERE t1.batch_id = $id LIMIT 0,500");
             $data = [
                 "response code"=> "200 OK",
                 "status"=> "sucess",
@@ -57,28 +56,14 @@ class AjaxController extends Controller
     }
 
     public function adminSendByOfficer(Request $request){
-        dd("44");
         if($request->ajax()){
             $id = $request->post('batch_id');
             $batchbydata = ProductBatchMaster::where('batch_id', $id)->get();
         }
-
-
-        // $countno = count($batchbydata);
-
-        // for ($i=0; $i < $countno; $i++) {
-
-        //     echo $batchbydata[$i]['id'];
-        //     echo $batchbydata[$i]['site_id'];
-        //     echo ' '.$batchbydata[$i]['qty'];
-        //     echo "</br>";
-        // }
-        // exit();
         $batchbydata = ProductBatchMaster::where('batch_id', 'B-001')->get();
         view()->share('batchbydata', $batchbydata);
         $pdf = PDF::loadView("resume", array($batchbydata));
-       // $result = $pdf->stream('resume.pdf');
-        //return $result;
+
         $data["email"] = "aashish.kumar@paritysystems.in";
         $data["title"] = "From Aashishkumar8893@gmail.com";
         $data["body"] = "This is Demo";
@@ -88,17 +73,9 @@ class AjaxController extends Controller
                     ->subject($data["title"])
                     ->attachData($pdf->output(), "text.pdf");
         });
-
         dd('Mail sent successfully to Officer');
-
         exit();
 
-        dd('Mail sent successfully');
-        exit();
-        echo "email send successfully !!";
-
-
-        exit();
         if(session::get('user_id') && session::get('user_name')){
         }
         if($request->ajax()){
@@ -255,95 +232,58 @@ class AjaxController extends Controller
 
     }
 
-
-    public function demopdf()
-    {
-        if(Session::get('user_id')){
-            $user = Session::get('user_id');
-        }
-        $var  = Carbon::now('Asia/Kolkata');
-        $time = $var->toTimeString();
-        $date = date("Ymd");
-        $datasave = "detailsbatchitems" . $date . " " . $time . "_" . $user . ".pdf";
-        return $datasave;
-
-
-        $batchbydata = SerialNoBatch::where('batch_id', "B-001")->get();
-        //return view('boq-serial',compact('batchbydata'));
-        $data2 = view('boq-serial',compact('batchbydata'))->render();
-        //return $data2;
-        view()->share('batchbydata', $batchbydata);
-        $pdf = PDF::loadView("boq-serial", array($batchbydata));
-        return $pdf;
-        $date = date("YmdHmi");
-        $datasave = "detailsbatchitems" . $date . "_" . $user . ".pdf";
-
-        return $pdf->download($datasave);
-
-
-        return response()->download(public_path($datasave));
-
-        return public_path();
-
-        //return response()->download($file_path);
-
-        //$datadownload = public_path($datasave));
-
-        //return download($datadownload);
-
-        //return
-
-        return $pdf->stream();
-
-        $data["email"] = "aashish.kumar@paritysystems.in";
-        $data["title"] = "From Aashishkumar8893@gmail.com";
-        $data["body"] = "This is Demo";
-
-        Mail::send('boq-serial', $batchbydata, function($message)use($data, $pdf) {
-            $message->to($data["email"], $data["email"])
-                    ->subject($data["title"]);
-        });
-
-        dd('Mail sent successfully to Officer');
-
-        exit();
-    }
-
+    /* User_Type-> Officer Mail send Admin and Vendor */
     public function approveallbatchserial(Request $request){
         if($request->post()){
-            if($request->post('approve')){
-                if($request->post('post_id')){
-                    $post_id = implode(',',$request->post('post_id'));
-                }
-                if(Session::get('user_id')){
-                    $user_id = Session::get('user_id');
-                }
+            if(Session::get('user_id')){
+                $user_id = Session::get('user_id');
                 $email = User::where('id',$user_id)->first()->email;
-                if($request->post('approve')){
-                    $approve_id = implode(',',$request->post('approve'));
-                    DB::select("UPDATE `serial_no_batches` SET `officer_status` = '1' WHERE `serial_no_batches`.`id` IN ($approve_id)");
-                    $maxtype = 1;
-                    if($maxtype == 1){
-                        sleep(2);
-                    }
-                    $serialdata = DB::select("SELECT snb.id, snb.batch_id, snb.serial_no, snb.site_id, snb.officer_status, pbm.item, pbm.item_title FROM `serial_no_batches` as snb JOIN product_batch_masters pbm ON pbm.site_id = snb.site_id WHERE snb.batch_id = 'B-002' and pbm.batch_status = 1 ORDER BY site_id");
-                    view()->share('serialdata', $serialdata);
-                    $pdf = PDF::loadView("approve_pdf", array($serialdata));
-                    $date = date("YmdHmi");
-                    $datasave = "detailsbatchitems" . $date . "_" . $user_id . ".pdf";
-                    $data["email"] = array($email,"aashish.kumar@paritysystems.in");
-                    $data["title"] = "From Aashishkumar8893@gmail.com";
-                    $data["body"] = "This is Demo";
-                    Mail::send('approve_pdf', array($serialdata), function($message)use($data, $pdf, $datasave) {
-                        $message->to($data["email"], $data["email"])
-                                ->subject($data["title"])
-                                ->attachData($pdf->output(), $datasave);
-                                //->attachData($pdf2->output(), $datasave);
-                    });
-                    return redirect("dashboard")->withSuccess('Mail sent successfully to Admin');
-                    //$result = $pdf->stream('approve.pdf');
+            }
+            if($request->post('approve')){
+                $approveData = implode(",",$request->post('approve'));
+                DB::select("UPDATE `serial_no_batches` SET `officer_status` = '1' WHERE `serial_no_batches`.`id` IN ($approveData)");
+            }
+            if($request->post('disapprove')){
+                $disapproveData = implode(",",$request->post('disapprove'));
+                DB::select("UPDATE `serial_no_batches` SET `officer_status` = '0' WHERE `serial_no_batches`.`id` IN ($disapproveData)");
+                $maxtype = 2;
+            }
+            $maxtype = 2;
+            if($maxtype == 2){
+                sleep(2);
+            }
+            if($request->post('remark')){
+                $no = count($request->post('remark'));
+                for ($i=0; $i < $no; $i++) {
+                    $j = $i+1;
+                    $remarknew = $request->post('remark')[$i];
+                    //dd("UPDATE `serial_no_batches` SET `officer_remark` = '$remarknew' WHERE `serial_no_batches`.`id` IN ($j)");
+                    DB::select("UPDATE `serial_no_batches` SET `officer_remark` = '$remarknew' WHERE `serial_no_batches`.`id` IN ($j)");
                 }
             }
+            $maxtype = 3;
+            if($maxtype == 3){
+                sleep(2);
+            }
+
+            //$serialdata = DB::select("SELECT snb.id, snb.batch_id, snb.serial_no, snb.site_id, snb.officer_status, pbm.item, pbm.item_title FROM `serial_no_batches` as snb JOIN product_batch_masters pbm ON pbm.site_id = snb.site_id WHERE snb.batch_id = 'B-002' and pbm.batch_status = 1 ORDER BY site_id");
+            $serialdata = DB::select("SELECT * FROM `serial_no_batches` as t1 LEFT JOIN product_batch_masters as t2 ON t1.product_batch_id = t2.id WHERE t2.batch_id = 1");
+            view()->share('serialdata', $serialdata);
+            $pdf = PDF::loadView("approve_pdf", array($serialdata));
+            //return $pdf->stream("demo.pdf");
+            $date = date("YmdHmi");
+            $datasave = "detailsbatchitems" . $date . "_" . $user_id . ".pdf";
+            $data["email"] = array($email,"aashish.kumar@paritysystems.in");
+            $data["title"] = "From Aashishkumar8893@gmail.com";
+            $data["body"] = "This is Demo";
+            Mail::send('approve_pdf', array($serialdata), function($message)use($data, $pdf, $datasave) {
+                $message->to($data["email"], $data["email"])
+                        ->subject($data["title"])
+                        ->attachData($pdf->output(), $datasave);
+                        //->attachData($pdf2->output(), $datasave);
+            });
+            return redirect("dashboard")->withSuccess('Mail sent successfully to Admin');
+
         }
     }
 
@@ -352,10 +292,6 @@ class AjaxController extends Controller
             $user_id = $request->post('vendor_id');
         }
     }
-
-
-
-
 
 
 }

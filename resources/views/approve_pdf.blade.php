@@ -15,13 +15,17 @@ table {
 td, th {
   border: 1px solid #dddddd;
   text-align: center;
-  padding: 8px;
+  padding: 5px;
+  white-space: initial;
 
 }
 
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+
+
     </style>
 </head>
 <body>
@@ -30,7 +34,7 @@ tr:nth-child(even) {
             <tr>
             <th>#</th>
             <th>Item Name</th>
-            <th>Item Type</th>
+            <th>Item Discription</th>
             <th>Serial No</th>
             <th>Approve</th>
             <th>Disapprove</th>
@@ -48,7 +52,7 @@ tr:nth-child(even) {
                 <tr>
                     <td>{{$i}}</td>
                     <td>{{$res->item_title}}</td>
-                    <td>{{$res->site_id}}</td>
+                    <td>{{$res->item}}</td>
                     <td>{{$res->serial_no}}</td>
                     <td>
                         @if ($res->officer_status == 1) Yes
@@ -64,5 +68,3 @@ tr:nth-child(even) {
     </table>
 </body>
 </html>
-
-

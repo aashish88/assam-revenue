@@ -38,7 +38,7 @@ class BatchController extends Controller
 
     public function batchListOfficer(Request $request){
         if(session::get('user_id')){
-            $batch_data = BatchMaster::get();
+            $batch_data = BatchMaster::get(['id','name']);
             $sidebar_btn = ['UI Elements','Item List','Inventory'];
             return view('product.officer-batch-list', compact('sidebar_btn','batch_data'));
         }

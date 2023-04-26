@@ -43,7 +43,7 @@
                                         <option value="1">--Select BOQ Order--</option>
                                         @foreach ($batch_data as $res)
 
-                                            <option onclick="getfunction()" value="{{$res->batch_id}}" class="dropdown-item">{{ $res->batch_id }}</option>
+                                            <option onclick="getfunction()" value="{{$res->id}}" class="dropdown-item">{{ $res->name }}</option>
                                         @endforeach
                                     </div>
                                 </select>
@@ -125,7 +125,8 @@
     $(function getfunction(){
             var select = $('#dropdownMenuSizeButton3');
             select.on('change', function(){
-                var selectedOptionText = $(this).children(':selected').text();
+                var selectedOptionText = $(this).children(':selected').val();
+                alert(selectedOptionText);
                 $.ajax({
                     type: "POST",
                     url: 'ajaxpostbatchlist',
@@ -148,9 +149,9 @@
                         for (let i = 0; i < productDatadata.length; i++) {
                             var res = productDatadata[i];
                             var id = res.id;
-                            var resstr = res.item_title;
+                            console.log(id);
                             var a = i+1;
-                            $('.tbody').append('<tr><td>'+a+'</td><td>'+resstr.substring(0,10)+'</td><td class="ask_td">'+resstr.substring(0,500)+'</td><td>'+res.serial_no+'</td><td class="ask_td'+a+' checkcolumn1"><input type="checkbox" class="form-check-input" value='+res.id+' name="approve[]" style="width: 85px; margin: -14px 00 00 -45px" /></td><td class="ask_td"><input type="checkbox" class="form-check-input" value='+res.id+' name="disapprove[]" style="width: 85px; margin: -14px 00 00 -45px" /></td><td class="ask_td"><input type="text" name="remark[]" style="width: 85px;" /><input type="hidden" name="post_id[]" value='+res.id+' /></td>');
+                            $('.tbody').append('<tr><td>'+a+'</td><td class="ask_td">'+res.item_title+'</td><td class="ask_td">'+res.item+'</td><td class="ask_td">'+res.box_no+'</td><td class="ask_td">'+res.serial_no+'</td><td class="ask_td'+a+' checkcolumn1"><input type="checkbox" class="form-check-input" value='+res.serial_id+' name="approve[]" style="width: 85px; margin: -14px 00 00 -45px" /></td><td class="ask_td"><input type="checkbox" class="form-check-input" value='+res.serial_id+' name="disapprove[]" style="width: 85px; margin: -14px 00 00 -45px" /></td><td class="ask_td"><input type="text" name="remark[]" style="width: 85px;" /><input type="hidden" name="post_id[]" value='+res.serial_id+' /></td>');
                         }
                     },
                     error: function (data, textStatus, errorThrown) {
@@ -159,6 +160,8 @@
                 });
             });
         });
+
+
         $('body').on('click','#getInputll',function(){
             console.log("ask->send data pdf and apprve by store officer((warehouse))");
             var batch_id = $(this).attr('batch_id');
