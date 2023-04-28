@@ -107,7 +107,14 @@
           </div> --}}
         </form>
             </div>
+            <br>
+            <div class="row" style="margin: 00 00 00 5px;">
+
+                <p>Copyright ©, &nbsp; Parity InfoTech Solutions Pvt. Ltd</p>
+            </div>
+
           </div>
+
         </div>
       </div>
       <!-- content-wrapper ends -->

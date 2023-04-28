@@ -26,6 +26,9 @@ class DashboardController extends Controller
             }else if(session::get('user_type') == "4"){
                 $title = "Engineer";
             }
+            else if(session::get('user_type') == "5"){
+                $title = "Site Officer";
+            }
         }else{
             $title = "Guest";
         }

@@ -40,7 +40,7 @@
                             <div class="dropdown">
                                 <select id="dropdownMenuSizeButton3" class="btn btn-light dropdown-toggle" name="select" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuSizeButton3" style="">
-                                        <option value="1">--Select BOQ Order--</option>
+                                        <option value="0">--Select BOQ Order--</option>
                                         @foreach ($batch_data as $res)
 
                                             <option onclick="getfunction()" value="{{$res->id}}" class="dropdown-item">{{ $res->name }}</option>
@@ -126,7 +126,6 @@
             var select = $('#dropdownMenuSizeButton3');
             select.on('change', function(){
                 var selectedOptionText = $(this).children(':selected').val();
-                alert(selectedOptionText);
                 $.ajax({
                     type: "POST",
                     url: 'ajaxpostbatchlist',
@@ -176,7 +175,6 @@
         });
 
         $('body').on('click','.appendSerialNo',function(){
-            alert('174');
             var batch_id = $(this).attr("batch_id");
             var site_id = $(this).attr("site_id");
             var qty = $(this).attr("qty");
@@ -195,7 +193,6 @@
         });
 
         $('body').on('click','.redirectserialall',function(){
-            alert('197');
             var qty = $(this).attr("qty");
             var batch_id = $(this).attr("batch_id");
             var site_id = $(this).attr("site_id");

@@ -393,6 +393,9 @@
             </div>
         </div>
             {{-- End Officer Dashboard --}}
+        @elseif(session('user_type') == 4)
+        {{-- Start Site Officer Dashboard --}}
+        {{-- Start Site Officer Dashboard --}}
         @else
             {{-- Start Vendor Dashboard --}}
 

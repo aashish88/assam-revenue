@@ -218,6 +218,8 @@
                         {{ __('Vendor Dashboard') }}
                         @elseif(session('title') == 'Engineer')
                         {{ __('Engineer Dashboard') }}
+                        @elseif(session('title') == 'Site Officer')
+                        {{ __('Site Officer Dashboard') }}
                         @endif
                         </p>
                         </div>
@@ -520,7 +522,7 @@
                     <div class="collapse" id="ui-basic">
                       <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="{{ route('batch_list_officer') }}">{{ __('Order List') }} <div class="badge badge-success">{{ __('new') }}</div></a></li>
-                        <li class="nav-item"> <a class="nav-link" href="">{{ __('Approve for Recived Order') }}</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ route('approve-batch_list_officer') }}">{{ __('Approve for Recived Order') }}</a></li>
                       </ul>
                     </div>
                   </li>
@@ -539,32 +541,34 @@
                     </div>
                   </li>
 
-                  {{-- <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#inventrym-basic" aria-expanded="false" aria-controls="inventrym-basic">
                       <i class="typcn typcn-document-text menu-icon"></i>
                       <span class="menu-title" style="font-size: 12px;">{{ __('Inventory Management') }}</span>
                       <i class="menu-arrow"></i>
                     </a>
-                    <div class="collapse" id="ui-basic2">
+                    <div class="collapse" id="inventrym-basic">
                       <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" style="font-size: 12px;" href="{{ route('batch_list_officer') }}">{{ __('Inventory Management') }}<div class="badge badge-success"></div></a></li>
+                        <li class="nav-item"> <a class="nav-link" style="font-size: 12px;" href="{{ route('inv_mgmt_sta') }}">{{ __('Inventory Status') }}</a></li>
                       </ul>
                     </div>
-                  </li> --}}
+                  </li>
 
-                  {{-- <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic3">
+
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#sites-basic" aria-expanded="false" aria-controls="sites-basic">
                       <i class="typcn typcn-document-text menu-icon"></i>
-                      <span class="menu-title" style="font-size: 12px;">{{ __('Sites allocation and work status
-                        ') }}</span>
+                      <span class="menu-title" style="font-size: 12px;">{{ __('Site Management') }}</span>
                       <i class="menu-arrow"></i>
                     </a>
-                    <div class="collapse" id="ui-basic3">
+                    <div class="collapse" id="sites-basic">
                       <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" style="font-size: 12px;" href="{{ route('batch_list_officer') }}">{{ __('Sites allocation') }}<div class="badge badge-success"></div></a></li>
+                        <li class="nav-item"> <a class="nav-link" style="font-size: 12px;" href="{{ route('site_alloc_wrk_sta') }}">{{ __('Site Allocation') }}</a></li>
                       </ul>
                     </div>
-                  </li> --}}
+                  </li>
+
+
 
                 </ul>
               </nav>
@@ -623,95 +627,144 @@
                             </div>
                         </li>
 
-                        {{-- <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#product-elements" aria-expanded="false" aria-controls="product-elements">
-                                <i class="typcn typcn-film menu-icon"></i>
-                                    <span class="menu-title">{{ $sidebar_btn[2] }}</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="collapse" id="product-elements">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item">  <a class="nav-link" href="{{ route('list_product') }}">Inventory List</a></li>
-                                </ul>
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item">  <a class="nav-link" href="{{ route('user_work') }}">Work Allocation</a></li>
-                                </ul>
-                            </div>
-                        </li> --}}
+
                     </ul>
                 </nav>
                 <!-- Vendor sidebar end-->
             @elseif(session('title') == 'Engineer')
                <!--Engineer sidebar start-->
-               <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('dashboard') }}">
-                        <i class="typcn typcn-device-desktop menu-icon"></i>
-                        <span class="menu-title">{{ __('Engineer Dashboard') }}</span>
-                        {{-- <div class="badge badge-danger">{{ __('new') }}</div> --}}
-                        </a>
-                    </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{{ route('dashboard') }}">
+                <i class="typcn typcn-device-desktop menu-icon"></i>
+                <span class="menu-title">{{ __('Engineer Dashboard') }}</span>
+                {{-- <div class="badge badge-danger">{{ __('new') }}</div> --}}
+                </a>
+                </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#product-elements" aria-expanded="false" aria-controls="product-elements">
-                        <i class="typcn typcn-film menu-icon mdi mdi-library-books"></i>
-                        <span class="menu-title">Issue Material to Vendor</span>
-                        <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="product-elements">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="{{route('product-list')}}">Request List</a></li>
-                        </ul>
-                        </div>
-                    </li>
-
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-                        <i class="typcn typcn-film menu-icon mdi mdi-format-list-numbers"></i>
-                        <span class="menu-title">Site Management</span>
-                        <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="form-elements">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="">Allocated Site List</a></li>
-                        </ul>
-                        </div>
-                    </li> --}}
-
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#usitedata-elements" aria-expanded="false" aria-controls="usitedata-elements">
-                        <i class="typcn typcn-film menu-icon mdi mdi-format-list-numbers"></i>
-                        <span class="menu-title">Update Site Data</span>
-                        <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="usitedata-elements">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"><a class="nav-link" href="">Allocated Site List</a></li>
-                            <li class="nav-item"><a class="nav-link" href="">Allocated Site Enggineer</a></li>
-                            <li class="nav-item"><a class="nav-link" href="">Update Site</a></li>
-                        </ul>
-                        </div>
-                    </li> --}}
-
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#product-elements" aria-expanded="false" aria-controls="product-elements">
-                            <i class="typcn typcn-film menu-icon"></i>
-                                <span class="menu-title">{{ $sidebar_btn[2] }}</span>
-                            <i class="menu-arrow"></i>
-                        </a>
-                        <div class="collapse" id="product-elements">
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item">  <a class="nav-link" href="{{ route('list_product') }}">Inventory List</a></li>
-                            </ul>
-                            <ul class="nav flex-column sub-menu">
-                                <li class="nav-item">  <a class="nav-link" href="{{ route('user_work') }}">Work Allocation</a></li>
-                            </ul>
-                        </div>
-                    </li> --}}
+                <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#product-elements" aria-expanded="false" aria-controls="product-elements">
+                <i class="typcn typcn-film menu-icon mdi mdi-library-books"></i>
+                <span class="menu-title" style="font-size: 12px;">Sites allocated</span>
+                <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="product-elements">
+                <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link"style="font-size: 12px;" href="{{route('site_all_eng')}}">{{ __('Allocated to Engineer') }}</a></li>
                 </ul>
-            </nav>
+                </div>
+                </li>
+
+
+                <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#sitesone-basic" aria-expanded="false" aria-controls="sitesone-basic">
+                <i class="typcn typcn-document-text menu-icon"></i>
+                <span class="menu-title" style="font-size: 12px;">{{ __('Site Activity Work') }}</span>
+                <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="sitesone-basic">
+                <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" style="font-size: 12px;" href="{{ route('site_active_wrk') }}">{{ __('Site activity work') }}</a></li>
+                </ul>
+                </div>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#sitessecond-basic" aria-expanded="false" aria-controls="sitessecond-basic">
+                <i class="typcn typcn-document-text menu-icon"></i>
+                <span class="menu-title" style="font-size: 12px;">{{ __('Sites Report') }}</span>
+                <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="sitessecond-basic">
+                <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" style="font-size: 12px;" href="{{ route('site_rep_lst') }}">{{ __('Site Reports List') }}</a></li>
+                </ul>
+                </div>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#siteslist-basic" aria-expanded="false" aria-controls="siteslist-basic">
+                <i class="typcn typcn-document-text menu-icon"></i>
+                <span class="menu-title" style="font-size: 12px;">{{ __('Site Completion') }}</span>
+                <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="siteslist-basic">
+                <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" style="font-size: 12px;" href="{{ route('site_com_list') }}">{{ __('Site List') }}</a></li>
+                </ul>
+                </div>
+                </li>
+
+
+                </ul>
+                </nav>
             <!-- Engineer sidebar end-->
+            @elseif(session('title') == 'Site Officer')
+                <!--Start Site Officer sidebar-->
+                <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('dashboard') }}">
+                                <i class="typcn typcn-device-desktop menu-icon"></i>
+                                <span class="menu-title">{{ __('Site Officer Dashboard') }}</span>
+                                {{-- <div class="badge badge-danger">{{ __('new') }}</div> --}}
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#product-elements" aria-expanded="false" aria-controls="product-elements">
+                                <i class="typcn typcn-film menu-icon mdi mdi-library-books"></i>
+                                    <span class="menu-title" style="font-size: 12px;">{{ __('Sites allocated') }}</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="product-elements">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"><a class="nav-link"style="font-size: 12px;" href="{{route('site_all_eng')}}">{{ __('Site Allocated Work') }}</a></li>
+                                </ul>
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"><a class="nav-link"style="font-size: 12px;" href="{{route('site_all_eng')}}">{{ __('Site Allocated View') }}</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#siteslist-basic" aria-expanded="false" aria-controls="siteslist-basic">
+                                <i class="typcn typcn-document-text menu-icon"></i>
+                                    <span class="menu-title" style="font-size: 12px;">{{ __('Site Activity') }}</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="siteslist-basic">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" style="font-size: 12px;" href="{{ route('site_com_list') }}">{{ __('Site Activity List') }}</a></li>
+                                </ul>
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" style="font-size: 12px;" href="{{ route('site_com_list') }}">{{ __('Site Work Status') }}</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#sitesapprovework-basic" aria-expanded="false" aria-controls="sitesapprovework-basic">
+                                <i class="typcn typcn-document-text menu-icon"></i>
+                                    <span class="menu-title" style="font-size: 12px;">{{ __('Site Approve') }}</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="sitesapprovework-basic">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" style="font-size: 12px;" href="{{ route('site_app_list') }}">{{ __('Site Approve List') }}</a></li>
+                                </ul>
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" style="font-size: 12px;" href="{{ route('app_site_com_work') }}">{{ __('Approve Site Completion Work') }}</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </nav>
+                <!--End Site Officer sidebar-->
             @endif
 
 

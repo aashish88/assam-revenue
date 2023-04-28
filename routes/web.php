@@ -32,6 +32,7 @@ Route::match(['get','post'], 'officer-approve', [AjaxController::class, 'officer
 Route::match(['get','post'], 'officer_to_admin_send', [AjaxController::class, 'adminSendByOfficer'])->name('adminbatch-send-officer');
 
 Route::match(['get','post'], 'batch_list_officer', [BatchController::class, 'batchListOfficer'])->name('batch_list_officer');
+Route::match(['get','post'], 'approve-batch_list_officer', [BatchController::class, 'approveBatchListOfficer'])->name('approve-batch_list_officer');
 Route::match(['get','post'], 'batch_list_add_serial', [ParityCronController::class, 'batchListAddSerial'])->name('batch_list_add_serial');
 Route::match(['get','post'], 'ajax_serial_no_qty', [AjaxController::class, 'ajaxSerialNoQty'])->name('ajax_serial_no_qty');
 // Route::match(['get','post'], 'vendor-dashboard', [ParityCronController::class, 'batchListAddSerial'])->name('vendor-dashboard');
@@ -73,6 +74,25 @@ Route::match(['get','post'], 'approve-all-batch-serial-no', [AjaxController::cla
 Route::match(['get','post'], 'issue_vendor', [MappingController::class, 'issueVendor'])->name('issue_vendor');
 Route::match(['get','post'], 'post-issue-material-vendor', [MappingController::class, 'issueMaterialVendor'])->name('post-issue-material-vendor');
 Route::match(['get','post'], 'ajaxgetvendoridbymateriallist', [AjaxController::class, 'getvendoridbymateriallist'])->name('ajaxgetvendoridbymateriallist');
+
+Route::match(['get','post'], 'inv_mgmt_sta', [MappingController::class, 'invMgmtSta'])->name('inv_mgmt_sta');
+Route::match(['get','post'], 'site_alloc_wrk_sta', [MappingController::class, 'siteAllocWrkSta'])->name('site_alloc_wrk_sta');
+
+
+/*engineer Site Allocation to Engineer Controller MappingController*/
+Route::match(['get','post'], 'site_all_eng', [MappingController::class, 'siteAllEng'])->name('site_all_eng');
+Route::match(['get','post'], 'site_com_list', [MappingController::class, 'siteComList'])->name('site_com_list');
+Route::match(['get','post'], 'site_rep_lst', [MappingController::class, 'siteRepLst'])->name('site_rep_lst');
+Route::match(['get','post'], 'site_active_wrk', [MappingController::class, 'siteActiveWrk'])->name('site_active_wrk');
+
+Route::match(['get','post'], 'site_app_list', [MappingController::class, 'siteAppList'])->name('site_app_list');
+Route::match(['get','post'], 'app_site_com_work', [MappingController::class, 'appSiteComWork'])->name('app_site_com_work');
+
+
+
+Route::match(['get','post'], 'ajaxgetBatchIDbylist', [AjaxController::class, 'ajaxgetBatchIDbylist'])->name('ajaxgetBatchIDbylist');
+
+Route::match(['get','post'], 'ajaxgetidbysite', [AjaxController::class, 'ajaxgetIdBySiteName'])->name('ajaxgetidbysite');
 
 
 

@@ -40,8 +40,11 @@ class Controller extends BaseController
                     $title = "Officer";
                 }elseif(Auth::user()->user_type == 3){
                     $title = "Vendor";
-                }else{
+                }
+                elseif(Auth::user()->user_type == 4){
                     $title = "Engineer";
+                }else{
+                    $title = "Site Officer";
                 }
                 session([
                     'user_id' => Auth::user()->id,

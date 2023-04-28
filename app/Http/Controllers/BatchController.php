@@ -6,6 +6,7 @@ use App\Models\ProductBatchMaster;
 use App\Models\BatchMaster;
 use App\Models\SerialNoBatch;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class BatchController extends Controller
 {
@@ -41,6 +42,15 @@ class BatchController extends Controller
             $batch_data = BatchMaster::get(['id','name']);
             $sidebar_btn = ['UI Elements','Item List','Inventory'];
             return view('product.officer-batch-list', compact('sidebar_btn','batch_data'));
+        }
+    }
+
+    public function approveBatchListOfficer(Request $request){
+        if(session::get('user_id')){
+            $batch_data = BatchMaster::get(['id','name']);
+            $approveserialdata = DB::select("SELECT *, t1.id as serial_id FROM `serial_no_batches` as t1 Left JOIN product_batch_masters as t2 ON t2.id = t1.product_batch_id WHERE t1.batch_id = 1 and t1.officer_status = 1 LIMIT 500");
+            $sidebar_btn = ['UI Elements','Item List','Inventory'];
+            return view('product.approve-officer-batch-list', compact('sidebar_btn','batch_data','approveserialdata'));
         }
     }
 

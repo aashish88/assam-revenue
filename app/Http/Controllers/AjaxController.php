@@ -44,7 +44,7 @@ class AjaxController extends Controller
     public function ajaxpostbatchlist(Request $request){
         if($request->ajax()){
             $id = $request->post('batch_id');
-            $serialdata = DB::select("SELECT *, t1.id as serial_id FROM `serial_no_batches` as t1 Left JOIN product_batch_masters as t2 ON t2.id = t1.product_batch_id WHERE t1.batch_id = $id LIMIT 0,500");
+            $serialdata = DB::select("SELECT *, t1.id as serial_id FROM `serial_no_batches` as t1 Left JOIN product_batch_masters as t2 ON t2.id = t1.product_batch_id WHERE t1.batch_id = $id and t1.officer_status != 1 LIMIT 500");
             $data = [
                 "response code"=> "200 OK",
                 "status"=> "sucess",
@@ -290,6 +290,24 @@ class AjaxController extends Controller
     public function getvendoridbymateriallist(Request $request){
         if($request->post('vendor_id')){
             $user_id = $request->post('vendor_id');
+        }
+    }
+
+    public function ajaxgetBatchIDbylist(Request $request){
+        if($request->ajax()){
+            $id = $request->post('batch_id');
+            $batchbydata = ProductBatchMaster::where('batch_id', $id)->get();
+            return $batchbydata;
+        }
+    }
+
+    public function ajaxgetIdBySiteName(Request $request){
+        if($request->ajax()){
+            $id = $request->post('vendor_id');
+
+            dd($id);
+            $batchbydata = ProductBatchMaster::where('batch_id', $id)->get();
+            return $batchbydata;
         }
     }
 

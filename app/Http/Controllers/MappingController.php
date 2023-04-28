@@ -15,6 +15,7 @@ use function Symfony\Component\VarDumper\Dumper\esc;
 
 class MappingController extends Controller
 {
+
     public function vendorSiteMapping(Request $request){
 
         if(session::get('user_type') == null){
@@ -45,13 +46,11 @@ class MappingController extends Controller
         return SiteMaster::get(['id','name']);
     }
 
+    /**UpdateBy: Aashish Date:26-04-2023 Function postVendorSite */
     public function postVendorSite(Request $request){
-
         if($request->post('submit') == "vendor-site"){
 
-            dd($request->post('end_date'));
-
-
+            dd($request->post());
             $request->validate([
                 'vendor_name' => 'required',
                 'site_id' => 'required',
@@ -59,37 +58,59 @@ class MappingController extends Controller
                 'end_date' => 'required',
                 'priority' => 'required',
             ]);
-
-            error_reporting(0);
-
-            $mappingVendorSite = MappingVendorSite::get();
-            for ($i=0; $i < count($mappingVendorSite); $i++) {
-
-                if($request->post('vendor_name') === $this->getIdBymappingId($i)){
-                    echo "tested";
-                    dd("EXIT");
-                }else{
-
-                }
+            $mapping_ven_site = MappingVendorSite::where('vendor_name','LIKE','%'.$request->post('vendor_name').'%')->first();
+            //error_reporting(0);
+            if($mapping_ven_site){
+                $mapping_ven_site_id = $mapping_ven_site->id;
+            }else{
+                $mapping_ven_site_id = null;
             }
-            dd("fasdg");
-
-            dd($mappingVendorSite[0]->vendor_name);
-
-            dd($request->post());
-
-            $mappingVendorSite = new MappingVendorSite;
-            $mappingVendorSite->vendor_name = $request->vendor_name;
-            $mappingVendorSite->site_id = implode(',', $request->site_id);
-            $mappingVendorSite->date = $request->date;
-            $mappingVendorSite->priority = $request->priority;
-            $mappingVendorSite->save();
-
-            return redirect()->intended('vendor-site')->withSuccess('Vendor and Site has been Mapped successfully.');
-
+            if($mapping_ven_site_id){
+                //$mappingVendorSite = new MappingVendorSite;
+                $mappingVendorSite = MappingVendorSite::find($mapping_ven_site_id);
+                if($request->vendor_name){
+                    $mappingVendorSite->vendor_name = $request->vendor_name;
+                }
+                if($request->site_id){
+                    $site_id = implode(',', $request->site_id);
+                    $mappingVendorSite->site_id = $site_id;
+                }
+                if($request->date){
+                    $mappingVendorSite->date = $request->date;
+                }
+                if($request->end_date){
+                    $mappingVendorSite->end_date = $request->end_date;
+                }
+                if($request->priority){
+                    $mappingVendorSite->priority = $request->priority;
+                }
+                $mappingVendorSite->save();
+                return redirect()->intended('vendor-site')->withSuccess('Vendor and Site has been Mapped successfully.');
+            }else{
+                $mappingVendorSite = new MappingVendorSite;
+                if($request->vendor_name){
+                    $mappingVendorSite->vendor_name = $request->vendor_name;
+                }
+                if($request->site_id){
+                    $site_id = implode(',', $request->site_id);
+                    $mappingVendorSite->site_id = $site_id;
+                }
+                if($request->date){
+                    $mappingVendorSite->date = $request->date;
+                }
+                if($request->end_date){
+                    $mappingVendorSite->end_date = $request->end_date;
+                }
+                if($request->priority){
+                    $mappingVendorSite->priority = $request->priority;
+                }
+                $mappingVendorSite->save();
+                return redirect()->intended('vendor-site')->withSuccess('Vendor and Site has been Mapped successfully.');
+            }
         }
-
     }
+
+
 
     public function getUser(){
         Return User::where('user_type',3)->get(['id','name']);
@@ -120,8 +141,13 @@ class MappingController extends Controller
     }
 
     public function issueVendor(Request $request){
+        if(session::get('user_type') == null){
+            return redirect("login")->withSuccess('Oppes! You have entered invalid credentials');
+        }
         $vendors = User::where('user_type', '3')->get(['id','name']);
         $batchs = BatchMaster::get(['id','name']);
+        $site = SiteMaster::get();
+        //dd($site);
         $items = ProductBatchMaster::get(['id','item_title','qty']);
         $items_list = ProductBatchMaster::take(6)->get(['id','item_title','qty','item','batch_id','site_id']);
 
@@ -132,5 +158,42 @@ class MappingController extends Controller
     Date: 24-april-2023 Issue Material To Vendor */
     public function issueMaterialVendor(Request $request){
         dd($request->post());
+        return redirect("dashboard")->withSuccess('Mail sent successfully to Admin');
+    }
+
+    public function invMgmtSta(Request $request){
+        return view('product.inv_mgmt_sta');
+    }
+
+    public function siteAllocWrkSta(Request $request){
+        return view('product.site_alloc_wrk_sta');
+    }
+
+    public function siteAllEng(Request $request){
+        return view('engineer.site-list');
+    }
+
+    public function siteComList(Request $request){
+        return view('engineer.site-complet-list');
+    }
+
+    public function siteRepLst(Request $request){
+        return view('engineer.site-reports-list');
+    }
+
+    public function siteActiveWrk(Request $request){
+        return view('engineer.site-active-work');
+    }
+
+    public function siteAppList(Request $request){
+        return view('engineer.site-approve-list');
+    }
+
+    public function appSiteComWork(Request $request){
+        return view('engineer.approve-site-complete-work');
     }
 }
+
+
+
+
