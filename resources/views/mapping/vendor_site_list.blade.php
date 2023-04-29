@@ -65,6 +65,20 @@ button {
 
 
 
+.item-list-batch {
+        margin: 10px 00px 00px 12px;
+    }
+    .card-title{
+        /*background: rgb(119, 185, 216);*/
+    align-content: center;
+    margin: 15px 1px 1px 143px;
+    }
+
+    .ajaxitemheader{
+        text-align: justify;
+        font-size: 18px;
+    }
+
 
 </style>
     <div class="content-wrapper">
@@ -72,6 +86,7 @@ button {
         @if (session('success'))
             <div id="hideDivAlert">
                 <div class="alert alert-success mt-4 d-flex align-items-center hideDivAlert">
+
                     <div class="row"><i class="menu-icon mdi mdi-login-variant"></i> &nbsp;
                         <p>
                             {{ session('success') }}

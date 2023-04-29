@@ -1,8 +1,25 @@
 @extends('layouts.app')
 @section('content')
+<style>
+    .item-list-batch {
+        margin: 10px 00px 00px 12px;
+    }
+    .card-title{
+        /*background: rgb(119, 185, 216);*/
+    align-content: center;
+    margin: 15px 1px 1px 143px;
+    }
+
+    .ajaxitemheader{
+        text-align: justify;
+        font-size: 18px;
+    }
+</style>
 <div class="content-wrapper">
     @if (session('success'))
         <div id="hideDivAlert">
+
+
             <div class="alert alert-success mt-4 d-flex align-items-center hideDivAlert">
                 {{-- <i class="typcn typcn-warning"></i> --}}
                 <p>
@@ -27,7 +44,7 @@
                     <label class="col-sm-3 col-form-label">Vendor Name</label>
                     <div class="col-sm-9">
                         <select class="form-control" value="{{ old('vendor_name') }}" name="vendor_name">
-                            <option value="">---Select Staff---</option>
+                            <option value="">---Select Vendor---</option>
                             @foreach ($vendors as $res)
                             <option value="{{ $res->id }}" <?php if(old('vendor_name') == 1){ echo 'selected'; } ?>>{{ $res->name }}</option>
                             @endforeach
@@ -39,10 +56,10 @@
                     <div class="col-md-6">
 
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Site ID</label>
+                            <label class="col-sm-3 col-form-label">Site ID <i style="color: red; font-size: 20px">*</i></label>
                             <div class="col-sm-9">
                                 <select class="form-control js-example-basic-multiple" value="{{ old('site_id') }}" name="site_id[]" multiple="multiple">
-                                    <option value="">---Select Staff---</option>
+                                    <option value="">---Select Site---</option>
                                     @foreach ($siteData as $res)
                                     <option value="{{$res->id}}" <?php if(old('site_id') == 1){ echo 'selected'; } ?>>{{$res->name}}</option>
                                     @endforeach

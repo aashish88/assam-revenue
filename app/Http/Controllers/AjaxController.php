@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\MappingVendorSite;
 use Illuminate\Http\Request;
 use App\Models\ProductBatchMaster;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use App\Models\SerialNoBatch;
+use App\Models\SiteMaster;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
@@ -115,6 +118,8 @@ class AjaxController extends Controller
             ];
             view()->share('datanew', $datanew);
             $pdf = PDF::loadView("resume", $datanew);
+
+            //return $pdf->loadView()
             $data["email"] = $email;
             $data["title"] = "From Aashishkumar8893@gmail.com";
             $data["body"] = "This is Demo";
@@ -304,10 +309,40 @@ class AjaxController extends Controller
     public function ajaxgetIdBySiteName(Request $request){
         if($request->ajax()){
             $id = $request->post('vendor_id');
+            $mapvensite = MappingVendorSite::where('vendor_name', $id)->get(['site_id']);
+            $mapvensiteid = str_replace('"','',$mapvensite[0]->site_id);
+            $sitedata = SiteMaster::whereIn('id', explode(",", $mapvensiteid))->get(['id','name']);
 
-            dd($id);
-            $batchbydata = ProductBatchMaster::where('batch_id', $id)->get();
-            return $batchbydata;
+            $data = [
+                "sitedata"=> $sitedata,
+            ];
+            return response()->json($data);
+        }
+    }
+
+    public function ajaxGetSiteIdbyItem(Request $request){
+        if($request->ajax()){
+            $id = $request->post('site_id');
+            //$sitedata = ProductBatchMaster::where('site_id', $id)->get(['id','item_title','batch_id','qty']);
+            $sitedata = ProductBatchMaster::get(['id','item_title','batch_id','qty']);
+
+            $data = [
+                "sitedata"=> $sitedata,
+            ];
+            return response()->json($data);
+        }
+    }
+
+    public function ajaxGetItemIdBySerial(Request $request){
+        if($request->ajax()){
+            $id = $request->post('item_id');
+
+            $serialdata = SerialNoBatch::where('product_batch_id', $id)->get(['id','box_no','quantity','serial_no','product_batch_id']);
+
+            $data = [
+                "serialdata"=> $serialdata,
+            ];
+            return response()->json($data);
         }
     }
 

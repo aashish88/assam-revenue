@@ -10,6 +10,7 @@ use App\Models\User;
 use PhpParser\Node\Stmt\Return_;
 use App\Models\MappingVendorSite;
 use App\Models\ProductBatchMaster;
+use Illuminate\Support\Facades\DB;
 
 use function Symfony\Component\VarDumper\Dumper\esc;
 
@@ -50,7 +51,6 @@ class MappingController extends Controller
     public function postVendorSite(Request $request){
         if($request->post('submit') == "vendor-site"){
 
-            dd($request->post());
             $request->validate([
                 'vendor_name' => 'required',
                 'site_id' => 'required',
@@ -157,7 +157,20 @@ class MappingController extends Controller
     /* CreateBy: Aashish Shah
     Date: 24-april-2023 Issue Material To Vendor */
     public function issueMaterialVendor(Request $request){
-        dd($request->post());
+        if($request->post()){
+            $user_id = $request->post('vendor_name');
+            $site_id = $request->post('site_name');
+            $batch_name = implode(",",$request->post('batch_name'));
+            $qty = implode(",",$request->post('qty'));
+
+            $res = DB::select("INSERT INTO `mapping_vendor_items` (`user_id`, `site_id`, `item_id`, `qty`, `status`) VALUES ($user_id, $site_id, '$batch_name', '$qty', '1')");
+
+
+            if($res){
+                return redirect("dashboard")->withSuccess('Mail sent successfully to Admin');
+            }
+
+        }
         return redirect("dashboard")->withSuccess('Mail sent successfully to Admin');
     }
 

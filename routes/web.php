@@ -93,6 +93,9 @@ Route::match(['get','post'], 'app_site_com_work', [MappingController::class, 'ap
 Route::match(['get','post'], 'ajaxgetBatchIDbylist', [AjaxController::class, 'ajaxgetBatchIDbylist'])->name('ajaxgetBatchIDbylist');
 
 Route::match(['get','post'], 'ajaxgetidbysite', [AjaxController::class, 'ajaxgetIdBySiteName'])->name('ajaxgetidbysite');
+Route::match(['get','post'], 'ajaxgetsiteidbyitem', [AjaxController::class, 'ajaxGetSiteIdbyItem'])->name('ajaxgetsiteidbyitem');
+Route::match(['get','post'], 'ajaxgetitemidbyserial', [AjaxController::class, 'ajaxGetItemIdBySerial'])->name('ajaxgetitemidbyserial');
 
 
 
+//
