@@ -15,14 +15,25 @@
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Site Create</h4>
+                        <h4 class="card-title">{{ __('Site Create') }}</h4>
+                        <p class="card-description">
+                            {{ __('Site Create') }}
+                        </p>
+
 
                         <form class="form-sample" action="{{ route('site.add') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <p class="card-description">
-                                Site Create
-                            </p>
+
                             <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Site ID</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="site_ID" value="{{ old('site_ID') }}" placeholder="Enter Site Name" />
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-6">
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Site Name</label>
@@ -31,57 +42,59 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                      <label class="col-sm-3 col-form-label">Item Name</label>
-                                      <div class="col-sm-9">
+                                        <label class="col-sm-3 col-form-label">Site Address</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="site_address" value="{{ old('site_address') }}" placeholder="Enter Site Name" />
+                                        </div>
+                                    </div>
+                                </div>
 
-                                        <select class="form-control" value="{{ old('item_id') }}" name="item_id">
-                                          <option value="">---Select Staff---</option>
-                                          <option value="2" <?php if(old('item_id') == 2){ echo 'selected'; } ?>>Officer Warehouse</option>
-                                          <option value="5" <?php if(old('item_id') == 5){ echo 'selected'; } ?>>Officer Site</option>
-                                          <option value="3" <?php if(old('item_id') == 3){ echo 'selected'; } ?>>Vendor</option>
-                                          <option value="4" <?php if(old('item_id') == 4){ echo 'selected'; } ?>>Engineer</option>
-                                        </select>
-                                      </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group row">
+                                      <label class="col-sm-3 col-form-label">Site Officer</label>
+                                      <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="site_officer" value="{{ old('site_officer') }}" placeholder="Enter Site Name" />
+                                        </div>
                                     </div>
                                   </div>
                                 </div>
+
+
+
+
+
+
                                 <div class="row">
-                                  <div class="col-md-6">
-                                    <div class="form-group row">
-                                      <label class="col-sm-3 col-form-label">Batch Name</label>
-                                      <div class="col-sm-9">
 
-                                        <select class="form-control" value="{{ old('batch_id') }}" name="batch_id">
-                                          <option value=""> ---Select Batch Name--- </option>
-                                          @foreach ($batchdata as $res)
-                                            <option value="{{$res->id}}" <?php if(old('batch_id') == "{{$res->id}}"){ echo 'selected'; } ?>>{{$res->name}}</option>
-                                          @endforeach
-                                        </select>
-                                      </div>
-                                    </div>
-                                  </div>
 
-                                  <div class="col-md-6">
-                                    <div class="form-group row">
-                                      <label class="col-sm-3 col-form-label">Start Date</label>
-                                      <div class="col-sm-9">
-                                        <input class="form-control" type="date" placeholder="dd/mm/yyyy" name="sdate" id="sdate">
-                                      </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label">{{ __(' Site Engineer') }}</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" name="site_engineer" value="{{ old('site_engineer') }}" placeholder="Enter Site Name" />
+                                            </div>
+                                        </div>
                                     </div>
-                                  </div>
+
+
+
+
 
                                   <div class="col-md-6">
                                     <div class="form-group row">
-                                      <label class="col-sm-3 col-form-label">End Date</label>
-                                      <div class="col-sm-9">
-                                        <input class="form-control" type="date" placeholder="dd/mm/yyyy" name="edate" id="edate">
-                                      </div>
+                                        <label class="col-sm-3 col-form-label">{{ __('Priority') }}</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="priority" value="{{ old('priority') }}" placeholder="Enter Site Name" />
+                                        </div>
                                     </div>
-                                  </div>
+                                </div>
 
-                                  <div class="col-md-6">
+                                <div class="col-md-6">
                                     <div class="form-group row">
                                       <label class="col-sm-3 col-form-label">Status</label>
                                       <div class="col-sm-9">
@@ -94,7 +107,6 @@
                                       </div>
                                     </div>
                                   </div>
-
 
                                 </div>
                                 <button type="submit" name="submit" value="site_add" class="btn btn-primary mr-2">Submit</button>

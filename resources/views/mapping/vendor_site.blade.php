@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<style>
+{{-- <style>
     .item-list-batch {
         margin: 10px 00px 00px 12px;
     }
@@ -14,12 +14,10 @@
         text-align: justify;
         font-size: 18px;
     }
-</style>
+</style> --}}
 <div class="content-wrapper">
     @if (session('success'))
         <div id="hideDivAlert">
-
-
             <div class="alert alert-success mt-4 d-flex align-items-center hideDivAlert">
                 {{-- <i class="typcn typcn-warning"></i> --}}
                 <p>

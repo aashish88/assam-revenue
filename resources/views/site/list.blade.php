@@ -88,11 +88,15 @@ button {
                             <table class="table table-striped">
                                 <tr>
                                     <th>#</th>
-                                    <th>Site Name</th>
-                                    <th>Item</th>
-                                    <th>Batch</th>
+                                    <th>{{ __('Site Name') }}</th>
+                                    <th>Site Address</th>
+                                    <th>Site Officer</th>
+                                    <th>{{ __('Site Engineer') }}</th>
+                                    <th>Work Start Date</th>
+                                    <th>Work End Date</th>
+                                    <th>Priority</th>
+                                    {{-- <th>Allocated Engineer</th> --}}
                                     <th>Status</th>
-                                    <th>Action</th>
                                 </tr>
                                 @php
                                     $i = 0;
@@ -102,14 +106,18 @@ button {
                                 $i++;
                             @endphp
                                 <tr>
-                                    <td>{{$i}}</td>
-                                    <td>{{$res->name}}</td>
-                                    <td>{{ __('Item-00') }}{{$res->item_id }}</td>
-                                    <td>{{$res->batch_id }}</td>
-                                    <td>Active</td>
-                                    <td style="font-size: 30px;">
+                                    <td>{{ $i }}</td>
+                                    <td>{{$res->site_id }}</td>
+                                    <td>{{ $res->dst_head_quert}}</td>
+                                    <td>{{$res->id }}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{$res->priority }}</td>
+                                    <td>{{ $res->status }}</td>
+
+                                    {{-- <td style="font-size: 30px;">
                                         <a href="{{ url('site-edit') }}/{{$res->id }}" style="color: hsl(207, 78%, 53%);"><i class="mdi mdi-tooltip-edit"></i></a> | <a href="{{ url('site-delete') }}/{{$res->id }}" style="color: #DC3545;"><i class="mdi mdi-delete-forever"></i></a>
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @endforeach
 

@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\BatchMaster;
 use Illuminate\Http\Request;
 use App\Models\SiteMaster;
+use Illuminate\Support\Facades\DB;
 
 class SiteController extends Controller
 {
     public function list(){
-        $sitedata = SiteMaster::get();
+        $sitedata = DB::Select('SELECT * FROM `site_district_data_master`');
         $sidebar_btn = ['UI Elements','Data List','Site Management'];
         $childSidebar = ['sl'=> "Site List", 'sa'=> "Site Create", 'se'=> "Site Edit"];
         return view('site.list', compact('sidebar_btn', 'childSidebar', 'sitedata')); //compact('sidebar_btn', 'childSidebar')
