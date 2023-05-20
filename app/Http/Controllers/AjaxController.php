@@ -96,6 +96,8 @@ class AjaxController extends Controller
     public function officerToAdminSend(Request $request){
         if($request->ajax()){
 
+            dd($request->post());
+
             if(Session::get('user_id')){
                 $user_id = Session::get('user_id');
             }

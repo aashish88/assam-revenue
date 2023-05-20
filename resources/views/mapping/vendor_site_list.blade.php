@@ -65,20 +65,6 @@ button {
 
 
 
-.item-list-batch {
-        margin: 10px 00px 00px 12px;
-    }
-    .card-title{
-        /*background: rgb(119, 185, 216);*/
-    align-content: center;
-    margin: 15px 1px 1px 143px;
-    }
-
-    .ajaxitemheader{
-        text-align: justify;
-        font-size: 18px;
-    }
-
 
 </style>
     <div class="content-wrapper">
@@ -86,7 +72,6 @@ button {
         @if (session('success'))
             <div id="hideDivAlert">
                 <div class="alert alert-success mt-4 d-flex align-items-center hideDivAlert">
-
                     <div class="row"><i class="menu-icon mdi mdi-login-variant"></i> &nbsp;
                         <p>
                             {{ session('success') }}
@@ -107,23 +92,43 @@ button {
                                 <tr>
                                     <th>#</th>
                                     <th>Vendor Name</th>
-                                    <th>Site ID</th>
-                                    <th>Site Name</th>
-                                    <th>Start Date</th>
+                                    {{-- <th>Site Name</th>
+                                    <th>Date</th>
                                     <th>End Date</th>
+                                    <th>Priority</th> --}}
+
+                                    <th>{{ __('Site Name') }}</th>
+                                    <th>Site Address</th>
+                                    <th>Site Officer</th>
+                                    <th>{{ __('Site Engineer') }}</th>
+                                    <th>Work Start Date</th>
+                                    <th>Work End Date</th>
                                     <th>Priority</th>
+                                    {{-- <th>Allocated Engineer</th> --}}
+                                    <th>Status</th>
                                 </tr>
+                                @php
+                                    $i = 0;
+                                @endphp
                             @foreach ($sitedata as $res)
+                            @php
+                                $i++;
+                            @endphp
                                 <tr>
-                                    <td>{{$res->id }}</td>
+                                    <td>{{$i }}</td>
                                     <td>{{$res->vendor_name }}</td>
                                     <td>{{$res->site_id }}</td>
-                                    <td>{{$res->name }}</td>
+                                    <td>{{$res->dst_head_quert }}</td>
                                     <td>{{$res->date }}
                                         {{-- <input type="date" value="{{$res->date }}"> --}}
-                                    </td>
-                                        <td>{{$res->end_date }} </td>
+                                        </td>
+
+                                        <td>{{$res->end_date }}</td>
                                     <td>{{$res->priority }}</td>
+
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{$res->status }}</td>
 
                                 </tr>
                             @endforeach

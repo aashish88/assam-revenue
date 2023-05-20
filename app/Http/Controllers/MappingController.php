@@ -51,6 +51,7 @@ class MappingController extends Controller
     public function postVendorSite(Request $request){
         if($request->post('submit') == "vendor-site"){
 
+
             $request->validate([
                 'vendor_name' => 'required',
                 'site_id' => 'required',
@@ -58,55 +59,32 @@ class MappingController extends Controller
                 'end_date' => 'required',
                 'priority' => 'required',
             ]);
-            $mapping_ven_site = MappingVendorSite::where('vendor_name','LIKE','%'.$request->post('vendor_name').'%')->first();
-            //error_reporting(0);
-            if($mapping_ven_site){
-                $mapping_ven_site_id = $mapping_ven_site->id;
-            }else{
-                $mapping_ven_site_id = null;
-            }
-            if($mapping_ven_site_id){
-                //$mappingVendorSite = new MappingVendorSite;
-                $mappingVendorSite = MappingVendorSite::find($mapping_ven_site_id);
-                if($request->vendor_name){
-                    $mappingVendorSite->vendor_name = $request->vendor_name;
-                }
-                if($request->site_id){
-                    $site_id = implode(',', $request->site_id);
-                    $mappingVendorSite->site_id = $site_id;
-                }
-                if($request->date){
-                    $mappingVendorSite->date = $request->date;
-                }
-                if($request->end_date){
-                    $mappingVendorSite->end_date = $request->end_date;
-                }
-                if($request->priority){
-                    $mappingVendorSite->priority = $request->priority;
-                }
-                $mappingVendorSite->save();
-                return redirect()->intended('vendor-site')->withSuccess('Vendor and Site has been Mapped successfully.');
-            }else{
+
+
+            for ($i=0; $i < count($request->site_id); $i++) {
                 $mappingVendorSite = new MappingVendorSite;
-                if($request->vendor_name){
-                    $mappingVendorSite->vendor_name = $request->vendor_name;
-                }
-                if($request->site_id){
-                    $site_id = implode(',', $request->site_id);
-                    $mappingVendorSite->site_id = $site_id;
-                }
-                if($request->date){
-                    $mappingVendorSite->date = $request->date;
-                }
-                if($request->end_date){
-                    $mappingVendorSite->end_date = $request->end_date;
-                }
-                if($request->priority){
-                    $mappingVendorSite->priority = $request->priority;
-                }
-                $mappingVendorSite->save();
-                return redirect()->intended('vendor-site')->withSuccess('Vendor and Site has been Mapped successfully.');
+            if($request->vendor_name){
+                $mappingVendorSite->vendor_name = $request->vendor_name;
             }
+            if($request->site_id){
+                $mappingVendorSite->site_id = $request->site_id[$i];
+            }
+            if($request->date){
+                $mappingVendorSite->date = $request->date;
+            }
+            if($request->end_date){
+                $mappingVendorSite->end_date = $request->end_date;
+            }
+            if($request->priority){
+                $mappingVendorSite->priority = $request->priority;
+            }
+            $mappingVendorSite->save();
+            }
+
+
+            return redirect()->intended('vendor-site')->withSuccess('Vendor and Site has been Mapped successfully.');
+
+
         }
     }
 
@@ -119,13 +97,17 @@ class MappingController extends Controller
     public function mappingVendorSite(Request $request){
         $sidebar_btn = ['UI Elements','Data List','Inventory'];
         $childSidebar = ['sl'=> "Site List", 'sa'=> "Site Create", 'se'=> "Site Edit"];
-        $sitedata = MappingVendorSite::get();
+        $sitedata = DB::table('mapping_vendor_sites as t1')
+            ->join('site_district_data_master as t2', 't2.id', '=', 't1.site_id')->get(['t1.vendor_name', 't2.site_id', 't2.dst_head_quert', 't2.priority', 't2.status']);
+
         $paggination = count($sitedata);
+        error_reporting(0);
         $name = array();
-        //error_reporting(0);
+
         for ($i=0; $i < $paggination; $i++) {
+           $sitedata[$i]->vendor_name = $this->getIdByUserName($sitedata[$i]->vendor_name);
            // array_push($name, $this->getIdByUserName($sitedata[$i]->id));
-            $sitedata[$i]['vendor_name'] = $this->getIdByUserName($sitedata[$i]['vendor_name']);
+            //$sitedata[$i]['vendor_name'] =   $id; // $this->getIdByUserName($sitedata[$i]['vendor_name']);
         }
         return view('mapping.vendor_site_list',compact('sidebar_btn','childSidebar','sitedata','paggination'));
     }
