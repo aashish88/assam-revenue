@@ -98,4 +98,6 @@ Route::match(['get','post'], 'ajaxgetitemidbyserial', [AjaxController::class, 'a
 
 
 
-//
+Route::get("testui", function(){
+    return  "testing";
+});

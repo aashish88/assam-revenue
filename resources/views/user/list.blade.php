@@ -15,9 +15,9 @@
               <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Staff</th>
+                {{-- <th>Staff</th>
                 <th>Id Number</th>
-                <th>Role</th>
+                <th>Role</th> --}}
                 <th>Email</th>
                 <th>Contact No.</th>
                 <th>Status</th>
@@ -28,37 +28,20 @@
 
                 @php $i = 0; @endphp
                 @foreach ($userData as $res)    @php $i++; @endphp
+
+
+
                 <tr>
                     <td>{{$i}}</td>
                     <td>{{ $res->name }}</td>
-                    <td>
-                        @if ($res->user_type == 1)
-                        Admin
-                        @elseif($res->user_type == 2)
-                        Officer Center
-                        @elseif($res->user_type == 3)
-                        Vendor
-                        @elseif($res->user_type == 4)
-                        Engineer
-                        @elseif($res->user_type == 5)
-                        Officer Site
-                        @endif
+                    {{-- <td>
+                      <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
                     </td>
                     <td>$ 77.99</td>
-                    <td>
-                        @if ($res->user_type == 1)
-                        Admin
-                        @elseif($res->user_type == 2)
-                        Officer Center
-                        @elseif($res->user_type == 3)
-                        Vendor
-                        @elseif($res->user_type == 4)
-                        Engineer
-                        @elseif($res->user_type == 5)
-                        Officer Site
-                        @endif
-                    </td>
-                    <td>{{$res->email}}</td>
+                    <td>May 15, 2015</td> --}}
+                    <td>  {{ $res->email}}</td>
                     <td>{{ $res->contect_no}}</td>
                     <td>Active</td>
                     <td><i class="mdi mdi-rename-box"></i> | <i class="mdi mdi-delete"></i>

@@ -187,10 +187,26 @@ class AjaxController extends Controller
                 'item_header' => $request->post('item_header'),
             ]);
             $itemheader = Session::get('item_header');
+            $siteId = $request->post('site_id');
             $site_id = $request->post('site_id');
             $batch_id = $request->post('batch_id');
-            $qty = $request->post('qty');
-            $serialData = SerialNoBatch::where('batch_id',$batch_id)->where('site_id',$site_id)->get();
+            $serialData = SerialNoBatch::
+            //join('product_batch_masters as t1', 't1.site_id', '=', 'serial_no_batches.product_batch_id')
+            where('product_batch_id',$site_id)
+            ->where('serial_no_batches.batch_id',$batch_id)->get();
+            //->get(['t1.item','t1.item_title','serial_no_batches.serial_no','serial_no_batches.id'])->toSql();
+            //dd($serialData);
+            //SELECT * FROM `serial_no_batches` WHERE id = 1
+            // "qty" => "212"
+            //   "batch_id" => "1"
+            //   "site_id" => "1"
+            //   "item_header" => "SDWAN Branch device"
+
+            // $site_id = $request->post('site_id');
+            // $batch_id = $request->post('batch_id');
+             $qty = $request->post('qty');
+             //dd($qty);
+            // $serialData = SerialNoBatch::where('batch_id',$batch_id)->where('site_id',$site_id)->get();
             $data = [
                 "result"=> $serialData,
                 "item_header"=> $itemheader,

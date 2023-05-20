@@ -65,7 +65,7 @@ class BatchController extends Controller
                 if($serialNo == null){
                     $serialNo = "";
                 }
-                SerialNoBatch::where('id', $id)->where('site_id', $siteID)->update(
+                SerialNoBatch::where('id', $id)->update(
                     [
                     'serial_no' => $serialNo
                     ]
