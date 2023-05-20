@@ -185,7 +185,7 @@
               </div>
           </nav>
           <!-- partial -->
-            <nav class="navbar-breadcrumb col-xl-12 col-12 d-flex flex-row p-0">
+            {{-- <nav class="navbar-breadcrumb col-xl-12 col-12 d-flex flex-row p-0">
                 <div class="navbar-links-wrapper d-flex align-items-stretch">
                     <div class="nav-link">
                         <a href="javascript:;"><i class="typcn typcn-calendar-outline"></i></a>
@@ -238,7 +238,7 @@
                         </li>
                     </ul>
                 </div>
-            </nav>
+            </nav> --}}
 
           <div class="container-fluid page-body-wrapper">
 
