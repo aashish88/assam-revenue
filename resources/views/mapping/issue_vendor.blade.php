@@ -87,7 +87,7 @@
                                         <div class="form-group row">
                                             <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Serial</label>
                                             <div class="col-sm-9">
-                                                <select id="SerialNameASK" class="form-control SerialNameASK" value="{{ old('batch_name') }}" name="site_name">
+                                                <select class="form-control SerialNameASK" value="{{ old('batch_name') }}" name="site_name">
                                                     <option value="0">---Select Serial No---</option>
                                                 </select>
                                             </div>
@@ -157,7 +157,7 @@
                                 $("#itemName2").append('<option value="0">---Select Item---</option>');
                                 var sitedata = data.sitedata;
                                 for (let i = 0; i < sitedata.length; i++) {
-                                    $("#itemName2").append('<option onclick="getfunction3()" value='+sitedata[i].id+' name="batch_name[]" class="dropdown-item">'+sitedata[i].item_title+'</option>');
+                                    $("#itemName2").append('<option onclick="getfunction3()" value='+sitedata[i].id+' getvaldata='+sitedata[i].id+' name="batch_name[]" class="dropdown-item">'+sitedata[i].item_title+'</option>');
                                 }
                             }
                         });
@@ -183,11 +183,17 @@
                                     }else{
                                         var serial_data = serialdata[i].serial_no;
                                     }
-                                    $("#dynamic-field-1 .SerialNameASK").append('<option onclick="getfunction3()" value='+serialdata[i].id+' name="batch_name[]" class="dropdown-item">'+serial_data+'</option>');
+                                    $("#dynamic-field-1 .SerialNameASK").append('<option onclick="getfunction3()" value='+serialdata[i].id+' name="batch_name[]" class="dropdown-item datacheck_1">'+serial_data+'</option>');
                                 }
                             }
                         });
                     });
+
+
+                    var siteValData = $('.getvaldata');
+                    siteValData.on('change', function(){
+                        alert("hi");
+                    })
                 });
 
             /*Append Input Field CreateBY: Aashish Shah
@@ -204,13 +210,16 @@
             }
 
             function addNewField() {
-                alert(('.ask_dynamic_field').length);
+                //alert(('.ask_dynamic_field').length);
                 count = totalFields() + 1;
+                alert(totalFields());
                 field = $("#dynamic-field-1").clone();
                 field.attr("id", "dynamic-field-" + count);
                 field.children("label").text("Field " + count);
                 field.find("input").val("");
                 $(className + ":last").after($(field));
+
+                $('.SerialNameASK .datacheck_1').html('<option class="datacheck_'+count+'" class="dropdown-item">Testing</option>');
             }
 
             function removeLastField() {
