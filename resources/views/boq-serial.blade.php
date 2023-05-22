@@ -27,9 +27,11 @@ tr:nth-child(even) {
 <body>
     <table>
         <thead>
+
             <tr>
                 <th>#</th>
-                <th>Batch Id</th>
+                <th>Batch Name</th>
+                <th>Item Name</th>
                 <th>Box NO</th>
                 <th>Quantity</th>
                 <th>Serial No</th>
@@ -41,11 +43,13 @@ tr:nth-child(even) {
 
                 <tr>
                     <td>{{$res->id}}</td>
-                    <td>{{$res->batch_id}}</td>
+                    <td>{{$res->newbatchName}}</td>
+                    <th>{{$res->newItemName}}</th>
                     <td>{{$res->box_no}}</td>
                     <td>{{ $res->quantity }}</td>
                     <td>{{$res->serial_no}}</td>
                 </tr>
+
             @endforeach
 
         </tbody>

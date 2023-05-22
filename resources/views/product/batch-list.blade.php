@@ -197,7 +197,7 @@
         });
 
         $('body').on('click','#getInputll',function(){
-            alert('158');
+            console.log('Admin Send Pdf batch Store Officer');
             var batch_id = $(this).attr('batch_id');
             // var serial_no = $('.serialNo').val();
             // alert(serial_no);

@@ -11,6 +11,8 @@ use PhpParser\Node\Stmt\Return_;
 use App\Models\MappingVendorSite;
 use App\Models\ProductBatchMaster;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use function Symfony\Component\VarDumper\Dumper\esc;
 
@@ -47,10 +49,11 @@ class MappingController extends Controller
         return SiteMaster::get(['id','name']);
     }
 
-    /**UpdateBy: Aashish Date:26-04-2023 Function postVendorSite */
+    /**UpdateBy: Aashish Date:26-04-2023 Function postVendorSite
+     * UpdateBY : Aashish Date: 22-05-2023
+    */
     public function postVendorSite(Request $request){
         if($request->post('submit') == "vendor-site"){
-
 
             $request->validate([
                 'vendor_name' => 'required',
@@ -60,6 +63,19 @@ class MappingController extends Controller
                 'priority' => 'required',
             ]);
 
+            $batchbydata = $request->vendor_name;
+            $email = $this->getIdByUserEmail($batchbydata);
+
+            $siteName = implode(',', $request->site_id);
+            $siteData = DB::select("SELECT t1.name FROM `site_masters` as t1 WHERE id In ($siteName)");
+            $data2 = view('vendorpdf',compact('siteData'))->render();
+            view()->share('siteData', $siteData);
+            $pdf = PDF::loadView("vendorpdf", array($siteData));
+            Mail::send('vendorpdf', array($siteData), function($message)use($siteData, $pdf, $email) {
+                $message->to($email, $email)
+                        ->subject("Site Assign by Parity Admin")
+                        ->attachData($pdf->output(), "assignSite.pdf");
+            });
 
             for ($i=0; $i < count($request->site_id); $i++) {
                 $mappingVendorSite = new MappingVendorSite;
@@ -80,10 +96,7 @@ class MappingController extends Controller
             }
             $mappingVendorSite->save();
             }
-
-
             return redirect()->intended('vendor-site')->withSuccess('Vendor and Site has been Mapped successfully.');
-
 
         }
     }
@@ -115,6 +128,11 @@ class MappingController extends Controller
     public function getIdByUserName($id){
         $name = User::where('id',$id)->get(['name']);
         return $name[0]->name;
+    }
+
+    public function getIdByUserEmail($id){
+        $name = User::where('id',$id)->get(['email']);
+        return $name[0]->email;
     }
 
     public function getIdBymappingId($id){
