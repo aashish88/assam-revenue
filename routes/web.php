@@ -79,7 +79,11 @@ Route::match(['get','post'], 'inv_mgmt_sta', [MappingController::class, 'invMgmt
 Route::match(['get','post'], 'site_alloc_wrk_sta', [MappingController::class, 'siteAllocWrkSta'])->name('site_alloc_wrk_sta');
 
 
-/*engineer Site Allocation to Engineer Controller MappingController*/
+/*engineer Site Allocation to Engineer Controller MappingController
+1->List of Sites allocated to Engineer
+2->Update site activity work items,
+3->Upload Test reports/images of site,
+4->Request for Site completion approval*/
 Route::match(['get','post'], 'site_all_eng', [MappingController::class, 'siteAllEng'])->name('site_all_eng');
 Route::match(['get','post'], 'site_com_list', [MappingController::class, 'siteComList'])->name('site_com_list');
 Route::match(['get','post'], 'site_rep_lst', [MappingController::class, 'siteRepLst'])->name('site_rep_lst');

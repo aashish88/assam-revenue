@@ -13,6 +13,7 @@ use App\Models\ProductBatchMaster;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\MappingVendorSiteEngineer;
 
 use function Symfony\Component\VarDumper\Dumper\esc;
 
@@ -175,27 +176,93 @@ class MappingController extends Controller
     }
 
     public function invMgmtSta(Request $request){
-        return view('product.inv_mgmt_sta');
+        if(session::get('user_id')){
+            $sitedata = DB::select("SELECT * FROM `site_district_data_master`");
+             return view('product.inv_mgmt_sta',compact('sitedata'));
+        }
+        return redirect('login');
+
     }
 
     public function siteAllocWrkSta(Request $request){
-        return view('product.site_alloc_wrk_sta');
+        if(session::get('user_id')){
+            $sitedata = DB::select("SELECT * FROM `site_district_data_master`");
+            return view('product.site_alloc_wrk_sta',compact('sitedata'));
+        }
+        return redirect('login');
     }
 
     public function siteAllEng(Request $request){
-        return view('engineer.site-list');
+        if(session::get('user_id')){
+            $siteData = MappingVendorSiteEngineer::get();
+            for ($i=0; $i < count($siteData); $i++) {
+                $siteData[$i]->vendor_id = $this->getIdByUserName($siteData[$i]->vendor_id);
+                $siteData[$i]->engineer_id = $this->getIdByUserName($siteData[$i]->engineer_id);
+                $siteData[$i]->site_id = explode(",", $siteData[$i]->site_id);
+            }
+            for ($i=0; $i < count($siteData); $i++) {
+                $user = $siteData[$i]['site_id'];
+                for ($j=0; $j < count($siteData[$i]->site_id); $j++) {
+                    $user[$j] = $this->getSiteByName($user[$j]);
+                }
+                $siteData[$i]['site_id'] = $user;
+                $siteData[$i]['site_id'] = implode(", ", $siteData[$i]['site_id']);
+            }
+            return view('engineer.site-list',compact('siteData'));
+        }
+        return redirect('login');
     }
 
     public function siteComList(Request $request){
-        return view('engineer.site-complet-list');
+        $siteData  = MappingVendorSiteEngineer::where('status', 3)->get();
+        for ($i=0; $i < count($siteData); $i++) {
+            $siteData[$i]->vendor_id = $this->getIdByUserName($siteData[$i]->vendor_id);
+            $siteData[$i]->engineer_id = $this->getIdByUserName($siteData[$i]->engineer_id);
+            $siteData[$i]->site_id = explode(",", $siteData[$i]->site_id);
+
+            $user = $siteData[$i]['site_id'];
+            for ($j=0; $j < count($siteData[$i]->site_id); $j++) {
+                $user[$j] = $this->getSiteByName($user[$j]);
+            }
+            $siteData[$i]['site_id'] = $user;
+            $siteData[$i]['site_id'] = implode(", ", $siteData[$i]['site_id']);
+        }
+        return view('engineer.site-complet-list', compact('siteData'));
     }
 
     public function siteRepLst(Request $request){
-        return view('engineer.site-reports-list');
+        $siteData  = MappingVendorSiteEngineer::where('status', 1)->get();
+        for ($i=0; $i < count($siteData); $i++) {
+            $siteData[$i]->vendor_id = $this->getIdByUserName($siteData[$i]->vendor_id);
+            $siteData[$i]->engineer_id = $this->getIdByUserName($siteData[$i]->engineer_id);
+            $siteData[$i]->site_id = explode(",", $siteData[$i]->site_id);
+
+            $user = $siteData[$i]['site_id'];
+            for ($j=0; $j < count($siteData[$i]->site_id); $j++) {
+                $user[$j] = $this->getSiteByName($user[$j]);
+            }
+            $siteData[$i]['site_id'] = $user;
+            $siteData[$i]['site_id'] = implode(", ", $siteData[$i]['site_id']);
+        }
+        return view('engineer.site-reports-list', compact('siteData'));
     }
 
     public function siteActiveWrk(Request $request){
-        return view('engineer.site-active-work');
+        $siteData  = MappingVendorSiteEngineer::where('status', 1)->get();
+        for ($i=0; $i < count($siteData); $i++) {
+            $siteData[$i]->vendor_id = $this->getIdByUserName($siteData[$i]->vendor_id);
+            $siteData[$i]->engineer_id = $this->getIdByUserName($siteData[$i]->engineer_id);
+            $siteData[$i]->site_id = explode(",", $siteData[$i]->site_id);
+
+            $user = $siteData[$i]['site_id'];
+            for ($j=0; $j < count($siteData[$i]->site_id); $j++) {
+                $user[$j] = $this->getSiteByName($user[$j]);
+            }
+            $siteData[$i]['site_id'] = $user;
+            $siteData[$i]['site_id'] = implode(", ", $siteData[$i]['site_id']);
+        }
+
+        return view('engineer.site-active-work', compact('siteData') );
     }
 
     public function siteAppList(Request $request){
@@ -204,6 +271,12 @@ class MappingController extends Controller
 
     public function appSiteComWork(Request $request){
         return view('engineer.approve-site-complete-work');
+    }
+
+    public function getSiteByName($id){
+
+        return (SiteMaster::where('id', $id)->get(['name']))[0]->name;
+
     }
 }
 
