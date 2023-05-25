@@ -88,9 +88,10 @@ Route::match(['get','post'], 'site_all_eng', [MappingController::class, 'siteAll
 Route::match(['get','post'], 'site_com_list', [MappingController::class, 'siteComList'])->name('site_com_list');
 Route::match(['get','post'], 'site_rep_lst', [MappingController::class, 'siteRepLst'])->name('site_rep_lst');
 Route::match(['get','post'], 'site_active_wrk', [MappingController::class, 'siteActiveWrk'])->name('site_active_wrk');
-
 Route::match(['get','post'], 'site_app_list', [MappingController::class, 'siteAppList'])->name('site_app_list');
 Route::match(['get','post'], 'app_site_com_work', [MappingController::class, 'appSiteComWork'])->name('app_site_com_work');
+
+Route::match(['get','post'], 'upload_rep_test', [MappingController::class, 'uploadRepTest'])->name('upload_rep_test');
 
 
 

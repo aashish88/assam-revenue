@@ -278,6 +278,10 @@ class MappingController extends Controller
         return (SiteMaster::where('id', $id)->get(['name']))[0]->name;
 
     }
+
+    public function uploadRepTest(Request $request){
+        return view('engineer.upload-site-test');
+    }
 }
 
 
