@@ -5,6 +5,24 @@
     .ask_td {
         white-space: inherit;
     }
+
+    .item-list-batch {
+        margin: 10px 00px 00px 12px;
+    }
+    .icons-list > div i {
+    display: inline-block;
+    font-size: 20px;
+    width: 40px;
+    text-align: left;
+    color: #844fc1;
+}
+
+    [type='checkbox'] {
+        position: absolute;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
 </style>
 
 <div class="content-wrapper">
@@ -61,6 +79,7 @@
                                     <th>Work End Date</th>
                                     <th>Priority</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             @php
@@ -89,7 +108,10 @@
                                             @if($res->status == 1) Active @else Deactive
                                             @endif
                                         </td>
-                                    </tr>
+                                            <td style="font-size: 30px;">
+                                            <a href="{{__('edit-site-officer')}}/{{ $res->id }}" style="color: hsl(207, 78%, 53%);"><i class="mdi mdi-tooltip-edit"></i></a> </a>
+                                            </td>
+                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>

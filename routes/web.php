@@ -9,6 +9,7 @@ use App\Http\Controllers\ParityCronController;
 use App\Http\Controllers\MappingController;
 use App\Http\Controllers\UserController;
 use  App\Http\Controllers\SiteController;
+use App\Http\Controllers\EngineerController;
 
 Route::redirect('assam-revenue-product', 'login', 301);
 
@@ -86,8 +87,8 @@ Route::match(['get','post'], 'site_alloc_wrk_sta', [MappingController::class, 's
 4->Request for Site completion approval*/
 Route::match(['get','post'], 'site_all_eng', [MappingController::class, 'siteAllEng'])->name('site_all_eng');
 Route::match(['get','post'], 'site_com_list', [MappingController::class, 'siteComList'])->name('site_com_list');
-Route::match(['get','post'], 'site_rep_lst', [MappingController::class, 'siteRepLst'])->name('site_rep_lst');
-Route::match(['get','post'], 'site_active_wrk', [MappingController::class, 'siteActiveWrk'])->name('site_active_wrk');
+
+
 Route::match(['get','post'], 'site_app_list', [MappingController::class, 'siteAppList'])->name('site_app_list');
 Route::match(['get','post'], 'app_site_com_work', [MappingController::class, 'appSiteComWork'])->name('app_site_com_work');
 
@@ -106,3 +107,10 @@ Route::match(['get','post'], 'ajaxgetitemidbyserial', [AjaxController::class, 'a
 Route::get("testui", function(){
     return  "testing";
 });
+
+Route::match(['get','post'], 'site_active_wrk', [EngineerController::class, 'siteActiveWrk'])->name('site_active_wrk');
+Route::match(['get','post'], 'update-site-officer', [EngineerController::class, 'updateSiteOfficer'])->name('update_site_officer');
+Route::match(['get','post'], 'edit-site-officer/{id}', [EngineerController::class, 'editSiteOfficer'])->name('edit_site_officer/{id}');
+Route::match(['get','post'], 'site_rep_lst', [EngineerController::class, 'siteRepLst'])->name('site_rep_lst');
+Route::match(['get','post'], 'update-site-officer-allocated', [EngineerController::class, 'updateSiteOfficerAllocated'])->name('update_site_officer_allocated');
+//

@@ -230,40 +230,9 @@ class MappingController extends Controller
         return view('engineer.site-complet-list', compact('siteData'));
     }
 
-    public function siteRepLst(Request $request){
-        $siteData  = MappingVendorSiteEngineer::where('status', 1)->get();
-        for ($i=0; $i < count($siteData); $i++) {
-            $siteData[$i]->vendor_id = $this->getIdByUserName($siteData[$i]->vendor_id);
-            $siteData[$i]->engineer_id = $this->getIdByUserName($siteData[$i]->engineer_id);
-            $siteData[$i]->site_id = explode(",", $siteData[$i]->site_id);
 
-            $user = $siteData[$i]['site_id'];
-            for ($j=0; $j < count($siteData[$i]->site_id); $j++) {
-                $user[$j] = $this->getSiteByName($user[$j]);
-            }
-            $siteData[$i]['site_id'] = $user;
-            $siteData[$i]['site_id'] = implode(", ", $siteData[$i]['site_id']);
-        }
-        return view('engineer.site-reports-list', compact('siteData'));
-    }
 
-    public function siteActiveWrk(Request $request){
-        $siteData  = MappingVendorSiteEngineer::where('status', 1)->get();
-        for ($i=0; $i < count($siteData); $i++) {
-            $siteData[$i]->vendor_id = $this->getIdByUserName($siteData[$i]->vendor_id);
-            $siteData[$i]->engineer_id = $this->getIdByUserName($siteData[$i]->engineer_id);
-            $siteData[$i]->site_id = explode(",", $siteData[$i]->site_id);
 
-            $user = $siteData[$i]['site_id'];
-            for ($j=0; $j < count($siteData[$i]->site_id); $j++) {
-                $user[$j] = $this->getSiteByName($user[$j]);
-            }
-            $siteData[$i]['site_id'] = $user;
-            $siteData[$i]['site_id'] = implode(", ", $siteData[$i]['site_id']);
-        }
-
-        return view('engineer.site-active-work', compact('siteData') );
-    }
 
     public function siteAppList(Request $request){
         return view('engineer.site-approve-list');
@@ -274,7 +243,6 @@ class MappingController extends Controller
     }
 
     public function getSiteByName($id){
-
         return (SiteMaster::where('id', $id)->get(['name']))[0]->name;
 
     }

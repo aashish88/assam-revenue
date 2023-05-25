@@ -5,6 +5,13 @@
     .ask_td {
         white-space: inherit;
     }
+
+    [type='checkbox'] {
+        position: absolute;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
 </style>
 
 <div class="content-wrapper">
@@ -13,7 +20,8 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-5">
-                        <h4 class="card-title" style="font-size: 30px;">Site Repost List</h4>
+                        <h4 class="card-title" style="font-size: 25px;">List of Site Allocated</h4>
+
                         <div class="row">
 
                             {{-- <p class="card-description item-list-batch">
@@ -37,12 +45,9 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-3"></div>
+                    <div class="col-sm-4"></div>
+                    <div class="modal-footer" style=""><p id="getInputll" batch_id="1" name="batch_id" class="btn btn-primary btn-rounded mr-2">Request for Approval</p></div>
                         <div class="col-sm-4">
-                            {{--Send Data Admin To Officer and Review--}}
-                            {{-- <div class="modal-footer modifyDatabatchIdGet">
-                                <p id="getInputll" name="batch_id" class="btn btn-info btn-rounded mr-2" style="">Request for Site Item</p>
-                            </div> --}}
                         </div>
                     </div>
 
@@ -51,11 +56,17 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Vendor Name</th>
+
                                     <th>Site Name</th>
-                                    <th>Engineer Name</th>
+                                    {{-- <th>Engineer Name</th> --}}
+                                    <th>Site Address</th>
+                                    <th>Site Officer</th>
+                                    <th>Vendor Name</th>
+                                    <th>Work Start Date</th>
+                                    <th>Work End Date</th>
                                     <th>Priority</th>
                                     <th>Status</th>
+                                    <th>Site for Approval</th>
                                 </tr>
                             </thead>
                             @php
@@ -70,14 +81,25 @@
                                 @endphp
                                     <tr>
                                         <th>{{$i}}</th>
-                                        <td class="ask_td">{{ $res->vendor_id }}</td>
+
                                         <td class="ask_td">{{$res->site_id}}</td>
-                                        <td class="ask_td">{{$res->engineer_id}}</td>
+                                        <td class="ask_td">{{$res->site_address}}</td>
+                                        <td class="ask_td">{{$res->priority}}</td>
+                                        <td class="ask_td">{{ $res->vendor_id }}</td>
+
+
+                                        <td class="ask_td">{{substr("$res->s_date",0,10);}}</td>
+                                        <td class="ask_td">{{substr("$res->e_date",0,10);}}</td>
                                         <td class="ask_td">{{$res->priority}}</td>
                                         <td class="ask_td">
                                             @if($res->status == 1) Active @else Deactive
                                             @endif
                                         </td>
+
+                                        <td class="ask_td1 checkcolumn1">
+                                            <input type="checkbox" value="{{$res->id}}" class="form-check-input checkapprove" style="width: 85px; margin: -14px 00 00 -45px" name="updatebysiteofficer">
+                                        </td>
+
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -88,7 +110,16 @@
     </div>
 </div>
 
+<script>
+    $('body').on('click', '#getInputll', function(){
+        if($('.checkapprove').is(":checked") == true){
+            var checkapprovedData = $('.checkapprove').val();
+            console.log('List of site approval site officer Side pending !...');
+            console.log(checkapprovedData);
+        }
 
+    })
+</script>
 
 @endsection
 

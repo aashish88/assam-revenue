@@ -13,7 +13,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h4 class="card-title" style="font-size: 30px;">List of Sites allocated to Engineer</h4>
+                        <h4 class="card-title" style="font-size: 25px;">List of Sites allocated to Engineer</h4>
                         <div class="row">
 
                             {{-- <p class="card-description item-list-batch">
@@ -53,7 +53,11 @@
                                     <th>#</th>
                                     <th>Vendor Name</th>
                                     <th>Site Name</th>
-                                    <th>Engineer Name</th>
+                                    {{-- <th>Engineer Name</th> --}}
+                                    <th>Site Address</th>
+                                    <th>Site Officer</th>
+                                    <th>Work Start Date</th>
+                                    <th>Work End Date</th>
                                     <th>Priority</th>
                                     <th>Status</th>
                                 </tr>

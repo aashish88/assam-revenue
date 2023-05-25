@@ -707,7 +707,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" href="#product-elements"
                                 aria-expanded="false" aria-controls="product-elements">
                                 <i class="typcn typcn-film menu-icon mdi mdi-library-books"></i>
@@ -721,7 +721,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> --}}
 
 
                         <li class="nav-item">
@@ -735,27 +735,8 @@
                             <div class="collapse" id="sitesone-basic">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link" style="font-size: 12px;"
-                                            href="{{ route('site_active_wrk') }}">{{ __('Site activity work') }}</a>
+                                            href="{{ route('site_active_wrk') }}">{{ __('List of Site Allocated') }}</a>
                                     </li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" href="#sitessecond-basic"
-                                aria-expanded="false" aria-controls="sitessecond-basic">
-                                <i class="typcn typcn-document-text menu-icon"></i>
-                                <span class="menu-title" style="font-size: 12px;">{{ __('Sites Report') }}</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="collapse" id="sitessecond-basic">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" style="font-size: 12px;"
-                                            href="{{ route('upload_rep_test') }}">{{ __('Upload Test Report') }}</a></li>
-                                </ul>
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link" style="font-size: 12px;"
-                                            href="{{ route('site_rep_lst') }}">{{ __('Site Reports List') }}</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -767,13 +748,42 @@
                                 <span class="menu-title" style="font-size: 12px;">{{ __('Site Completion') }}</span>
                                 <i class="menu-arrow"></i>
                             </a>
+
                             <div class="collapse" id="siteslist-basic">
+                                {{-- <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" style="font-size: 12px;"
+                                            href="{{ route('site_com_list') }}">{{ __('List Site Completion') }}</a></li>
+                                </ul> --}}
+
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link" style="font-size: 12px;"
-                                            href="{{ route('site_com_list') }}">{{ __('Site List') }}</a></li>
+                                            href="{{ route('update_site_officer') }}">{{ __('Update Site Activity') }}</a></li>
                                 </ul>
                             </div>
                         </li>
+
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#sitessecond-basic"
+                                aria-expanded="false" aria-controls="sitessecond-basic">
+                                <i class="typcn typcn-document-text menu-icon"></i>
+                                <span class="menu-title" style="font-size: 12px;">{{ __('Sites Approval') }}</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="sitessecond-basic">
+                                {{-- <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" style="font-size: 12px;"
+                                            href="{{ route('upload_rep_test') }}">{{ __('Upload Test Report') }}</a></li>
+                                </ul> --}}
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link" style="font-size: 12px;"
+                                            href="{{ route('site_rep_lst') }}">{{ __('List for Site Approval') }}</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+
 
 
                     </ul>

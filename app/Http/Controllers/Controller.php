@@ -51,7 +51,6 @@ class Controller extends BaseController
                     'user_name' => Auth::user()->name,
                     'title' => $title,
                     'user_token' => Auth::user()->remember_token,
-                    'user_name' => Auth::user()->name,
                     'user_type' => Auth::user()->user_type,
                     'date_today' => Carbon::now()->format('M d'),
                     'login_status' => "sucess"
