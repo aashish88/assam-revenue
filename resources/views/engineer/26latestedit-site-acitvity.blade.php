@@ -19,11 +19,9 @@
         overflow: scroll;
     }
 
-    .customfieldappend td button {
-        margin: 0px -30px 0px 0px
+    .customfieldappend td{
+        width: 20%;
     }
-
-
 </style>
 
 <div class="content-wrapper">
@@ -125,7 +123,7 @@
                     <div class="table-responsive pt-3">
 
                         <div class="card" id="addrowappend">
-                            <table class="table table-bordered display nowrap" id="example" style="width:156%">
+                            <table class="table table-bordered display nowrap" id="example" style="width:160%">
                                 <thead>
                                     <tr>
                                         <th>Work Activity</th>
@@ -133,72 +131,68 @@
                                         <th>Actual End Date</th>
                                         <th>Testing Document</th>
                                         <th>Site Photo</th>
-                                        <th style="width:15%">Status</th>
+                                        <th>Status</th>
                                         <th>Remark</th>
-                                        <th colspan="2">Add New Row</th>
+                                        <th colspan="2"></th>
                                     </tr>
                                 </thead>
 
 
                                     <tbody class="tbody">
                                         <div class="col-md-10 dynamic-field ask_dynamic_field" id="dynamic-field-1" style="display:block">
-                                            <div class="row append_parity_row">
+                                            <div class="row">
+                                        <tr class="customfield_1 customfieldappend">
+                                            <td>
+                                                            <select id="itemName2" class="form-control itemName2" value="{{ old('work_activity') }}" name="work_activity[]">
+                                                                <option value="0">---Select Work Activity---</option>
+                                                                @foreach ($workData as $workdata)
+                                                                        <option value="{{ $workdata->id }}" class="dropdown-item">{{ $workdata->work_name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                            </td>
 
+                                            <td>
+                                                            <input type="date" class="form-control" name="s_date[]" id="exampleInputEmail2" placeholder="qty">
 
-                                                <tr class="customfield_1">
-                                                    <td style="width: 25%;" class="append_parity_colmn1" id="append_parity_colon1">
-                                                        <select id="itemName2" class="form-control itemName2" value="{{ old('work_activity') }}" name="work_activity[]">
-                                                            <option value="0">---Select Work Activity---</option>
-                                                            @foreach ($workData as $workdata)
-                                                                    <option value="{{ $workdata->id }}" class="dropdown-item">{{ $workdata->work_name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </td>
+                                            </td>
 
-                                                    <td class="append_parity_colmn2" id="append_parity_colon2">
-                                                                    <input type="date" class="form-control" name="s_date[]" id="exampleInputEmail2" placeholder="qty">
+                                            <td>
+                                                            <input type="date" class="form-control" name="e_date[]" id="exampleInputEmail2" placeholder="qty">
 
-                                                    </td>
+                                            </td>
 
-                                                    <td class="append_parity_colmn3" id="append_parity_colon3">
-                                                                    <input type="date" class="form-control" name="e_date[]" id="exampleInputEmail2" placeholder="qty">
+                                            <td>
+                                                            <input type="file" class="form-control" name="document[]" id="exampleInputEmail2" placeholder="qty">
 
-                                                    </td>
+                                            </td>
 
-                                                    <td style="width: 20%;" class="append_parity_colmn4" id="append_parity_colon4">
-                                                                    <input type="file" class="form-control" name="document[]" id="exampleInputEmail2" placeholder="qty">
+                                            <td>
 
-                                                    </td>
+                                                            <input type="file" class="form-control" name="sitepic[]" id="exampleInputEmail2" placeholder="qty">
 
-                                                    <td style="width: 20%;">
+                                            </td>
 
-                                                                    <input type="file" class="form-control" name="sitepic[]" id="exampleInputEmail2" placeholder="qty">
+                                            <td>
 
-                                                    </td>
+                                                            <select class="form-control SerialNameASK" value="{{ old('status') }}" name="status[]">
+                                                                <option value="0">---Select Status---</option>
+                                                                @foreach ($site_status as $res)
+                                                                    <option value="{{ $res->id }}" class="dropdown-item">{{ $res->name }}</option>
+                                                                @endforeach
+                                                            </select>
 
-                                                    <td style="width: 25%;">
-                                                        <select class="form-control SerialNameASK" value="{{ old('status') }}" name="status[]">
-                                                            <option value="0">---Select Status---</option>
-                                                            @foreach ($site_status as $res)
-                                                                <option value="{{ $res->id }}" class="dropdown-item">{{ $res->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </td>
-                                                    <td style="width: 15%;"><input type="text" class="form-control" name="remark[]" id="exampleInputEmail2" placeholder="remark"></td>
-                                                    <td>
+                                            </td>
+                                            <td></td>
+                                            <td>
                                                         <button type="button" id="add-button" class="btn btn-secondary float-left text-uppercase shadow-sm"><i class="fa fa-plus fa-fw menu-arrow">+</i>
                                                         </button>
-                                                    </td>
-                                                    <td>
+                                                        </td>
+                                                        <td>
                                                         <button type="button" id="remove-button" class="btn btn-secondary float-left text-uppercase ml-1" disabled="disabled"><i class="menu-arrow">-</i>
                                                         </button>
 
-                                                    </td>
-                                                </tr>
-
-
-                                            </div>
-                                        </div>
+                                            </td>
+                                        </tr>
                                     </tbody>
                             </table>
                         </div>
@@ -233,7 +227,7 @@
             var className = ".dynamic-field";
             var count = 0;
             var field = "";
-            var maxFields =8;
+            var maxFields =500;
 
             function totalFields() {
                 return $(className).length;
@@ -241,44 +235,14 @@
 
             function addNewField() {
                 //alert(('.ask_dynamic_field').length);
-                count = totalFields();
-                const startTime = performance.now();
-
-                console.log($('.row append_parity_row').html());
-
-                const duration = performance.now() - startTime;
-                console.log(`someMethodIThinkMightBeSlow took ${duration}ms`);
-
-                console.log($('.append_parity_colmn2').html());
-                console.log($('.append_parity_colmn3').html());
-                console.log($('.append_parity_colmn4').html());
-                console.log($('.append_parity_colmn5').html());
-
-                field = $("#append_parity_colon1").clone();
-                field2 = $("#append_parity_colon2").clone();
-
-                alert(field);
-
+                count = totalFields() + 1;
+                field = $("#dynamic-field-1").clone();
                 field.attr("id", "dynamic-field-" + count);
                 field.children("label").text("Field " + count);
                 field.find("input").val("");
                 $(className + ":last").after($(field));
 
-                // field2.attr("id", "dynamic-field-" + count);
-                // field2.find("input").val("");
-                // $(className + ":last").after($(field));
-
-                // console.log($('.append_parity_row').text());
-
-                // alert(count);
-
-               // field = $("#dynamic-field-1").clone();
-                // field.attr("id", "dynamic-field-" + count);
-                // field.children("label").text("Field " + count);
-                // field.find("input").val("");
-                // $(className + ":last").after($(field));
-
-                //$('.SerialNameASK .datacheck_1').html('<option class="datacheck_'+count+'" class="dropdown-item">Testing</option>');
+                $('.SerialNameASK .datacheck_1').html('<option class="datacheck_'+count+'" class="dropdown-item">Testing</option>');
             }
 
             function removeLastField() {

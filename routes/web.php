@@ -10,6 +10,8 @@ use App\Http\Controllers\MappingController;
 use App\Http\Controllers\UserController;
 use  App\Http\Controllers\SiteController;
 use App\Http\Controllers\EngineerController;
+use App\Http\Controllers\SiteOfficerController;
+
 
 Route::redirect('assam-revenue-product', 'login', 301);
 
@@ -108,9 +110,18 @@ Route::get("testui", function(){
     return  "testing";
 });
 
+/* EngineerController Start */
 Route::match(['get','post'], 'site_active_wrk', [EngineerController::class, 'siteActiveWrk'])->name('site_active_wrk');
 Route::match(['get','post'], 'update-site-officer', [EngineerController::class, 'updateSiteOfficer'])->name('update_site_officer');
 Route::match(['get','post'], 'edit-site-officer/{id}', [EngineerController::class, 'editSiteOfficer'])->name('edit_site_officer/{id}');
 Route::match(['get','post'], 'site_rep_lst', [EngineerController::class, 'siteRepLst'])->name('site_rep_lst');
 Route::match(['get','post'], 'update-site-officer-allocated', [EngineerController::class, 'updateSiteOfficerAllocated'])->name('update_site_officer_allocated');
-//
+
+/* SiteOfficerController Start */
+Route::match(['get','post'], 'site-allocated', [SiteOfficerController::class, 'siteAllocated'])->name('site_allocated');
+Route::match(['get','post'], 'view-site-activitywise', [SiteOfficerController::class, 'viewSiteActivitywise'])->name('view_site_activitywise');
+Route::match(['get','post'], 'site-approve-list', [SiteOfficerController::class, 'siteApproveList'])->name('site_approve_list');
+Route::match(['get','post'], 'view-site-activity', [SiteOfficerController::class, 'viewSiteActivity'])->name('view_site_activity');
+// Route::match(['get','post'], 'update-site-officer-allocated', [EngineerController::class, 'updateSiteOfficerAllocated'])->name('update_site_officer_allocated');
+
+

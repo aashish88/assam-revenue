@@ -811,14 +811,14 @@
                             <div class="collapse" id="product-elements">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"><a class="nav-link"style="font-size: 12px;"
-                                            href="{{ route('site_all_eng') }}">{{ __('Site Allocated Work') }}</a>
+                                            href="{{ route('site_allocated') }}">{{ __('Site Allocated Work') }}</a>
                                     </li>
                                 </ul>
-                                <ul class="nav flex-column sub-menu">
+                                {{-- <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"><a class="nav-link"style="font-size: 12px;"
                                             href="{{ route('site_all_eng') }}">{{ __('Site Allocated View') }}</a>
                                     </li>
-                                </ul>
+                                </ul> --}}
                             </div>
                         </li>
 
@@ -832,13 +832,13 @@
                             <div class="collapse" id="siteslist-basic">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link" style="font-size: 12px;"
-                                            href="{{ route('site_com_list') }}">{{ __('Site Activity List') }}</a>
+                                            href="{{ route('view_site_activitywise') }}">{{ __('Site ActivityWise Details ') }}</a>
                                     </li>
                                 </ul>
-                                <ul class="nav flex-column sub-menu">
+                                {{-- <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link" style="font-size: 12px;"
                                             href="{{ route('site_com_list') }}">{{ __('Site Work Status') }}</a></li>
-                                </ul>
+                                </ul> --}}
                             </div>
                         </li>
 
@@ -853,14 +853,14 @@
                             <div class="collapse" id="sitesapprovework-basic">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link" style="font-size: 12px;"
-                                            href="{{ route('site_app_list') }}">{{ __('Site Approve List') }}</a>
+                                            href="{{ route('site_approve_list') }}">{{ __('Site Approve List') }}</a>
                                     </li>
                                 </ul>
-                                <ul class="nav flex-column sub-menu">
+                                {{-- <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link" style="font-size: 12px;"
                                             href="{{ route('app_site_com_work') }}">{{ __('Approve Site Completion Work') }}</a>
                                     </li>
-                                </ul>
+                                </ul> --}}
                             </div>
                         </li>
 
