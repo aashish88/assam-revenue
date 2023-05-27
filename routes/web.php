@@ -116,12 +116,14 @@ Route::match(['get','post'], 'update-site-officer', [EngineerController::class, 
 Route::match(['get','post'], 'edit-site-officer/{id}', [EngineerController::class, 'editSiteOfficer'])->name('edit_site_officer/{id}');
 Route::match(['get','post'], 'site_rep_lst', [EngineerController::class, 'siteRepLst'])->name('site_rep_lst');
 Route::match(['get','post'], 'update-site-officer-allocated', [EngineerController::class, 'updateSiteOfficerAllocated'])->name('update_site_officer_allocated');
+Route::match(['get','post'], 'post-update-site-activity', [EngineerController::class, 'postUpdateSiteActivity'])->name('post_update_site_activity');
+
 
 /* SiteOfficerController Start */
 Route::match(['get','post'], 'site-allocated', [SiteOfficerController::class, 'siteAllocated'])->name('site_allocated');
 Route::match(['get','post'], 'view-site-activitywise', [SiteOfficerController::class, 'viewSiteActivitywise'])->name('view_site_activitywise');
 Route::match(['get','post'], 'site-approve-list', [SiteOfficerController::class, 'siteApproveList'])->name('site_approve_list');
 Route::match(['get','post'], 'view-site-activity', [SiteOfficerController::class, 'viewSiteActivity'])->name('view_site_activity');
-// Route::match(['get','post'], 'update-site-officer-allocated', [EngineerController::class, 'updateSiteOfficerAllocated'])->name('update_site_officer_allocated');
+
 
 

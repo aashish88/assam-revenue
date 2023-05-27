@@ -15,12 +15,20 @@
     width: 25px;
     background-color: #eee;
     } */
-    .card-body{
+    /* .card-body{
         overflow: scroll;
-    }
+    } */
 
     .customfieldappend td button {
         margin: 0px -30px 0px 0px
+    }
+
+    .btnmargin {
+        margin: 0px 0px 8px 1326px;
+    }
+
+    .submitbtn{
+        margin: 0px 0px 8px 1326px;
     }
 
 
@@ -125,6 +133,8 @@
                     <div class="table-responsive pt-3">
 
                         <div class="card" id="addrowappend">
+                            <form action="{{route('post_update_site_activity')}}" method="post" enctype="multipart/form-data">
+                                @csrf
                             <table class="table table-bordered display nowrap" id="example" style="width:156%">
                                 <thead>
                                     <tr>
@@ -135,7 +145,7 @@
                                         <th>Site Photo</th>
                                         <th style="width:15%">Status</th>
                                         <th>Remark</th>
-                                        <th colspan="2">Add New Row</th>
+                                        {{-- <th colspan="2"></th> --}}
                                     </tr>
                                 </thead>
 
@@ -145,62 +155,79 @@
                                             <div class="row append_parity_row">
 
 
-                                                <tr class="customfield_1">
-                                                    <td style="width: 25%;" class="append_parity_colmn1" id="append_parity_colon1">
-                                                        <select id="itemName2" class="form-control itemName2" value="{{ old('work_activity') }}" name="work_activity[]">
-                                                            <option value="0">---Select Work Activity---</option>
-                                                            @foreach ($workData as $workdata)
-                                                                    <option value="{{ $workdata->id }}" class="dropdown-item">{{ $workdata->work_name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </td>
+                                                    <tr class="customfield_1 appendask appendask_1" id="appendask">
+                                                        <td style="width: 25%;" class="append_parity_colmn1" id="append_parity_colon1">
+                                                            <select id="itemName2" class="form-control itemName2" value="{{ old('work_activity') }}" name="work_activity[]">
+                                                                <option value="0">---Select Work Activity---</option>
+                                                                @foreach ($workData as $workdata)
+                                                                        <option value="{{ $workdata->id }}" class="dropdown-item">{{ $workdata->work_name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
 
-                                                    <td class="append_parity_colmn2" id="append_parity_colon2">
-                                                                    <input type="date" class="form-control" name="s_date[]" id="exampleInputEmail2" placeholder="qty">
+                                                        <td class="append_parity_colmn2" id="append_parity_colon2">
+                                                                        <input type="date" class="form-control" name="s_date[]" id="exampleInputEmail2" placeholder="qty">
 
-                                                    </td>
+                                                        </td>
 
-                                                    <td class="append_parity_colmn3" id="append_parity_colon3">
-                                                                    <input type="date" class="form-control" name="e_date[]" id="exampleInputEmail2" placeholder="qty">
+                                                        <td class="append_parity_colmn3" id="append_parity_colon3">
+                                                                        <input type="date" class="form-control" name="e_date[]" id="exampleInputEmail2" placeholder="qty">
 
-                                                    </td>
+                                                        </td>
 
-                                                    <td style="width: 20%;" class="append_parity_colmn4" id="append_parity_colon4">
-                                                                    <input type="file" class="form-control" name="document[]" id="exampleInputEmail2" placeholder="qty">
+                                                        <td style="width: 20%;" class="append_parity_colmn4" id="append_parity_colon4">
+                                                                        <input type="file" class="form-control" name="document[]" id="exampleInputEmail2" placeholder="qty">
 
-                                                    </td>
+                                                        </td>
 
-                                                    <td style="width: 20%;">
+                                                        <td style="width: 20%;">
 
-                                                                    <input type="file" class="form-control" name="sitepic[]" id="exampleInputEmail2" placeholder="qty">
+                                                                        <input type="file" class="form-control" name="sitepic[]" id="exampleInputEmail2" placeholder="qty">
 
-                                                    </td>
+                                                        </td>
 
-                                                    <td style="width: 25%;">
-                                                        <select class="form-control SerialNameASK" value="{{ old('status') }}" name="status[]">
-                                                            <option value="0">---Select Status---</option>
-                                                            @foreach ($site_status as $res)
-                                                                <option value="{{ $res->id }}" class="dropdown-item">{{ $res->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </td>
-                                                    <td style="width: 15%;"><input type="text" class="form-control" name="remark[]" id="exampleInputEmail2" placeholder="remark"></td>
-                                                    <td>
-                                                        <button type="button" id="add-button" class="btn btn-secondary float-left text-uppercase shadow-sm"><i class="fa fa-plus fa-fw menu-arrow">+</i>
-                                                        </button>
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" id="remove-button" class="btn btn-secondary float-left text-uppercase ml-1" disabled="disabled"><i class="menu-arrow">-</i>
-                                                        </button>
+                                                        <td style="width: 25%;">
+                                                            <select class="form-control SerialNameASK" value="{{ old('status') }}" name="status[]">
+                                                                <option value="0">---Select Status---</option>
+                                                                @foreach ($site_status as $res)
+                                                                    <option value="{{ $res->id }}" class="dropdown-item">{{ $res->name }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                        <td style="width: 15%;"><input type="text" class="form-control" name="remark[]" id="exampleInputEmail2" placeholder="remark"></td>
 
-                                                    </td>
-                                                </tr>
+                                                    </tr>
+
+
+                                                <div class="col-8"></div>
+                                                {{-- <div class="col-4">
+                                                    <button type="button" id="add-button" class="btn btn-secondary float-left text-uppercase shadow-sm"><i class="fa fa-plus fa-fw menu-arrow">+</i>
+                                                    </button>
+
+                                                    <button type="button" id="remove-button" class="btn btn-secondary float-left text-uppercase ml-1" disabled="disabled"><i class="menu-arrow">-</i>
+                                                    </button>
+                                                </div> --}}
 
 
                                             </div>
+
+
                                         </div>
+
                                     </tbody>
+
                             </table>
+
+                            <div class="col-4 btnmargin">
+                                <button type="button" id="add-button" class="btn btn-secondary float-left text-uppercase shadow-sm"><i class="fa fa-plus fa-fw menu-arrow">+</i>
+                                </button>
+
+                                <button type="button" id="remove-button" class="btn btn-secondary float-left text-uppercase ml-1" disabled="disabled"><i class="menu-arrow">-</i>
+                                </button>
+                            </div><br> <br>
+                            <button type="submit" class="btn btn-primary mr-2 submitbtn">Submit</button>
+                        </form>
+
                         </div>
 
 
@@ -224,10 +251,75 @@
 
     <script>
         $(document).ready(function() {
+            /*Append Input Field CreateBY: Aashish Shah
+            Date: 27-May-2023*/
+            $('body').on('click', '#add-button', function() {
+                var className = ".appendask";
+                function totalFields() {
+                    return $(className).length;
+                }
+                count = totalFields();
+
+                //alert(count);
+
+                if (totalFields() === 1) {
+                    var buttonRemove = $("#remove-button");
+                    buttonRemove.removeAttr("disabled");
+                    //buttonRemove.addClass("shadow-sm");
+                }
+
+
+
+
+                var buttonRemove = $("#remove-button");
+                buttonRemove.removeClass("shadow-sm");
+
+                if(totalFields() > 6){
+                    var buttonAdd = $("#add-button");
+                    buttonAdd.attr("disabled", "disabled");
+                }
+                field = $("#appendask").clone();
+                field.find("input").val("");
+                field.attr("id", "appendask_1");
+                field.attr("id", "appendask-" + count);
+                $(className + ":last").after($(field));
+                });
+            });
+            $('body').on('click', '#remove-button', function() {
+                var className = ".appendask";
+                function totalFields() {
+                    return $(className).length;
+                }
+
+                if (totalFields() > 1) {
+                    $(className + ":last").remove();
+                }
+                if (totalFields() < 2) {
+                    var buttonRemove = $("#remove-button");
+                    buttonRemove.attr("disabled", "disabled");
+                }
+
+                if (totalFields() < 8) {
+                    var buttonAdd = $("#add-button");
+                    buttonAdd.removeAttr("disabled");
+                    //buttonRemove.addClass("shadow-sm");
+                }
+            });
+
+            // function disableButtonRemove() {
+            //     var buttonAdd = $("#add-button");
+            //     var buttonRemove = $("#remove-button");
+            //     if (totalFields() === 1) {
+            //         buttonRemove.attr("disabled", "disabled");
+            //         buttonRemove.removeClass("shadow-sm");
+            //     }
+            // }
 
 
             /*Append Input Field CreateBY: Aashish Shah
             Date: 28-April-2023*/
+
+            /*
             var buttonAdd = $("#add-button");
             var buttonRemove = $("#remove-button");
             var className = ".dynamic-field";
@@ -327,7 +419,7 @@
                 enableButtonAdd();
             });
 
-        });
+        });*/
     </script>
 
 

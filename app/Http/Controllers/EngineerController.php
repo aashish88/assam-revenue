@@ -78,6 +78,33 @@ class EngineerController extends Controller
         return view('engineer.site-active-work', compact('siteData') );
     }
 
+    public function postUpdateSiteActivity(Request $request){
+        // $request->validate([
+        //     'file' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048'
+        // ]);
+        if($request->file()){
+            $count = count($request->file());
+            for ($i=0; $i < $count; $i++) {
+                $fileName = time().'_'.$request->file('document')[$i]->getClientOriginalName();
+                $filePath = $request->file('document')->storeAs('uploads', $fileName, 'public');
+                dd($filePath);
+            }
+        }
+
+       // $fileModel = new File;
+        if($request->file()) {
+            $fileName = time().'_'.$request->file->getClientOriginalName();
+            $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
+            dd($filePath);
+            // $fileModel->name = time().'_'.$request->file->getClientOriginalName();
+            // $fileModel->file_path = '/storage/' . $filePath;
+            // $fileModel->save();
+            // return back()
+            // ->with('success','File has been uploaded.')
+            // ->with('file', $fileName);
+        }
+    }
+
     public function getSiteByName($id){
 
         $siteName = SiteMaster::where('id', $id)->get(['name']);
