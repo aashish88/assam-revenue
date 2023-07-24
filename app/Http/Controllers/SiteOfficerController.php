@@ -6,27 +6,24 @@ use App\Models\User;
 use App\Models\SiteMaster;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use App\Models\SiteApproval;
+use App\Models\UpdateSiteAllocatedToEngg;
+//use CreateUpdateSiteAllocatedToEnggsTable;
+use Illuminate\Database\Eloquent\Collection;
 
 class SiteOfficerController extends Controller
 {
     public function siteAllocated(Request $request){
         if(session::get('user_type') == 5){
-            $siteData  = MappingVendorSiteEngineer::where('status', 1)->get();
-            for ($i=0; $i < count($siteData); $i++) {
-                $siteData[$i]->vendor_id = $this->getIdByUserName($siteData[$i]->vendor_id);
-                $siteData[$i]->engineer_id = $this->getIdByUserName($siteData[$i]->engineer_id);
-                $siteData[$i]->site_id = explode(",", $siteData[$i]->site_id);
-                if($siteData[$i]->site_id[0]){
-                    $siteData[$i]['site_address'] = $this->getSiteByName($siteData[$i]->site_id[0])[0]->dst_site;
-                    $siteData[$i]['dst_head_quert'] = $this->getSiteByName($siteData[$i]->site_id[0])[0]->dst_head_quert;
-                }
-                $user = $siteData[$i]['site_id'];
-                for ($j=0; $j < count($siteData[$i]->site_id); $j++) {
-                    $user[$j] = $this->getSiteByName($user[$j])[0]->site_id;
-                }
-                $siteData[$i]['site_id'] = $user;
-                $siteData[$i]['site_id'] = implode(", ", $siteData[$i]['site_id']);
-            }
+            $siteData = DB::table('mapping_vendor_site_engineers as t1')
+            ->leftJoin('site_district_data_master as t2', function($join){
+                $join->on('t2.id', '=', 't1.site_id');
+            })
+            ->leftJoin('users as t3', function($join){
+                $join->on('t3.id', '=', 't1.vendor_id');
+            })
+            ->select('*', 't2.*', 't3.name as engineer_name')
+            ->get();
             return view('site-officer.site-allocated', compact('siteData'));
         }else{
             return redirect('logout');
@@ -34,29 +31,74 @@ class SiteOfficerController extends Controller
     }
 
     public function viewSiteActivitywise(Request $request){
-        $siteData  = MappingVendorSiteEngineer::where('status', 1)->get();
-        for ($i=0; $i < count($siteData); $i++) {
-            $siteData[$i]->vendor_id = $this->getIdByUserName($siteData[$i]->vendor_id);
-            $siteData[$i]->engineer_id = $this->getIdByUserName($siteData[$i]->engineer_id);
-            $siteData[$i]->site_id = explode(",", $siteData[$i]->site_id);
-            if($siteData[$i]->site_id[0]){
-                $siteData[$i]['site_address'] = $this->getSiteByName($siteData[$i]->site_id[0])[0]->dst_site;
-            }
-            $user = $siteData[$i]['site_id'];
-            for ($j=0; $j < count($siteData[$i]->site_id); $j++) {
-                $user[$j] = $this->getSiteByName($user[$j])[0]->site_id;
-            }
-            $siteData[$i]['site_id'] = $user;
-            $siteData[$i]['site_id'] = implode(", ", $siteData[$i]['site_id']);
-        }
+        $siteData = DB::table('mapping_vendor_site_engineers as t1')
+            ->leftJoin('site_district_data_master as t2', function($join){
+                $join->on('t2.id', '=', 't1.site_id');
+            })
+            ->leftJoin('users as t3', function($join){
+                $join->on('t3.id', '=', 't1.vendor_id');
+            })
+            ->select('*', 't2.*', 't3.name as engineer_name')
+            ->get();
         return view('site-officer.list-site-activitywise', compact('siteData'));
     }
 
-    public function viewSiteActivity(Request $request){
-        return view('site-officer.view-site-activity-list');
+    public function viewSiteActivity(Request $request, $id, $vendor_id){
+        if(session::get('user_id')){
+            $login_id = session::get('user_id');
+        }
+
+        //$readData = UpdateSiteAllocatedToEngg::get();
+        $readData = UpdateSiteAllocatedToEngg::where('site_id', $id)->where('login_id', $vendor_id)->get();
+        if(count($readData) > 0){
+            for ($i=0; $i < count($readData); $i++) {
+                $readData[$i]->work_activity = explode(",", $readData[$i]->work_activity);
+                $readData[$i]->s_date = explode(",", $readData[$i]->s_date);
+                $readData[$i]->e_date = explode(",", $readData[$i]->e_date);
+                $readData[$i]->status = explode(",", $readData[$i]->status);
+                $readData[$i]->remark = explode(",", $readData[$i]->remark);
+                $readData[$i]->document_filepath = explode(",", $readData[$i]->document_filepath);
+                $readData[$i]->sitepic_filepath = explode(",", $readData[$i]->sitepic_filepath);
+                $readData[$i]['countrow'] = count($readData[$i]->work_activity);
+            }
+            $countappendcolumn = count($readData[0]->status);
+        }
+        else{
+            $countappendcolumn = 1;
+        }
+
+        $siteData = DB::table('mapping_vendor_site_engineers as t1')
+        ->leftJoin('site_district_data_master as t2', function($join){
+            $join->on('t2.id', '=', 't1.site_id');
+        })
+        ->leftJoin('users as t3', function($join){
+            $join->on('t3.id', '=', 't1.vendor_id');
+        })->where('t2.site_id', '=', $id)->where('vendor_id', '=', $vendor_id)
+        ->select('*', 't2.*', 't3.name as engineer_name')
+        ->get();
+
+        $workData = DB::Select('SELECT * FROM `work_master`');
+        $site_status = DB::select('SELECT * FROM `site_status`');
+
+        return view('site-officer.view-site-activity-list', compact('siteData','workData','site_status','readData','countappendcolumn'));
     }
 
     public function siteApproveList(Request $request){
+        if(session::get('user_type') == 5){
+            $siteData = DB::table('mapping_vendor_site_engineers as t1')
+            ->leftJoin('site_district_data_master as t2', function($join){
+                $join->on('t2.id', '=', 't1.site_id');
+            })
+            ->leftJoin('users as t3', function($join){
+                $join->on('t3.id', '=', 't1.vendor_id');
+            })
+            ->select('*', 't2.*', 't3.name as engineer_name')
+            ->get();
+
+            return view('site-officer.site-approve-list', compact('siteData'));
+        }else{
+            return redirect('logout');
+        }
         return view('site-officer.site-approve-list');
     }
 

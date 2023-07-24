@@ -79,20 +79,21 @@
                                 @endphp
                                     <tr>
                                         <th>{{$i}}</th>
-                                        <td class="ask_td">{{$res->site_id}}</td>
-                                        <td>{{ $res->site_address }}</td>
-                                        <td>{{ $res->dst_head_quert }}</td>
-                                        <td class="ask_td">{{substr("$res->s_date",0,10);}}</td>
-                                        <td class="ask_td">{{substr("$res->e_date",0,10);}}</td>
-                                        {{-- <td class="ask_td">{{ $res->vendor_id }}</td> --}}
-                                        <td class="ask_td">{{$res->priority}}</td>
-                                        <td class="ask_td">{{$res->engineer_id}}</td>
-                                        <td class="ask_td"> Open
+                                        <td>{{$res->site_id}}</td>
+                                        <td class="ask_td">{{ $res->site_circle_office }}</td>
+                                        <td class="ask_td">{{ $res->site_add_w_pincode }}</td>
+                                        <td>{{substr("$res->s_date",0,10);}}</td>
+                                        <td>{{substr("$res->e_date",0,10);}}</td>
+                                        <td>{{ $res->priority }}</td>
+                                        <td class="ask_td">{{$res->engineer_name}}</td>
+                                        <td class="ask_td">
                                             @if($res->status == 3) Complete
+                                            @else
+                                            NA
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('view_site_activity') }}"><i class="fa fa-eye" style="font-size:24px"></i></a>
+                                            <a href="{{ route('view_site_activity') }}/{{$res->site_id}}/{{$res->vendor_id}}"><i class="fa fa-eye" style="font-size:24px"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

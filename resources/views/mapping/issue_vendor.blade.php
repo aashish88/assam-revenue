@@ -55,7 +55,7 @@
                                 <div class="form-group row">
                                     <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Select Site</label>
                                     <div class="col-sm-9">
-                                        <select id="SiteNameASK" class="form-control" value="{{ old('batch_name') }}" name="site_name">
+                                        <select id="SiteNameASK" class="form-control vendorSiteName" value="{{ old('batch_name') }}" name="site_name">
                                             <option value="0">---Select Site---</option>
                                         </select>
                                     </div>

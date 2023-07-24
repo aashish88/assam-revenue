@@ -6,6 +6,13 @@
     .ask_td {
         white-space: inherit;
     }
+
+    [type='checkbox'] {
+        position: inherit;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
 </style>
 
 <div class="content-wrapper">
@@ -16,6 +23,7 @@
                     <div class="col-sm-5">
                         <h4 class="card-title" style="font-size: 30px;">Site Allocated List</h4>
                         <div class="row">
+
 
                             {{-- <p class="card-description item-list-batch">
                                  <code>Item List</code>
@@ -39,7 +47,9 @@
                     </div>
 
                     <div class="col-sm-3"></div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-2">
+                            <button type="submit" class="btn btn-primary mr-2" id="SiteOfficerApproveDisapprove">Submit</button>
                             {{--Send Data Admin To Officer and Review--}}
                             {{-- <div class="modal-footer modifyDatabatchIdGet">
                                 <p id="getInputll" name="batch_id" class="btn btn-info btn-rounded mr-2" style="">Request for Site Item</p>
@@ -73,7 +83,7 @@
                                 $i = 0;
                             @endphp
                             <tbody class="tbody">
-                                {{-- @foreach ($siteData as $res)
+                                @foreach ($siteData as $res)
 
 
                                 @php
@@ -81,33 +91,35 @@
                                 @endphp
                                     <tr>
                                         <th>{{$i}}</th>
-                                        <td class="ask_td">{{$res->site_id}}</td>
-                                        <td>{{ $res->site_address }}</td>
-                                        <td>{{ $res->dst_head_quert }}</td>
-                                        <td class="ask_td">{{substr("$res->s_date",0,10);}}</td>
-                                        <td class="ask_td">{{substr("$res->e_date",0,10);}}</td>
-                                        <td class="ask_td">{{$res->priority}}</td>
-                                        <td class="ask_td">{{$res->engineer_id}}</td>
-                                        <td class="ask_td"> Open
+                                        <td>{{$res->site_id}}</td>
+                                        <td class="ask_td">{{ $res->site_circle_office }}</td>
+                                        <td class="ask_td">{{ $res->site_add_w_pincode }}</td>
+                                        <td>{{substr("$res->s_date",0,10);}}</td>
+                                        <td>{{substr("$res->e_date",0,10);}}</td>
+                                        <td>{{ $res->priority }}</td>
+                                        <td class="ask_td">{{$res->engineer_name}}</td>
+                                        <td class="ask_td">
                                             @if($res->status == 3) Complete
+                                            @else
+                                            NA
                                             @endif
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             <a href=""><i class="fa fa-eye" style="font-size:24px"></i></a>
-                                        </td>
+                                        </td> --}}
 
                                         <td>
-                                            <input type="checkbox">
+                                            <input name="approve" class="checkapprove dataval_{{$i}}" value="{{$res->id}}" type="checkbox">
                                         </td>
                                         <td>
-                                            <input type="checkbox">
+                                            <input name="disapprove" class="checkdisapprove dataval2_{{$i}}" value="{{$res->id}}" type="checkbox">
                                         </td>
                                         <td>
-                                            <input type="text">
+                                            <input name="remark" class="remark" type="text">
                                         </td>
 
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -116,7 +128,42 @@
     </div>
 </div>
 
+<script>
+     $('body').on('click', '#SiteOfficerApproveDisapprove', function(e){
+        $('#SiteOfficerApproveDisapprove').css({'cursor':'not-allowed', 'opacity': '0.5'})
+        $('#SiteOfficerApproveDisapprove').removeAttr('id','none');
+        var n = $('tbody tr').length;
+        var datastore = [];
+        var disdatastore = [];
+            for (let i = 1; i <= n; i++) {
+                var dataval = ".dataval_"+i;
+                var dataval2 = ".dataval2_"+i;
+                if($(dataval).is(":checked") == true){
+                    var approve = $(dataval).val();
+                    datastore.push(approve);
+                }
+                if($(dataval2).is(":checked") == true){
+                    var approve = $(dataval2).val();
+                    disdatastore.push(approve);
+                }
+            }
+            var remark = $('.remark').val();
+
+        var approve = datastore;
+        var disapprove = disdatastore;
+
+        console.log(disapprove);
+
+        $.ajax({
+            type:'POST',
+            url:'ajax-site-officer-approve',
+            data:{"approve" : approve, "disapprove" : disapprove, "remark" : remark, _token: '{{csrf_token()}}'},
+            success:function(data) {
+                $("#msg").html(data.msg);
+            }
+        });
+    })
+</script>
 
 
 @endsection
-

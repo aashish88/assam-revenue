@@ -55,7 +55,8 @@
                                     <td>{{ __('B-00') }}{{$res->batch_id }}</td> --}}
                                     <td>Active</td>
                                     <td style="font-size: 30px;">
-                                        <a href="{{ url('boq-edit') }}/{{$res->id }}" style="color: hsl(207, 78%, 53%);"><i class="mdi mdi-tooltip-edit"></i></a> | <a href="{{ url('boq-delete') }}/{{$res->id }}" style="color: #DC3545;"><i class="mdi mdi-delete-forever"></i></a>
+                                        <a href="{{ url('boq-edit') }}/{{$res->id }}" style="color: hsl(207, 78%, 53%);"><i class="mdi mdi-tooltip-edit"></i></a> 
+                                        <!-- | <a href="{{ url('boq-delete') }}/{{$res->id }}" style="color: #DC3545;"><i class="mdi mdi-delete-forever"></i></a>-->
                                     </td>
                                 </tr>
                                 @endforeach

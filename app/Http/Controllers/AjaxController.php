@@ -123,15 +123,17 @@ class AjaxController extends Controller
             $pdf = PDF::loadView("resume", $datanew);
 
             //return $pdf->loadView()
-            $data["email"] = "aashish.kumar@paritysystems.in";
-            $data["title"] = "From Aashishkumar8893@gmail.com";
-            $data["body"] = "This is Demo";
-            Mail::send('resume', array($batchbydata), function($message)use($data, $pdf, $pdf2, $datasave) {
-                $message->to($data["email"], $data["email"])
-                        ->subject($data["title"])
-                        ->attachData($pdf->output(), "parityboqlist.pdf")
-                        ->attachData($pdf2->output(), $datasave);
-            });
+            $data["email"] = $email;
+            $data["title"] = "From Parityifotech";
+            $data["body"] = "View the product item details";
+            
+            // Mail::send('resume', array($batchbydata), function($message)use($data, $pdf, $pdf2, $datasave) {
+            //     $message->to($data["email"], $data["email"])
+            //             ->subject($data["title"])
+            //             ->attachData($pdf->output(), "parityboqlist.pdf")
+            //             ->attachData($pdf2->output(), $datasave);
+            // });
+            
             $update_status = ProductBatchMaster::where('batch_id', $id)->update([
                 'batch_status' => '1'
                 ]);
@@ -144,117 +146,7 @@ class AjaxController extends Controller
             return "204 Error!...";
         }
     }
-    /* UpdateBy:Aashish Shah Date: Wed, 19 Apr 2023 function Name -> officerToAdminSend
-    Admin Send Pdf batch Store Officer
-    public function officerToAdminSend(Request $request){
-        if($request->ajax()){
-            if(Session::get('user_id')){
-                $user_id = Session::get('user_id');
-            }
-            $email_id = User::where('id', $user_id)->first('email');
-            $email = $email_id['email'];
-            $mytime = Carbon::now();
-            $current_date = $mytime->toDateTimeString();
-            $id = $request->post('batch_id');
-            $batchbydata = SerialNoBatch::where('batch_id', $id)->get();
-            for ($i=0; $i < 500; $i++) {
-                $batchbydata[$i]['newbatchName'] = $this->getDataByIdBatchMaster($batchbydata[$i]['batch_id']);
-                $batchbydata[$i]['newItemName'] = $this->getDataByIdProductBatchMaster($batchbydata[$i]['product_batch_id']);
-            }
-            $data2 = view('boq-serial',compact('batchbydata'))->render();
-            $pdf2 = PDF::loadView("boq-serial", array($batchbydata));
-            $date = date("YmdHmi");
-            $datasave = "detailsbatchitems" . $date . "_" . $user_id . ".pdf";
-
-            $batchbydata = ProductBatchMaster::where('batch_id', $id)->get();
-
-
-
-            $datanew = [
-                "batchbydata"=> $batchbydata,
-                "date"=> $current_date,
-            ];
-            return view()->share('datanew', $datanew);
-            $pdf = PDF::loadView("resume", $datanew);
-            return $pdf;
-
-
-            // if(count($batchbydata) > 500){
-            //     // echo (count($batchbydata) % 500);
-
-            //     // dd(500)
-
-
-            //     $countData = count($batchbydata) - 500;
-
-            //     for ($i=0; $i < 500; $i++) {
-            //         $batchbydata[$i]['newbatchName'] = $this->getDataByIdBatchMaster($batchbydata[$i]['batch_id']);
-            //         $batchbydata[$i]['newItemName'] = $this->getDataByIdProductBatchMaster($batchbydata[$i]['product_batch_id']);
-            //         //$batchbydata[$i]['newbatch_id'] = $this->getDataByIdBatchMaster($batchbydata[$i]['batch_id']);
-            //         // echo "<pre>";
-            //         // echo($this->getDataByIdBatchMaster($batchbydata[$i]['batch_id']));
-            //     }
-            //     }else{
-            //         for ($i=0; $i < (count($batchbydata) - 500); $i++) {
-            //             $batchbydata[500+$i]['newbatchName'] = $this->getDataByIdBatchMaster($batchbydata[500+$i]['batch_id']);
-            //             $batchbydata[500+$i]['newItemName'] = $this->getDataByIdProductBatchMaster($batchbydata[500+$i]['product_batch_id']);
-            //             //$batchbydata[$i]['newbatch_id'] = $this->getDataByIdBatchMaster($batchbydata[$i]['batch_id']);
-            //             // echo "<pre>";
-            //             // echo($this->getDataByIdBatchMaster($batchbydata[$i]['batch_id']));
-            //         }
-            // }
-
-             //return $batchbydata;
-            //  dd($batchbydata);
-
-            for ($i=0; $i < count($batchbydata); $i++) {
-                $batchbydata[$i]['newbatch_id'] = $this->getDataByIdBatchMaster($batchbydata[$i]['batch_id']);
-                // echo "<pre>";
-                // echo($this->getDataByIdBatchMaster($batchbydata[$i]['batch_id']));
-            }
-
-              $batchbydata[$i]['newbatch_id'] = $this->getDataByIdBatchMaster($batchbydata[$i]['batch_id']);
-             //dd($batchbydata);
-            // exit();
-            // return count($batchbydata);
-            $data2 = view('boq-serial',compact('batchbydata'))->render();
-            //return $data2; //array 500 entry
-            view()->share('batchbydata', $batchbydata);
-            $pdf2 = PDF::loadView("boq-serial", array($batchbydata));
-            $date = date("YmdHmi");
-            $datasave = "detailsbatchitems" . $date . "_" . $user_id . ".pdf";
-
-            $batchbydata = ProductBatchMaster::where('batch_id', $id)->get();
-            $datanew = [
-                "batchbydata"=> $batchbydata,
-                "date"=> $current_date,
-            ];
-            view()->share('datanew', $datanew);
-            $pdf = PDF::loadView("resume", $datanew);
-
-            //return $pdf->loadView();
-            $data["email"] = "aashish.kumar@paritysystems.in";
-            $data["title"] = "From Aashishkumar8893@gmail.com";
-            $data["body"] = "This is Demo";
-            Mail::send('resume', array($batchbydata), function($message)use($data, $pdf, $pdf2, $datasave) {
-                $message->to($data["email"], $data["email"])
-                        ->subject($data["title"])
-                        ->attachData($pdf->output(), "parityboqlist.pdf")
-                        ->attachData($pdf2->output(), $datasave);
-            });
-            $update_status = ProductBatchMaster::where('batch_id', $id)->update([
-                'batch_status' => '1'
-                ]);
-            if($update_status){
-                return 'Mail sent successfully to Admin';
-            }
-                return false;
-
-        }else{
-            return "204 Error!...";
-        }
-    }
-    */
+    
     /** Fatch  bachIDGetdataProductBatchMaster  **/
     public function ajaxSerialNoQty(Request $request){
 
@@ -486,5 +378,17 @@ class AjaxController extends Controller
         return $data[0]->item_title;
     }
 
+    public function GetPdf(){
+        $data = DB::select('SELECT t1.site_id, t2.site_id, t2.dst_head_quert,t2.add_w_pincode,t2.dst_site FROM `site_district_data_master` as t2 Right JOIN mapping_vendor_site_engineers as t1 ON t2.id = t1.site_id;');
+        return view('get-pdf',compact('data'));
+    }
+    
+    public function CSVDownloadSite(){
+        //$data = DB::select('SELECT t1.site_id, t2.site_id, t2.dst_head_quert,t2.add_w_pincode,t2.dst_site FROM `site_district_data_master` as t2 Right JOIN mapping_vendor_site_engineers as t1 ON t2.id = t1.site_id');
+        $data = DB::select('SELECT t1.site_id, t2.site_id, t2.dst_head_quert,t2.add_w_pincode,t2.dst_site, t2.status as newStatus, t3.status as status FROM `site_district_data_master` as t2 Right JOIN mapping_vendor_site_engineers as t1 ON t2.id = t1.site_id Left JOIN update_site_allocated_to_enggs as t3 ON t3.site_id = t2.site_id');
+        $sidebar_btn = ['UI Elements', 'Data List', 'Site Management'];
+        $childSidebar = ['sl' => "Site List", 'sa' => "Site Create", 'se' => "Site Edit"];
+        return view('csv.site-csv-download',compact('data','sidebar_btn','childSidebar'));
+    }
 
 }

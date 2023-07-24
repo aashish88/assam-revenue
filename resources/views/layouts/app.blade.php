@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ session('title') }}</title>
     <link rel="stylesheet" href="{{ asset('public/vendors/typicons/typicons.css') }}">
     <link rel="stylesheet" href="{{ asset('public/vendors/css/vendor.bundle.base.css') }}">
@@ -92,7 +93,7 @@
                             <img src="{{ asset('public/profile.jpg') }} " alt="profile" />
                             <span class="nav-profile-name">{{ session('user_name') }}</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
+                        {{-- <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                             aria-labelledby="profileDropdown">
                             <a class="dropdown-item">
                                 <i class="typcn typcn-cog-outline text-primary"></i>
@@ -102,7 +103,7 @@
                                 <i class="typcn typcn-eject text-primary"></i>
                                 Logout
                             </a>
-                        </div>
+                        </div> --}}
                     </li>
                     <li class="nav-item nav-user-status dropdown">
                         <p class="mb-0">Last login was {{ session('login_id') }} ago.</p>
@@ -118,79 +119,79 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center"
-                            id="messageDropdown" href="#" data-toggle="dropdown">
-                            <i class="typcn typcn-cog-outline mx-0"></i>
-                            <span class="count"></span>
+                            href="{{ route('logout') }}">
+                            <i class="typcn typcn-cog-outline typcn typcn-eject mx-0"></i>
+                            <!--<span class="count"></span>-->
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
-                            aria-labelledby="messageDropdown">
-                            {{-- <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p> --}}
-                            <a class="dropdown-item preview-item" href="{{ route('logout') }}">
-                                <div class="preview-thumbnail">
+                        <!--<div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"-->
+                        <!--    aria-labelledby="messageDropdown">-->
+                        <!--    {{-- <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p> --}}-->
+                        <!--    <a class="dropdown-item preview-item" href="{{ route('logout') }}">-->
+                        <!--        <div class="preview-thumbnail">-->
 
-                                    <img src="{{ asset('public/logout_icon.png') }}" alt="image"
-                                        class="profile-pic">
-                                </div>
-                                <div class="preview-item-content flex-grow">
-                                    <h6 class="preview-subject ellipsis font-weight-normal"> Logout
-                                    </h6>
-                                    <p class="font-weight-light small-text text-muted mb-0">
+                        <!--            <img src="{{ asset('public/logout_icon.png') }}" alt="image"-->
+                        <!--                class="profile-pic">-->
+                        <!--        </div>-->
+                        <!--        <div class="preview-item-content flex-grow">-->
+                        <!--            <h6 class="preview-subject ellipsis font-weight-normal"> Logout-->
+                        <!--            </h6>-->
+                        <!--            <p class="font-weight-light small-text text-muted mb-0">-->
 
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
+                        <!--            </p>-->
+                        <!--        </div>-->
+                        <!--    </a>-->
+                        <!--</div>-->
                     </li>
-                    <li class="nav-item dropdown mr-0">
-                        <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center"
-                            id="notificationDropdown" href="#" data-toggle="dropdown">
-                            <i class="typcn typcn-bell mx-0"></i>
-                            <span class="count"></span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
-                            aria-labelledby="notificationDropdown">
-                            <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-success">
-                                        <i class="typcn typcn-info mx-0"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                                    <p class="font-weight-light small-text mb-0 text-muted">
-                                        Just now
-                                    </p>
-                                </div>
-                            </a>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-warning">
-                                        <i class="typcn typcn-cog-outline mx-0"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <h6 class="preview-subject font-weight-normal">Settings</h6>
-                                    <p class="font-weight-light small-text mb-0 text-muted">
-                                        Private message
-                                    </p>
-                                </div>
-                            </a>
-                            <a class="dropdown-item preview-item">
-                                <div class="preview-thumbnail">
-                                    <div class="preview-icon bg-info">
-                                        <i class="typcn typcn-user mx-0"></i>
-                                    </div>
-                                </div>
-                                <div class="preview-item-content">
-                                    <h6 class="preview-subject font-weight-normal">New user registration</h6>
-                                    <p class="font-weight-light small-text mb-0 text-muted">
-                                        2 days ago
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                    </li>
+                    <!--<li class="nav-item dropdown mr-0">-->
+                    <!--    <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center"-->
+                    <!--        id="notificationDropdown" href="#" data-toggle="dropdown">-->
+                    <!--        <i class="typcn typcn-bell mx-0"></i>-->
+                    <!--        <span class="count"></span>-->
+                    <!--    </a>-->
+                    <!--    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"-->
+                    <!--        aria-labelledby="notificationDropdown">-->
+                    <!--        <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>-->
+                    <!--        <a class="dropdown-item preview-item">-->
+                    <!--            <div class="preview-thumbnail">-->
+                    <!--                <div class="preview-icon bg-success">-->
+                    <!--                    <i class="typcn typcn-info mx-0"></i>-->
+                    <!--                </div>-->
+                    <!--            </div>-->
+                    <!--            <div class="preview-item-content">-->
+                    <!--                <h6 class="preview-subject font-weight-normal">Application Error</h6>-->
+                    <!--                <p class="font-weight-light small-text mb-0 text-muted">-->
+                    <!--                    Just now-->
+                    <!--                </p>-->
+                    <!--            </div>-->
+                    <!--        </a>-->
+                    <!--        <a class="dropdown-item preview-item">-->
+                    <!--            <div class="preview-thumbnail">-->
+                    <!--                <div class="preview-icon bg-warning">-->
+                    <!--                    <i class="typcn typcn-cog-outline mx-0"></i>-->
+                    <!--                </div>-->
+                    <!--            </div>-->
+                    <!--            <div class="preview-item-content">-->
+                    <!--                <h6 class="preview-subject font-weight-normal">Settings</h6>-->
+                    <!--                <p class="font-weight-light small-text mb-0 text-muted">-->
+                    <!--                    Private message-->
+                    <!--                </p>-->
+                    <!--            </div>-->
+                    <!--        </a>-->
+                    <!--        <a class="dropdown-item preview-item">-->
+                    <!--            <div class="preview-thumbnail">-->
+                    <!--                <div class="preview-icon bg-info">-->
+                    <!--                    <i class="typcn typcn-user mx-0"></i>-->
+                    <!--                </div>-->
+                    <!--            </div>-->
+                    <!--            <div class="preview-item-content">-->
+                    <!--                <h6 class="preview-subject font-weight-normal">New user registration</h6>-->
+                    <!--                <p class="font-weight-light small-text mb-0 text-muted">-->
+                    <!--                    2 days ago-->
+                    <!--                </p>-->
+                    <!--            </div>-->
+                    <!--        </a>-->
+                    <!--    </div>-->
+                    <!--</li>-->
                 </ul>
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
                     data-toggle="offcanvas">
@@ -234,6 +235,8 @@
                         {{ __('Engineer Dashboard') }}
                         @elseif(session('title') == 'Site Officer')
                         {{ __('Site Officer Dashboard') }}
+                        @elseif(session('title') == 'Management')
+                        {{ __('Management') }}
                         @endif
                         </p>
                         </div>
@@ -404,11 +407,16 @@
                             </a>
                             <div class="collapse" id="ui-basic">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="{{ route('user.list') }}">{{ __('User List') }}</a></li>
-                                    <li class="nav-item"> <a class="nav-link"
-                                            href="{{ route('create-user') }}">{{ __('Create User') }} <div
-                                                class="badge badge-success">{{ __('new') }}</div></a></li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('user_list') }}">{{ __('User List') }}
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                            href="{{ route('create-user') }}">{{ __('Create User') }}<div class="badge badge-success">{{ __('new') }}</div>
+                                        </a>
+
+                                    </li>
 
                                     {{-- <li class="nav-item"> <a class="nav-link" href="">{{ __('Inventory') }} <div class="badge badge-danger">{{ __('new') }}</div></a></li> --}}
                                 </ul>
@@ -496,11 +504,11 @@
                             <div class="collapse" id="product-elements">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link"
-                                            href="{{ route('site.list') }}">{{ $childSidebar['sl'] }}</a></li>
+                                            href="{{ route('site_list') }}">{{ $childSidebar['sl'] }}</a></li>
                                 </ul>
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link"
-                                            href="{{ route('site.add') }}">{{ $childSidebar['sa'] }}</a></li>
+                                            href="{{ route('site_add') }}">{{ $childSidebar['sa'] }}</a></li>
                                 </ul>
 
                             </div>
@@ -525,6 +533,24 @@
                                             href="{{ route('vendor.site') }}">{{ __('List of Allocated Site') }}</a>
                                     </li>
                                 </ul>
+                            </div>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#save-csv-site"
+                                aria-expanded="false" aria-controls="save-csv-site">
+                                <i class="typcn typcn-film menu-icon"></i>
+                                <span class="menu-title">{{ __('Site Create CSV') }}</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="save-csv-site">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"> <a class="nav-link"
+                                            href="{{ route('save-csv-site') }}">{{ __('Create CSV') }}</a>
+                                    </li>
+                                </ul>
+
+                               
                             </div>
                         </li>
 
@@ -586,7 +612,7 @@
                             <div class="collapse" id="uivendor-basic">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link" style="font-size: 12px;"
-                                            href="{{ route('issue_vendor') }}">{{ __(' Issue Material to Vendor') }}</a>
+                                            href="{{ route('item_issue_vendor') }}">{{ __(' Issue Material to Vendor') }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -646,14 +672,14 @@
                             <a class="nav-link" data-toggle="collapse" href="#product-elements"
                                 aria-expanded="false" aria-controls="product-elements">
                                 <i class="typcn typcn-film menu-icon mdi mdi-library-books"></i>
-                                <span class="menu-title">Inventory Request</span>
+                                <span class="menu-title">View Site List</span>
                                 <i class="menu-arrow"></i>
                             </a>
                             <div class="collapse" id="product-elements">
                                 <ul class="nav flex-column sub-menu">
                                     {{-- <img src="{{asset('images/product.png')}}" alt=""> --}}
                                     <li class="nav-item"><a class="nav-link"
-                                            href="{{ route('product-list') }}">Request List</a></li>
+                                            href="{{ route('vendor_product_list') }}">Allocated Site List</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -662,12 +688,13 @@
                             <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false"
                                 aria-controls="form-elements">
                                 <i class="typcn typcn-film menu-icon mdi mdi-format-list-numbers"></i>
-                                <span class="menu-title">Site Management</span>
+                                <span class="menu-title">View Site Status</span>
                                 <i class="menu-arrow"></i>
                             </a>
                             <div class="collapse" id="form-elements">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"><a class="nav-link" href="">Allocated Site List</a>
+                                    <li class="nav-item"><a class="nav-link"
+                                            href="{{ route('vendor_view_site_list') }}">Site Status List</a>
                                     </li>
                                 </ul>
                             </div>
@@ -677,16 +704,38 @@
                             <a class="nav-link" data-toggle="collapse" href="#usitedata-elements"
                                 aria-expanded="false" aria-controls="usitedata-elements">
                                 <i class="typcn typcn-film menu-icon mdi mdi-format-list-numbers"></i>
-                                <span class="menu-title">Update Site Data</span>
+                                <span class="menu-title">Received Item</span>
                                 <i class="menu-arrow"></i>
                             </a>
                             <div class="collapse" id="usitedata-elements">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"><a class="nav-link" href="">Allocated Site List</a>
+                                    <li class="nav-item"><a class="nav-link"
+                                            href="{{ route('vendor_request_site_list') }}">Request Site Item</a>
                                     </li>
-                                    <li class="nav-item"><a class="nav-link" href="">Allocated Site
-                                            Enggineer</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="">Update Site</a></li>
+                                    <li class="nav-item"><a class="nav-link"
+                                            href="{{ route('vendor_confirm_item_list') }}">Conform Item List</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" href="#engineer-site-work"
+                                aria-expanded="false" aria-controls="engineer-site-work">
+                                <i class="typcn typcn-film menu-icon mdi mdi-format-list-numbers"></i>
+                                <span class="menu-title">Engineer Site Work</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="engineer-site-work">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('vendor_allocated_engineer') }}">Allocated
+                                            Site
+                                            Enginner</a>
+                                    </li>
+                                    {{-- <li class="nav-item">
+                                        <a class="nav-link" href="">Site Activitywise Status</a>
+                                    </li> --}}
                                 </ul>
                             </div>
                         </li>
@@ -757,7 +806,8 @@
 
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link" style="font-size: 12px;"
-                                            href="{{ route('update_site_officer') }}">{{ __('Update Site Activity') }}</a></li>
+                                            href="{{ route('update_site_officer') }}">{{ __('Update Site Activity') }}</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
@@ -778,7 +828,8 @@
                                 </ul> --}}
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"> <a class="nav-link" style="font-size: 12px;"
-                                            href="{{ route('site_rep_lst') }}">{{ __('List for Site Approval') }}</a></li>
+                                            href="{{ route('site_rep_lst') }}">{{ __('List for Site Approval') }}</a>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
@@ -868,6 +919,20 @@
                     </ul>
                 </nav>
                 <!--End Site Officer sidebar-->
+            @elseif(session('title') == 'Management')
+             <!--Management sidebar start-->
+             <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('dashboard') }}">
+                            <i class="typcn typcn-device-desktop menu-icon"></i>
+                            <span class="menu-title">{{ __('Management Dashboard') }}</span>
+                            {{-- <div class="badge badge-danger">{{ __('new') }}</div> --}}
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Management sidebar end-->
             @endif
 
 
@@ -885,12 +950,13 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright ©
+                                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">© Copyright
                                     2023 <a href="#" class="text-muted" target="_blank"></a>. Parity InfoTech
                                     Solutions. All rights reserved.</span>
                                 <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center text-muted"> <a
-                                        href="#" class="text-muted" target="_blank"></a>paritysystem.in</span>
-                            </div>
+                                        href="#" class="text-muted" target="_blank"></a><img src="https://parityinfotech.in/wp-content/uploads/2022/03/t2-1.png" alt="" width="60px" height="20px"></span>
+
+                            </div><!----><!-----><!--
                         </div>
                     </div>
                 </footer>
@@ -924,7 +990,7 @@
     <script src="{{ asset('public/js/todolist.js') }}"></script>
     <script src="{{ asset('public/js/dashboard.js') }}"></script>
     <script src="{{ asset('public/vendors/chart.js/Chart.min.js') }}"></script>
-    <script src="{{ asset('public/js/chart.js') }}"></script>
+    {{-- <script src="{{ asset('public/js/chart.js') }}"></script> --}}
 
 
     <script src="{{ asset('public/vendors/typeahead.js/typeahead.bundle.min.js') }}"></script>
@@ -932,6 +998,8 @@
     <script src="{{ asset('public/js/file-upload.js') }}"></script>
     <script src="{{ asset('public/js/typeahead.js') }}"></script>
     <script src="{{ asset('public/js/select2.js') }}"></script>
+
+
 
 
     <script>
@@ -994,7 +1062,7 @@
                 e.preventDefault();
                 console.log(
                     "ask.. send message vendor & store Manager/Officer with PDF formate or Link own website this pdf.."
-                    )
+                )
                 var inputs = $(".user_values");
                 var siteinp = $(".site_values");
                 var site_array = [];
@@ -1104,7 +1172,7 @@
                                         70) + '</td><td>' + res.item + '</td><td>' + res
                                     .qty +
                                     '</td><td><i class="mdi mdi-rename-box"></i> | <i class="mdi mdi-delete"></i></tr>'
-                                    )
+                                )
                             }
                             //$('.modifyDatabatchIdGet').html('<a href="{{ route('adminbatch-send-officer') }}" id="getInputll" batch_id='+selectedOptionText+' name="batch_id" class="btn btn-success mr-2">Approved</a><p id="getInputll" batch_id='+selectedOptionText+' name="batch_id" class="btn btn-danger mr-2">Dispproved</p>');
                         },
@@ -1122,6 +1190,11 @@
             });
         }
     </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
 
 
 </body>

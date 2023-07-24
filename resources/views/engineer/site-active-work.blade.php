@@ -51,7 +51,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-
+                                    <th>Site Id</th>
                                     <th>Site Name</th>
                                     {{-- <th>Engineer Name</th> --}}
                                     <th>Site Address</th>
@@ -74,16 +74,24 @@
                                     $i++;
                                 @endphp
                                     <tr>
-                                        <th>{{$i}}</th>
+                                        <td>{{$i}}</td>
 
-                                        <td class="ask_td">{{$res->site_id}}</td>
-                                        <td class="ask_td">{{$res->site_address}}</td>
-                                        <td class="ask_td">{{$res->priority}}</td>
-                                        <td class="ask_td">{{ $res->vendor_id }}</td>
+                                        <td>{{ $res->site_id }}</td>
 
+                                        <td class="ask_td">{{$res->site_circle_office}}</td>
+                                        <td class="ask_td">{{$res->site_add_w_pincode}}</td>
 
-                                        <td class="ask_td">{{substr("$res->s_date",0,10);}}</td>
-                                        <td class="ask_td">{{substr("$res->e_date",0,10);}}</td>
+                                        <td class="ask_td">
+                                        @if (!empty($res->site_officer))
+                                            {{$res->site_officer}}
+                                            @else
+                                            NA
+                                        @endif
+                                        </td>
+                                        <td class="ask_td">{{$res->name}}</td>
+
+                                        <td>{{substr("$res->s_date",0,10);}}</td>
+                                        <td>{{substr("$res->e_date",0,10);}}</td>
                                         <td class="ask_td">{{$res->priority}}</td>
                                         <td class="ask_td">
                                             @if($res->status == 1) Active @else Deactive

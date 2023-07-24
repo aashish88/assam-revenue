@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>PolluxUI Admin</title>
+  <title>Login Page </title>
   <link rel="stylesheet" href="{{ asset('public/vendors/typicons/typicons.css') }}">
   <link rel="stylesheet" href="{{ asset('public/vendors/css/vendor.bundle.base.css') }}">
   <link rel="stylesheet" href="{{ asset('public/css/vertical-layout-light/style.css') }}">
-  <link rel="shortcut icon" href="{{ asset('public/images/favicon.png') }}" />
+  <!--<link rel="shortcut icon" href="{{ asset('public/images/favicon.png') }}" />-->
 
   <style>
     .brand-logo {
@@ -109,9 +109,10 @@
             </div>
             <br>
             <div class="row" style="margin: 00 00 00 5px;">
-
-                <p>Copyright ©, &nbsp; Parity InfoTech Solutions Pvt. Ltd</p>
+                <p>© Copyright,&nbsp;Parity InfoTech Solutions Pvt. Ltd. All rights reserved.</p>
             </div>
+
+            <img src="https://parityinfotech.in/wp-content/uploads/2022/03/t2-1.png" alt="" width="60px" height="20px">
 
           </div>
 

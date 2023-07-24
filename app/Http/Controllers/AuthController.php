@@ -17,7 +17,7 @@ class AuthController extends Controller
     }
     public function postLogin(Request $request)
     {
-        if(Session::get('login_status') == "sucess"){
+       if(session::get('user_id') && session::get('user_name')){
             return redirect()->intended('dashboard')->withSuccess('You have Successfully loggedin');
         }
         return redirect("login")->withSuccess('Oppes! You have entered invalid credentials');

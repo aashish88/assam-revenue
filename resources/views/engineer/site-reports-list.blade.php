@@ -7,7 +7,7 @@
     }
 
     [type='checkbox'] {
-        position: absolute;
+        position: inherit;
         height: 25px;
         width: 25px;
         background-color: #eee;
@@ -23,10 +23,6 @@
                         <h4 class="card-title" style="font-size: 25px;">List of Site Allocated</h4>
 
                         <div class="row">
-
-                            {{-- <p class="card-description item-list-batch">
-                                 <code>Item List</code>
-                            </p> --}}
                             <div class="col-sm-1"></div>
                             <div class="col-sm-0">
 
@@ -56,9 +52,8 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-
+                                    <th>Site Id</th>
                                     <th>Site Name</th>
-                                    {{-- <th>Engineer Name</th> --}}
                                     <th>Site Address</th>
                                     <th>Site Officer</th>
                                     <th>Vendor Name</th>
@@ -74,32 +69,36 @@
                             @endphp
                             <tbody class="tbody">
                                 @foreach ($siteData as $res)
-
-
                                 @php
                                     $i++;
                                 @endphp
                                     <tr>
-                                        <th>{{$i}}</th>
+                                        <td>{{$i}}</td>
 
-                                        <td class="ask_td">{{$res->site_id}}</td>
-                                        <td class="ask_td">{{$res->site_address}}</td>
-                                        <td class="ask_td">{{$res->priority}}</td>
-                                        <td class="ask_td">{{ $res->vendor_id }}</td>
+                                        <td>{{ $res->site_id }}</td>
 
+                                        <td class="ask_td">{{$res->site_circle_office}}</td>
+                                        <td class="ask_td">{{$res->site_add_w_pincode}}</td>
 
-                                        <td class="ask_td">{{substr("$res->s_date",0,10);}}</td>
-                                        <td class="ask_td">{{substr("$res->e_date",0,10);}}</td>
+                                        <td class="ask_td">
+                                        @if (!empty($res->site_officer))
+                                            {{$res->site_officer}}
+                                            @else
+                                            NA
+                                        @endif
+                                        </td>
+                                        <td class="ask_td">{{$res->name}}</td>
+
+                                        <td>{{substr("$res->s_date",0,10);}}</td>
+                                        <td>{{substr("$res->e_date",0,10);}}</td>
                                         <td class="ask_td">{{$res->priority}}</td>
                                         <td class="ask_td">
                                             @if($res->status == 1) Active @else Deactive
                                             @endif
                                         </td>
-
                                         <td class="ask_td1 checkcolumn1">
-                                            <input type="checkbox" value="{{$res->id}}" class="form-check-input checkapprove" style="width: 85px; margin: -14px 00 00 -45px" name="updatebysiteofficer">
+                                            <input type="checkbox" value="{{$res->id}}" class="form-check-input checkapprove" id="checkapproved_{{$i}}" style="width: 85px; margin: -14px 00 00 -45px" name="updatebysiteofficer">
                                         </td>
-
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -111,15 +110,29 @@
 </div>
 
 <script>
+    // Engg Side ,Site Approve send all data to Site Officer
     $('body').on('click', '#getInputll', function(){
-        if($('.checkapprove').is(":checked") == true){
-            var checkapprovedData = $('.checkapprove').val();
-            console.log('List of site approval site officer Side pending !...');
-            console.log(checkapprovedData);
+        var totalrow = $('.checkapprove').length;
+        let checkarray = [];
+        for (let i = 1; i <= totalrow; i++) {
+            let checkapproved = '#checkapproved_'+i+'';
+            if($(checkapproved).is(":checked") == true){
+                var checkapprovedData = $(checkapproved).val();
+                checkarray.push(checkapprovedData);
+            }else{}
         }
-
+        console.log(checkarray);
+        $.ajax({
+            type: "POST",
+            url: 'ajax-update-site-activity',
+            data: { "approve_status": checkarray , _token: '{{csrf_token()}}' },
+            success: function (data) {
+                console.log('Product Approved by Officer and send  Admin');
+                console.log(data);
+                location.reload();
+            }
+        });
     })
 </script>
 
 @endsection
-

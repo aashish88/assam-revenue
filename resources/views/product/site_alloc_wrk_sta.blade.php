@@ -1,11 +1,63 @@
 @extends('layouts.app')
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.0/bootstrap-table.min.css.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css.css">
 
-<style>
-    .ask_td {
-        white-space: inherit;
-    }
-</style>
+    <style>
+        .ask_td {
+            white-space: inherit;
+        }
+
+        .table>tbody>tr>td,
+        .table>tbody>tr>th,
+        .table>tfoot>tr>td,
+        .table>tfoot>tr>th,
+        .table>thead>tr>td,
+        .table>thead>tr>th {
+            padding: 8px;
+            line-height: 1.42857143;
+            vertical-align: top;
+            border-top: 1px solid #ddd;
+        }
+
+        .table thead th {
+            border-top: 0;
+            border-bottom-width: 1px;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+
+        .next,
+        .previous,
+        .paginate_button {
+            border-radius: 33px;
+            background-color: #844fc1;
+            border: none;
+            color: white;
+            padding: 0px 6px;
+            margin: 7px;
+            text-align: right;
+            text-decoration: revert;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        #example_paginate {
+            margin: 00 00 00 589px;
+        }
+
+        #example_info {
+            position: absolute;
+        }
+
+        .dataTables_length,
+        #example_filter label,
+        input,
+        #example_info {
+            margin: 00 00 00 16px;
+        }
+    </style>
 
 <div class="content-wrapper">
     <div class="col-lg-12 grid-margin stretch-card">
@@ -71,10 +123,13 @@
                                 @endphp
                                     <tr>
                                         <th>{{$i}}</th>
-                                        <td class="ask_td">{{ $res->dst_site }}{{ __(', ') }}{{ $res->site_id }}</td>
-                                        <td class="ask_td">{{ $res->add_w_pincode }}</td>
+                                        <td class="ask_td">{{ $res->site_circle_office }}</td>
+                                        <td class="ask_td">{{ $res->site_add_w_pincode }}</td>
+                                        <td class="ask_td">{{ $res->id }}</td>
                                         <td class="ask_td"></td>
-                                        <td class="ask_td"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -85,7 +140,25 @@
     </div>
 </div>
 
+<script>
+    $(document).ready(function() {
+        var table = $('#example').DataTable({
+            select: false,
+            "columnDefs": [{
+                className: "Name",
+                "targets": [0],
+                "visible": true,
+                "searchable": false
+            }]
+        }); //End of create main table
 
+
+        $('#example tbody').on('click', 'tr', function() {
+            // alert(table.row(this).data()[0]);
+
+        });
+    });
+</script>
 
 @endsection
 

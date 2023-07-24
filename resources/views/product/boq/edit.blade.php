@@ -93,10 +93,16 @@
                                 </div>
 
 
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit" name="submit" value="boq_update" class="btn btn-primary mr-2">Submit</button>
+                                </div>
 
-
-                                <button type="submit" name="submit" value="boq_update" class="btn btn-primary mr-2">Submit</button>
-                              <button class="btn btn-light">Cancel</button>
+                                
+                              <!--<button class="btn btn-light">Cancel</button>-->
                         </form>
 
                     </div>
